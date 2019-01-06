@@ -6,6 +6,10 @@
     "private": true,
     "scripts": {
         "start": "ionic-app-scripts serve",
+        "start:android": "ionic cordova run android",
+        "start:ios": "ionic cordova run ios",
+        "run:android": "ionic cordova run android --device",
+        "run:ios": "ionic cordova run ios --device",
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint"
