@@ -79,6 +79,8 @@ export class CheckInPage {
       }
     );
 
+    this.getUerLocation();
+
     this.checkNetWork.getDayReport({
       checkDate: formatDate(new Date(), "yyyy-MM-dd")
       // checkDate: "2019-1-1"
@@ -102,27 +104,32 @@ export class CheckInPage {
   attendanceRecord() {
     this.nav.push("app-home-attendanceReport");
   }
-  checkInClick() {
 
+
+  getUerLocation() {
     this.loading.show();
     this.geolocation.getCurrentPosition().then(res => {
       this.loading.hide();
-
       this.toast.show(`定位成功,${res.coords.longitude},${res.coords.latitude}`);
+      this.userLocation = [];
+      this.userLocation.push(res.coords.latitude);
+      this.userLocation.push(res.coords.longitude);
     }, err => {
       this.loading.hide();
       this.toast.show('定位失败');
     })
+  }
 
-
-    if (this.companyLocation.length < 2) {
+  checkInClick() {
+    if (this.userLocation.length < 2) {
+      this.getUerLocation();
       return;
     }
     if (this.isChenckIn) {
       this.checkNetWork
         .checkIn({
-          latitude: this.companyLocation[0],
-          longitude: this.companyLocation[1]
+          latitude: this.userLocation[0],
+          longitude: this.userLocation[1]
         })
         .subscribe(
           (data: any) => {
@@ -139,8 +146,8 @@ export class CheckInPage {
     } else {
       this.checkNetWork
         .checkOut({
-          latitude: this.companyLocation[0],
-          longitude: this.companyLocation[1]
+          latitude: this.userLocation[0],
+          longitude: this.userLocation[1]
         })
         .subscribe(
           (data: any) => {
@@ -156,6 +163,7 @@ export class CheckInPage {
         );
     }
   }
-
-  reloadLocation() { }
+  reloadLocation() {
+    this.getUerLocation();
+   }
 }
