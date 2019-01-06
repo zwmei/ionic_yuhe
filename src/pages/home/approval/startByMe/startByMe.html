@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar> <ion-title> 我发起的 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="start-me-body">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="circles"
+      refreshingText="加载中......"
+    >
+    </ion-refresher-content>
+  </ion-refresher> -->
+  
+  <ion-list>
+    <ion-item *ngFor="let item of list" (click)="clickItem(item)">
+      <!-- <ion-badge class="badge-icon">{{
+      }}</ion-badge> -->
+      <ion-avatar item-start>
+        <img src="assets/imgs/image-default.png" />
+        <!-- <img src="{{item.initiatorId}}" /> -->
+      </ion-avatar>
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.billTypeName }}</p>
+    </ion-item>
+  </ion-list>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载更多..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

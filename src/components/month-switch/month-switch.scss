@@ -1,0 +1,26 @@
+month-switch {
+    overflow: hidden;
+    .date-picker-area{
+        margin: 0 auto;
+        width: 140px;
+        height: 30px;
+        line-height: 30px;
+
+        text-align: center;
+        color: $color-text;
+        font-size: 14px;
+        span{
+            margin: 0 10px;
+        }
+        span, strong{
+            line-height: 30px;
+            font-weight: bold;
+        }
+        ion-icon{
+            width: 15px;
+            height: 20px;
+        }
+    }
+
+    
+}

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      未签到
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chart-detail-list-page" color="background">
+  <div class="class-student-list">
+    <div class="class-student-header">
+      <span>全员教师（{{list.length}}人未签到）</span>
+    </div>
+    <div class="class-student-body">
+      <ion-item *ngFor="let student of list">
+        <ion-label>{{student.name}}</ion-label>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

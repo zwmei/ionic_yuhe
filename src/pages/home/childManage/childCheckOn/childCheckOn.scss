@@ -1,0 +1,138 @@
+@import "../../../../theme/variables.scss";
+
+.child-check-page {
+    background: $color-light;
+
+    .attenance-statistic{
+        
+        display: block;
+        overflow: hidden;
+
+        color: $color-text;
+
+        .box-title-nav{
+            padding: 0 20px;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            color: $color-text;
+            span{
+                display: inline-block;
+                &.left{
+                    float: left;
+                }
+                &.right {
+                    float: right;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        $color1: #df56ff;
+        $color2: #08f8f5;
+        $color3: #71b9fd;
+        $color4: #7d81ff;
+        
+
+        .box-content{
+            overflow: hidden;
+            background: #fff;
+            ion-grid ion-row ion-col{
+                span, strong{
+                    display: block;
+                    text-align: center;
+                    width: 100%;
+                }
+                span{
+                    line-height: 30px;
+                }
+
+                strong{
+                    line-height: 40px;
+                    height: 40px;
+                    font-size: 24px;
+                    border-right: 1px solid $color-border;
+                    color: $color-danger;
+                    &.secondary{
+                        color: $color-secondary;
+                    }
+                   
+                }
+                &:nth-last-child(1) strong{
+                    border-right: none;
+                }
+            }
+            &.chart-box{
+                padding: 0 20px;
+                width: 100%;
+                .date-picker-area{
+                    margin: 0 auto;
+                    width: 150px;
+                    height: 30px;
+                    line-height: 30px;
+
+                    text-align: center;
+                    color: $color-text;
+                    font-size: 14px;
+                    span{
+                        margin: 0 10px;
+                    }
+                    span, strong{
+                        line-height: 30px;
+                        font-weight: bold;
+                    }
+                    ion-icon{
+                        width: 15px;
+                        height: 20px;
+                    }
+                }
+                .chart-area{
+                    width: 100%;
+                    height: 400px;
+                    line-height: 300px;
+                    text-align: center;
+                }
+            }
+
+            ion-list ion-item ion-label{
+                height: 40px;
+                line-height: 40px;
+                color: $color-text;
+                >label, >strong, >span{
+                    display: inline-block;
+                    float: left;
+                }
+                label{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+                    color: #fff;
+                    background: $color-primary;
+                    text-align: center;
+                    line-height: 40px;
+                    &.color-1{
+                        background: $color1;
+                    }
+                    &.color-2{
+                        background: $color2;
+                    }
+                    &.color-3{
+                        background: $color3;
+                    }
+                    &.color-4{
+                        background: $color4;
+                    }
+                }
+                span{
+                    margin-left: 10px;
+                }
+                strong{
+                    float: right;
+                    padding-right: 20px;
+                }
+            }
+        }
+    }
+}

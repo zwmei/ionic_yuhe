@@ -1,0 +1,72 @@
+@import "../../theme/variables.scss";
+
+.me-page{
+    background: $color-background;
+    .my-header-panel{
+        background: #fff url('../../assets/image/me/me-header.png') 0 -2px no-repeat;
+        background-size: contain;
+        height: 250px;
+        margin-bottom: 20px;
+        overflow: hidden;
+
+        .user-info{
+            margin: 0 20px;
+            margin-top: 120px;
+            .photo-row{
+                display: block;
+                width: 100%;
+                overflow: hidden;
+                margin-bottom: 10px;
+                ion-avatar{
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 35px;
+                    overflow: hidden;
+                }
+            }
+            ion-row span{
+                display: block;
+                width: 100%;
+                font-size: 14px;
+                line-height: 20px;
+                color: $color-text;
+            }
+        }
+
+    
+    }
+    
+
+    .my-panel{
+        margin: 10px;
+        background: #fff;
+        padding: 0  10px;
+        border-radius: 5px;
+    
+        .my-item{
+            border-bottom: 1px solid $color-border;
+           
+            &:nth-last-child(1) {
+                border: none;
+            }
+
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            overflow: hidden;
+
+            span{
+                display: inline-block;
+                float: left;
+                color: $color-text;    
+                font-size: 14px;
+            }
+            strong{
+                display: inline-block;
+                float: right;
+                font-weight: normal;
+                color: $color-icon;
+            }
+        }
+    }
+}

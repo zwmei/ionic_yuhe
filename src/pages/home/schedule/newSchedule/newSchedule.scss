@@ -1,0 +1,33 @@
+@import "../../../../theme/variables.scss";
+
+.new-schedule-page {
+    background: $color-light;
+
+    .schedule-setting-area{
+        background: #fff;
+        margin-bottom: 20px;
+        ion-item{
+            &:nth-last-child(1) .item-inner{
+                border: none;
+            }
+
+            ion-input input{
+                text-align: right;
+                &:focus{
+                    outline: none;
+                    border:none;
+                }
+            }
+
+            ion-textarea{
+                height: 300px;
+                &.remark{
+                    height: 150px;
+                }
+                textarea{
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

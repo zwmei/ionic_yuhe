@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        学生列表
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="student-content" color="background">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of list" (click)="goToStudentDetail(item.id)">
+        <div class='student-item'>
+          <div class="student-detail photo">
+              <img class="header-image" src="{{item.image}}" onerror="this.src='../../../assets/imgs/image-default.png'" />
+          </div>
+          <div class="student-detail">
+            <label>{{item.name}}</label>
+          </div>
+          <div class="student-detail status" ngClass="{{item.status}}">
+            <label>{{item.statusString}}</label>
+          </div>
+          <div class="student-detail status-description" ngClass="{{item.status}}">
+            <span>状态：{{item.statusDescription}}；评分：{{item.score}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<!-- 
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doRefresh($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

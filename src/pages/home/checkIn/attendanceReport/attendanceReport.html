@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      考勤报表
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button color="text" (click)="goToRankPage('app-home-attendance-rank')">
+        排行榜
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="attendance-report-page" color="background">
+  <div class="report-nav">
+    <ion-row justify-content-center align-items-center>
+      <ion-label justify-content-center [ngClass]="{'active':currentReport === 'day'}" (click)="changeCurrentReport('day')">日报</ion-label>
+      <ion-label justify-content-center [ngClass]="{'active':currentReport === 'month'}" (click)="changeCurrentReport('month')">月报</ion-label>
+    </ion-row>
+  </div>
+  <div class="day-report-area" *ngIf="currentReport === 'day'">
+    <calendar (selectDateChange)="selectDateChange($event)"></calendar>
+    <div class="check-in-info">
+      <p>班次 {{workSchedule.startTime}}-{{workSchedule.endTime}} 考勤组：技术部</p>
+    </div>
+    <div class="check-in-record">
+      <div class="check-in-summary">
+        <ion-label>
+          <ion-icon color="primary" name="time"></ion-icon>打卡{{checkIn.count || 0}}次，工时共计{{checkIn.hour}}h
+        </ion-label>
+      </div>
+      <div class="check-in-item">
+        <div class="left"><span class="point"></span><span class="line"></span></div>
+        <div class="right">
+          <p>打卡时间 <time>{{checkIn.startTime}}</time><span>(上班时间：{{workSchedule.startTime}})</span></p>
+          <div class='location'>
+            <ion-label>
+              <!-- <ion-icon color="grey" name="pin"></ion-icon><span>天安中心</span> -->
+            </ion-label>
+          </div>
+        </div>
+      </div>
+      <div class="check-in-item current">
+        <div class="left"><span class="point"></span><span class="line"></span></div>
+        <div class="right">
+          <p>打卡时间 <time>{{checkIn.endTime}}</time><span>(下班时间：{{workSchedule.endTime}})</span></p>
+          <div class='location'>
+            <ion-label>
+              <!-- <ion-icon color="grey" name="pin"></ion-icon><span>天安中心</span> -->
+            </ion-label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month-report-area" *ngIf="currentReport === 'month'">
+    <div class="stastics">
+      <div class="stastics-wrapper">
+        <ion-item>
+          <div class="report-info">
+            <div class="photo-img"></div>
+            <div class="name">
+              <span>{{monthObj.name}}</span>
+              <span>考勤组：技术部</span>
+            </div>
+            <div class="time"><span>{{monthObj.time}}</span></div>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label>出勤天数</ion-label>
+          <ion-label>{{monthObj.signCount || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>出勤班次</ion-label>
+          <ion-label right>{{monthObj.workFrequency || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>休息天数</ion-label>
+          <ion-label right>{{monthObj.rest || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>迟到</ion-label>
+          <ion-label right>{{monthObj.lateTime || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>缺卡</ion-label>
+          <ion-label right>{{monthObj.absenceCount || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>早退</ion-label>
+          <ion-label right>{{monthObj.leaveEarlyTime || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>矿工</ion-label>
+          <ion-label right>{{monthObj.absentTime || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>外勤</ion-label>
+          <ion-label right>{{monthObj.outsideTime || 0}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>加班</ion-label>
+          <ion-label right>{{monthObj.overTime || 0}}</ion-label>
+        </ion-item>
+      </div>
+    </div>
+
+    <div class="stastics-footer">
+      <span>本月平均工时 8.5 小时</span>
+    </div>
+  </div>
+
+</ion-content>

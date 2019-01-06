@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      财务报表
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="child-check-page financial-reporting-view child-check-cart-detail-page" color="background">
+
+  <ion-row class="o-header">
+    <ion-col col-6 class="left">
+      <p class="top">全国收入</p>
+      <p class="center">{{inComeTotal}}</p>
+    </ion-col>
+    <ion-col col-6>
+      <p class="top">全国支出</p>
+      <p class="center">{{outputTotal}}</p>
+    </ion-col>
+  </ion-row>
+  <div class="attenance-statistic">
+    <div class="box-title-nav" (click)="goToPage('app-home-financial-reporting-detail',1)">
+      <span class="left">全国收入项目占比</span>
+      <span class="right">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span>
+    </div>
+    <div class="box-content chart-box">
+      <div class="date-picker-area">
+        <ion-icon name="arrow-back" (click)="changeMonth('startDate1', -1, 'updateChart1')"></ion-icon>
+        <span>{{startDate1|date:'yyyy-MM'}}</span>
+        <ion-icon name="arrow-forward" (click)="changeMonth('startDate1', 1, 'updateChart1')"></ion-icon>
+      </div>
+      <div class="chart-area">
+        <div [chart]="chart1" class="chart-content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="attenance-statistic">
+    <div class="box-title-nav" (click)="goToPage('app-home-financial-reporting-detail',2)">
+      <span class="left">全国支出项目占比</span>
+      <span class="right">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span>
+    </div>
+    <div class="box-content chart-box">
+      <!-- <div class="date-picker-area">
+        <ion-icon name="arrow-back" (click)="changeMonth('startDate2', -1, 'updateChart2')"></ion-icon>
+        <span>{{startDate2|date:'yyyy-MM'}}</span>
+        <ion-icon name="arrow-forward" (click)="changeMonth('startDate2', 1, 'updateChart2')"></ion-icon>
+      </div> -->
+      <div class="chart-area">
+        <div [chart]="chart2" class="chart-content"></div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

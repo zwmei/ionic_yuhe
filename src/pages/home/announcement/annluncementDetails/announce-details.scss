@@ -1,0 +1,38 @@
+.announce-details-body {
+    .details-content {
+        padding: 16px 16px;
+    }
+    .center-text-label {
+        height: 40px;
+        padding: 0px 16px;
+        background: #f5f5f5;
+        line-height: 40px;
+    }
+
+    .header-title-label {
+        margin-left: 16px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    ion-col {
+        flex: 0 0 20%;
+        max-width: 20%;
+        text-align: center;
+        padding: 10px 5px;
+    }
+
+    .header-image {
+        border-radius: 50%;
+    }
+
+    .read-title {
+        position: relative;
+    }
+
+    .read-fold {
+        right: 10px;
+        bottom: 7px;
+        position: absolute;
+    }
+}

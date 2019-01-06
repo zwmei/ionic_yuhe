@@ -1,0 +1,48 @@
+@import "../../../../theme/variables.scss";
+.class-content{
+    ion-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    background: $color-light;
+    .class-item {
+        height: 180px;
+        background: #fff;
+
+        .class-detail{
+            display: block;
+            overflow: hidden;
+            line-height: 20px;
+            height: 20px;
+            text-align: center;
+
+            &.photo {
+             height: 100px;   
+            }img{
+                margin-top: 20px;
+                border-radius: 30px;
+                // background: #08f8f5;
+                width: 60px;;
+                height: 60px;
+            }
+
+            &.class-name{
+                font-size: 16px;
+                line-height: 24px;
+                height: 24px;
+            }
+            &.student-count{
+                font-size: 14px;
+                line-height: 18px;
+            }
+            &.student-detail{
+                strong{
+                    font-weight: normal;
+                }
+                font-size: 14px;
+                line-height: 18px;
+            }
+        }
+    }
+}

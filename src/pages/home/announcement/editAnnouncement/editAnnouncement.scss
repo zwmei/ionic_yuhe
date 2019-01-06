@@ -1,0 +1,29 @@
+@import "theme/variables.scss";
+
+.edit-announcement-body {
+  .person-list {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .person-item {
+    padding: 5px 5px;
+    font-size: 14px;
+    background: #f5f5f5;
+    color: black;
+    margin-left: 10px;
+  }
+
+  .info-img {
+    flex: 0 0 25%;
+    max-width: 25%;
+    text-align: center;
+    padding: 10px 5px;
+  }
+
+  .left-title {
+    font-size: 16px;
+    color: #333333;
+  }
+}

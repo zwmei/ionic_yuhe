@@ -1,0 +1,37 @@
+@import '../../../../theme/variables.scss';
+
+.my-approval-body {
+    .segment-button-two {
+
+        &.true {
+            color: $color-primary;
+        }
+
+        &.false {
+            color: $color-grey;
+        }
+    }
+    .segment-button-one {
+
+        &.false {
+            color: $color-primary;
+        }
+
+        &.true {
+            color: $color-grey;
+        }
+    }
+
+    .status-label {
+        &.status0 {
+            color: $color-primary;
+        }
+        &.status1 {
+            color: $color-secondary;
+        }
+        &.status-1 {
+            color: $color-danger;
+        }
+    }
+
+}

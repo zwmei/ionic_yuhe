@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar> <ion-title> 工资 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="salary-body">
+  <div class="container-fluid"></div>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="icon-left">
+        <button (click)="preMonth()">
+          <ion-icon name="arrow-dropleft"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col
+        ><p class="date-center">{{ salaryDate | date: "yyyy-MM" }}</p></ion-col
+      >
+      <ion-col>
+        <button (click)="nextMonth()">
+          <ion-icon name="arrow-dropright"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <h2 class="salary-number">{{salaryData.sfgz}}</h2>
+  <ion-card class="content-card">
+    <ion-list>
+      <ion-item>
+        <img item-start class="icon" src="assets/image/home/salary/salary-jiben.png">
+        <p>基本工资</p>
+        <p item-end>{{salaryData.jbgz}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-gongling.png">
+        <p>工龄工资</p>
+        <p item-end>{{salaryData.glgz}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-zhiwu.png">
+        <p>职务工资</p>
+        <p item-end>{{salaryData.zwgz}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-jixiao.png">
+        <p>绩效工资</p>
+        <p item-end>{{salaryData.jx}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-gangwei.png">
+        <p>岗位津贴</p>
+        <p item-end>{{salaryData.gwjt}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-wuxian.png">
+        <p>五险一金</p>
+        <p item-end>{{salaryData.wxyj}}</p>
+      </ion-item>
+      <ion-item>
+          <img item-start class="icon" src="assets/image/home/salary/salary-qita.png">
+        <p>其他</p>
+        <p item-end>{{salaryData.cf}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

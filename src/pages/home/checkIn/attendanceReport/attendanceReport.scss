@@ -1,0 +1,178 @@
+ @import "../../../../theme/variables.scss";
+
+.attendance-report-page {
+    background: $color-light;
+
+    .report-nav{
+        background: #fff;
+        ion-label{
+            text-align: center;
+            font-size: 16px;
+            color: $color-text;
+            &.active{
+                color: $color-primary;
+            }
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .check-in-info{
+        color: $color-text;
+        padding: 0 16px;
+        line-height: 30px;
+        height: 30px;
+    }
+    .check-in-record{
+        background: #fff;
+        .check-in-summary{
+            overflow: hidden;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid $color-border;
+            line-height: 20px;
+            ion-icon{
+                margin-right: 15px;
+            }
+            
+        }
+        .check-in-item{
+            
+            padding: 0 16px;   
+
+            display: flex;
+            justify-items: start;
+
+            &:nth-last-child(1){
+                .left .line{
+                    display: none;
+                }
+            }
+            &.current{
+                .left .point{
+                    background: $color-primary;
+                }
+            }
+            .left{
+                margin-left: 2px;
+                .point{
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    margin-right: 20px;
+                    border: none;
+                    border-radius: 5px;
+                    background: $color-grey;
+                }
+                .line{
+                    display: block;
+                    width: 2px;
+                    height: 80px;
+                    border: 1px solid $color-grey;
+                    margin-left: 4px;
+                    
+                }
+            }
+            .right{
+                margin-top: -5px;
+                min-height: 50px;
+                
+                p{
+                    line-height: 20px;
+                    span{
+                        margin-left: 10px;
+                    }
+                }
+                ion-label{
+                    margin: 5px 0;
+                    ion-icon{
+                        margin-right: 5px;
+                    }
+                    line-height: 20px;
+                }
+            }
+
+        }
+    }
+
+    .month-report-area{
+        overflow:hidden;
+        .stastics{
+            overflow:hidden;
+            background: #fff;
+            .stastics-wrapper{
+                padding: 16px;
+                ion-item{
+                    padding:0;
+                    .item-inner{
+                        padding:0;
+                    }
+    
+    
+                    .report-info{
+                        overflow: hidden;
+                        >div{
+                            display: inline-block;
+                            float: left;
+                            overflow: hidden;
+                        }
+                        .photo-img{ 
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 25px;
+                            background: $color-primary;
+                        }
+                        .name{
+                            >span{
+                                display: block;
+                                padding: 0 0 0 10px;
+                                text-align: left;
+                                &:nth-child(1){
+                                    color: $color-text;
+                                    font-weight: bolder;
+                                }
+                            }
+                        }
+                        .time{
+                            float: right;
+                        }
+                    }
+    
+                    
+                    
+    
+                    ion-label{
+                        margin-right: 0;
+                        &.report-info{
+                            display: flex;
+        
+                            .photo-img{ 
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 25px;
+                                background: $color-primary;
+                            }
+                        }
+                    }
+                    &:nth-child(1) .item-inner{
+                        border-bottom:none;
+                    }
+                    ion-label{
+                        color: $color-text;
+                        &:nth-last-child(1){
+                            text-align: right;
+                            color: $color-grey;
+                        }
+                    }
+                }
+            }
+        }
+        .stastics-footer{
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: $color-text;
+        }
+    }
+}

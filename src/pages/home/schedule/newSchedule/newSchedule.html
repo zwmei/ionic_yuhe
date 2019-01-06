@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      新建日程
+    </ion-title>
+    <ion-buttons end>
+        <button ion-button color="text" (click)="save()">
+          完成
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="new-schedule-page" color="background">
+  <div class="schedule-content">
+    <div class="schedule-setting-area">
+      <ion-item>
+        <ion-label>日程日期</ion-label>
+        <ion-datetime [(ngModel)]="schedule.startDateString" placeholder="YYYY-MM-DD" displayFormat="YYYY-MM-DD"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>日程时间</ion-label>
+        <ion-datetime [(ngModel)]="schedule.startTimeString" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>标题</ion-label>
+        <ion-input [(ngModel)]="schedule.title" placeholder="请输入日程标题"></ion-input>
+      </ion-item>
+    </div>
+    <div class="schedule-setting-area">
+        <ion-item>
+            <ion-textarea [(ngModel)]="schedule.content"  placeholder="请输入日程描述">
+            </ion-textarea>
+          </ion-item>
+    </div>
+    <div class="schedule-setting-area">
+        <ion-item>
+            <ion-textarea [(ngModel)]="schedule.remark" placeholder="请输入日程备注" class="remark">
+            </ion-textarea>
+          </ion-item>
+    </div>
+  </div>
+</ion-content>

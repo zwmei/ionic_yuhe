@@ -1,0 +1,22 @@
+<div class="calendar-panel">
+    <div class="month-select">
+        <div class="date-picker-area">
+            <ion-icon name="arrow-back" (click)="prevMonth()"></ion-icon>
+            <span>{{calendar.currentMonthFirstDay | date: 'yyyy-MM'}}</span>
+            <ion-icon name="arrow-forward" (click)="nextMonth()"></ion-icon>
+        </div>
+    </div>
+    <div class="week-names">
+        <ul>
+            <li *ngFor="let name of calendar.weekNames">{{name}}</li>
+        </ul>
+    </div>
+    <div class="dates">
+        <ul>
+            <li (click)="changeCurrentActive(date)" *ngFor="let date of calendar.dates" [ngClass]="{'active':date.active, 'today': date.today}">
+                <span>{{date.number}}</span>
+                <strong class="flag" *ngIf="date.flag">*</strong>
+            </li>
+        </ul>
+    </div>
+</div>

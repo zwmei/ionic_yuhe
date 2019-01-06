@@ -1,0 +1,74 @@
+@import "../../../../theme/variables.scss";
+.student-detail-content{
+    ion-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    background: $color-light;
+
+    .student-card{
+        margin-top: 0.5rem;
+        background: #fff;
+        width: 100%;
+        padding: 20px 0;
+
+        .student-base-info{
+            padding: 0 20px;
+            display: block;
+            overflow: hidden;
+            .left, .right{
+                display: inline-block;
+                float: left;
+                overflow: hidden;
+                &.left{
+                    width: 60%;
+                }
+                &.right{
+                    width: 40%;
+                    .photo{
+                        display: block;
+                        float: right;
+                        width: 100px;
+                        height: 120px;
+                    }
+                }
+            }
+            .student-info-item{
+                font-size: 14px;
+                line-height: 28px;
+                display: block;
+                float: left;
+                overflow: hidden;
+                width: 100%;
+                &.multi{
+                    label,ul{
+                        display: inline-block;
+                        float: left;
+                        overflow:hidden;
+                        text-decoration: none;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    ul li{
+                        display: block;
+                        >span{
+                            display: inline-block;
+                            margin: 0 10px;
+                        }
+                    }
+                }
+                label,span{
+                    line-height: 28px;
+                }
+                span{
+                    margin-left: 10px;
+                    &.selected{
+                        color: $color-primary;
+                    }
+                }
+            }
+
+        }
+    }
+}

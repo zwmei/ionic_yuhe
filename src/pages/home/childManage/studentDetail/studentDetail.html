@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      学生档案
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="student-detail-content">
+  <div class="student-card">
+    <div class="student-base-info">
+      <div class="left">
+        <div class="student-info-item">
+          <label>学号:</label><span>{{student.code}}</span>
+        </div>
+        <div class="student-info-item">
+          <label>姓名:</label><span>{{student.name}}</span>
+        </div>
+        <div class="student-info-item">
+          <label>班级:</label><span>{{student.className}}</span>
+        </div>
+        <div class="student-info-item">
+          <label>年龄:</label><span>{{student.age}}岁</span>
+        </div>
+        <div class="student-info-item">
+          <label>出生日期:</label><span>{{student.birthday}}</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="photo">
+            <img onerror="this.src='../../../../assets/image/home/studentDetail/wuyifan.jpg'"  src="{{student.photo}}" />
+        </div>
+
+      </div>
+    </div>
+    <div class=student-base-info student-more>
+      <div class="student-info-item">
+        <label>居住地:</label><span>{{student.address}}</span>
+      </div>
+      <div class="student-info-item multi">
+        <label>家庭信息:</label>
+        <ul>
+          <li  *ngFor="let item of student.family"><span>{{item.name}}</span><span>{{item.relation}}</span><span>{{item.mobile}}</span></li>
+        </ul>
+      </div>
+      <div class="student-info-item">
+        <label>入学日期:</label><span>{{student.schoolDate}}</span>
+      </div>
+      <div class="student-info-item">
+        <label>幼儿状态:</label>
+        <span ngClass="{{student.statusValue === '在校'?'selected':''}}">在校</span>
+        <span ngClass="{{student.statusValue === '请假'?'selected':''}}">请假</span>
+        <span ngClass="{{student.statusValue === '旷课'?'selected':''}}">旷课</span>
+      </div>
+      <div class="student-info-item">
+        <label>接送卡号:</label><span>{{student.cardNumber}}</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

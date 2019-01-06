@@ -1,0 +1,27 @@
+
+@import "../../../../../theme/variables.scss";
+
+.child-check-cart-detail-page{
+    .time-nav{
+        background: #fff;
+        margin-bottom: 20px;
+
+        text-align: center;
+        line-height: 50px;
+        ion-segment ion-segment-button{
+            &:nth-last-child(1){
+                border: none;
+            }
+            border-color: $color-border;
+            border-top: 0;
+            border-left: 0;
+            border-bottom: 0;
+            color: $color-text;
+
+            &.segment-activated{
+                color: $color-primary;
+                background: #fff;
+            }
+        }
+    }
+}

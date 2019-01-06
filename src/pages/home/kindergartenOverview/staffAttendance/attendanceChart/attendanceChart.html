@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      教师考勤
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="child-check-page child-check-cart-detail-page" color="background">
+
+  <div class="time-nav">
+    <div class="segment-list">
+      <div class="segment-item" (click)="changeTag('day')" ngClass="{{currentTag === 'day' ? 'selected':''}}">
+        <span>日</span>
+      </div>
+      <div class="segment-item" (click)="changeTag('month')" ngClass="{{currentTag === 'month' ? 'selected':''}}">
+        <span>月</span>
+      </div>
+      <div class="segment-item" (click)="changeTag('season')" ngClass="{{currentTag === 'season' ? 'selected':''}}">
+        <span>季</span>
+      </div>
+      <div class="segment-item" (click)="changeTag('year')" ngClass="{{currentTag === 'year' ? 'selected':''}}">
+        <span>年</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="attenance-statistic">
+    <div class="box-content chart-box">
+      <div class="date-pick">
+        <div class="date-range-pick" *ngIf="currentTag === 'day'">
+          <ion-item>
+            <ion-datetime [(ngModel)]="startDateString" placeholder="开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD"
+              pickerFormat="YYYY-MM-DD"></ion-datetime>
+          </ion-item>
+          <span>~</span>
+          <ion-item>
+            <ion-datetime [(ngModel)]="endDateString" placeholder="结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD"
+              pickerFormat="YYYY-MM-DD"></ion-datetime>
+          </ion-item>
+          <button (click)="loadDateChart()">确定</button>
+        </div>
+        <div class="margin-top-15">
+          <month-switch *ngIf="currentTag === 'month'" (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
+          <season-switch *ngIf="currentTag === 'season'" (prevSeasonChange)="prevSeason($event)" (nextSeasonChange)="nextSeason($event)"></season-switch>
+          <year-switch *ngIf="currentTag === 'year'" (prevYearChange)="prevYear($event)" (nextYearChange)="nextYear($event)"></year-switch>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div [chart]="chart" class="chart-content"></div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

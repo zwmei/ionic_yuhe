@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-navbar> <ion-title> 工单申请 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="workorder-apply-body">
+  <div class="block-view">
+    <ion-item>
+      <ion-label class="left">报修类型</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="applyData.bxlx"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">物品用途</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="applyData.sqly"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="block-view" *ngFor="let item of applyData.bxqds">
+    <ion-item>
+      <ion-label class="left">项目名称</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.xmmx"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">项目描述</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.xxms"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">供应商</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.gys"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">维修电话</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.lxdh"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">预计金额</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.yjje"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+  </div>
+  <button class="center-button" (click)="addMoreOrder()">+添加明细</button>
+
+  <div class="block-view">
+    <ion-item>
+      <ion-label class="left">维修人员</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="applyData.wxr"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">维修日期</ion-label>
+      <ion-datetime
+        class="right"
+        placeholder="请选择"
+        displayFormat="YYYY-MM-DD HH:mm"
+        [(ngModel)]="applyData.bxsj"
+        >{{ applyData.bxsj }}</ion-datetime
+      >
+    </ion-item>
+  </div>
+
+  <div class="appoval-person-list">
+    <ion-item no-lines>
+      <ion-label class="left-title"> 审批人： </ion-label>
+      <button item-end (click)="getApprovalPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-row padding-horizontal>
+      <ion-col class="approval-person" *ngFor="let item of spr; let i = index">
+        <img
+          class="person-image"
+          src="assets/imgs/image-default.png"
+        />
+        <p>{{ item.zgName }}</p>
+        <!-- <p>{{ item.date }}</p> -->
+        <ion-icon
+          name="arrow-round-forward"
+          class="arrow-right"
+          [ngClass]="item.last"
+          [hidden]="i == spr.length - 1"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="appoval-person-list end">
+    <ion-item no-lines>
+      <ion-label class="left-title"> 抄送人： </ion-label>
+      <button item-end (click)="getCopyToPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-row padding-horizontal>
+      <ion-col class="approval-person" *ngFor="let item of csr; let i = index">
+        <img
+          class="person-image"
+          src="assets/imgs/image-default.png"
+        />
+        <p>{{ item.zgName }}</p>
+        <!-- <p>{{ item.date }}</p> -->
+        <ion-icon
+          name="arrow-round-forward"
+          class="arrow-right"
+          [ngClass]="item.last"
+          [hidden]="i == csr.length - 1"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
+<div>
+  <div class="bottom-view">
+    <button
+      button
+      ion-button
+      (click)="procurementApply()"
+      class="center-button"
+    >
+      提交
+    </button>
+  </div>
+</div>

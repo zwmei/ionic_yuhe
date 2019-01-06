@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar> <ion-title> 物品领用 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="stationery-apply-body">
+  <div class="block-view">
+    <!-- <ion-item>
+      <ion-label class="left">领用类型</ion-label>
+      <button item-end class="right">请选择</button>
+    </ion-item> -->
+    <ion-item>
+      <ion-label class="left">领用时间</ion-label>
+      <ion-datetime
+        class="right"
+        placeholder="请选择"
+        displayFormat="YYYY-MM-DD HH:mm"
+        [(ngModel)]="applyData.lysj"
+        >{{ applyData.lysj }}</ion-datetime
+      >
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">物品用途</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="applyData.wpyt"
+        item-end
+        placeholder="请输入"
+      ></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="block-view" *ngFor="let item of applyData.lymxs; let i = index">
+    <ion-item>
+      <ion-label class="left">名称</ion-label>
+      <button item-end class="right" (click)="selectGood(i)">{{item.name}}</button>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">规格</ion-label>
+      <p class="right" item-end >{{item.model}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">单价</ion-label>
+      <p class="right" item-end >{{item.price}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="left">数量</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.sl"
+        item-end
+        placeholder="请输入"
+        ></ion-input
+      >
+    </ion-item>
+    <ion-item>
+      <ion-label class="left">总价</ion-label>
+      <ion-input
+        class="right"
+        [(ngModel)]="item.je"
+        item-end
+        placeholder="请输入"
+        ></ion-input
+      >
+    </ion-item>
+  </div>
+
+  <button class="center-button" (click)="addMoreGood()">+添加明细</button>
+
+  <div class="appoval-person-list">
+    <ion-item no-lines>
+      <ion-label class="left-title"> 审批人： </ion-label>
+      <button item-end (click)="getApprovalPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-row padding-horizontal>
+      <ion-col class="approval-person" *ngFor="let item of spr; let i = index">
+        <img class="person-image" src="assets/imgs/image-default.png" />
+        <p>{{ item.zgName }}</p>
+        <!-- <p>{{ item.date }}</p> -->
+        <ion-icon
+          name="arrow-round-forward"
+          class="arrow-right"
+          [ngClass]="item.last"
+          [hidden]="i == spr.length - 1"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="appoval-person-list end">
+    <ion-item no-lines>
+      <ion-label class="left-title"> 抄送人： </ion-label>
+      <button item-end (click)="getCopyToPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-row padding-horizontal>
+      <ion-col class="approval-person" *ngFor="let item of csr; let i = index">
+        <img class="person-image" src="assets/imgs/image-default.png" />
+        <p>{{ item.zgName }}</p>
+        <!-- <p>{{ item.date }}</p> -->
+        <ion-icon
+          name="arrow-round-forward"
+          class="arrow-right"
+          [ngClass]="item.last"
+          [hidden]="i == csr.length - 1"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
+<div>
+  <div class="bottom-view">
+    <button
+      button
+      ion-button
+      (click)="procurementApply()"
+      class="center-button"
+    >
+      提交
+    </button>
+  </div>
+</div>

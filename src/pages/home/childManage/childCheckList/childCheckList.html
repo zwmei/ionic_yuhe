@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      全教幼儿出勤列表
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="child-check-page" color="background">
+  <div class="attenance-statistic">
+    <div class="box-title-nav"><span class="left">幼儿出勤率</span></div>
+    <div class="box-content">
+      <ion-list>
+        <ion-list-header>
+          <ion-label>班级</ion-label>
+          <ion-label>应到</ion-label>
+          <ion-label>实到</ion-label>
+          <ion-label>请假</ion-label>
+          <ion-label>未签到</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let item of list" (click)="goToPage('app-home-childCheckListItem', item)">
+          <ion-label class="class-name">{{item.name}}</ion-label>
+          <ion-label>{{item.totalCount}}</ion-label>
+          <ion-label>{{item.signCount}}</ion-label>
+          <ion-label>{{item.leaveCount}}</ion-label>
+          <ion-label>{{item.absenceCount}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

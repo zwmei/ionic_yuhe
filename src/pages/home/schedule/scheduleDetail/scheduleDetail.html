@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      日程详情({{schedule.title}})
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="schedule-detail-page" color="background">
+  <div class="schedule-setting-area">
+    <p>{{schedule.startDateString}}</p>
+    <ion-item>
+      <ion-textarea [(ngModel)]="schedule.content"  readonly disabled>
+      </ion-textarea>
+    </ion-item>
+    <p class="remark">{{schedule.remark}}}</p>
+  </div>
+
+  <div class="schedule-setting-area">
+    <ion-item>
+      <ion-label>日程时间</ion-label>
+      <ion-datetime disabled [(ngModel)]="schedule.startTimeString" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
+    </ion-item>
+  </div>
+</ion-content>

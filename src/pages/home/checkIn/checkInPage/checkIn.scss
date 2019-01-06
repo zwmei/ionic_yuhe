@@ -1,0 +1,61 @@
+
+@import "../../../../theme/variables.scss";
+
+.checkIn-body {
+    .current-date {
+        position: absolute;
+        right: 16px;
+        top: 13px;
+    }
+    .checkIn-time-line {
+        margin: 16px 16px;
+        // padding: 0px 16px;
+        border-left: 1px solid #eaeaea;
+    }
+
+    .left-margin-16 {
+        margin-left: 16px;
+    }
+
+    .blod-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .on-office {
+        margin-bottom: 40px;
+    }
+
+    .checkIn-area {
+        margin: 32px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+    }
+    .checkIn-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background: $color-primary;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .checkIn-tip {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 12px;
+    }
+    .check-status {
+        margin: 0px 8px;
+    }
+
+    .reload-button {
+        color:  $color-primary;
+    }
+}

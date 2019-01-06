@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{navParams.data.sickName}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chart-detail-list-page" color="background">
+
+  <div class="chart-summary">
+    <span>{{navParams.data.sickName}}</span><span> 共{{totalCount}}例</span>
+  </div>
+
+  <div class="class-student-list" *ngFor="let item of list" >
+    <div class="class-student-header">
+      <span>{{item.className}}（{{item.count}}人）</span>
+    </div>
+    <div class="class-student-body">
+        <ion-item   *ngFor="let student of item.students" >
+            <ion-label>{{student.name}}</ion-label>
+        </ion-item>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,29 @@
+.announcement-body {
+    .badge-icon {
+        position: absolute;
+        left: 40px;
+        top: 5px;
+        background: red;
+        padding: 3px 4px;
+    }
+    .segment-button-two {
+
+        &.true {
+            color: $color-primary;
+        }
+
+        &.false {
+            color: $color-grey;
+        }
+    }
+    .segment-button-one {
+
+        &.false {
+            color: $color-primary;
+        }
+
+        &.true {
+            color: $color-grey;
+        }
+    }
+}

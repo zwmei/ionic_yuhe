@@ -1,0 +1,105 @@
+@import "../../../../theme/variables.scss";
+
+.schedule-setting-page {
+    background: $color-light;
+
+    .calendar-area{
+        
+        display: block;
+        overflow: hidden;
+        margin-top: 20px;
+        background: #fff;
+        
+        height: 132px;
+        padding: 0 16px;
+
+        >p{
+            line-height: 30px;
+            font-size: 20px;
+        }
+        ion-row{
+            color: $color-text;
+            ion-col >span{
+                margin-bottom: 10px;
+            }
+            span, strong{
+                display: block;
+                width: 100%;
+                line-height: 20px;
+                text-align: center;
+                color: $color-text;
+                &.status{
+                    color: $color-primary;
+                    font-weight: bolder;
+                }
+            }
+            .current{
+                background: $color-primary;
+                
+                >span,>strong{
+                    color: #fff;
+                }
+                border-radius: 25px;
+            }
+
+            strong{
+                font-size: 20px;
+                //todo 暂时去掉阴历 添加代码支持上下居中
+                height: 40px;
+                line-height: 36px;
+            }
+        }
+    }
+    .schedule-content{
+        display: block;
+        overflow: hidden;
+        
+
+        >p.label-tip{
+            line-height: 40px;
+            height: 40px;
+            padding: 0 16px;
+            color: $color-text;
+        }
+        >div{
+            padding: 16px;
+            background: #fff;
+            
+            &.schedule-item{
+                display: block;
+                overflow:hidden;
+                width: 100%;
+                height: 92px;
+                overflow: hidden;
+                border-bottom: 1px solid $color-border;
+
+                &:nth-last-child(1){
+                    border-bottom: none;
+                }
+
+                
+                .schedule-time, .schedule-detail{
+                    display: inline-block;
+                    float: left;
+                }
+                .schedule-time{
+                    width: 30%;
+                    font-size: 30px;
+                    line-height: 60px;
+                    font-weight: bolder;
+                }
+                .schedule-detail{
+                    width: 70%;
+                    line-height: 60px;
+                }
+            }
+            &.blank{
+                height: 92px;
+                line-height: 60px;
+                text-align: center;
+                color: $color-text;
+            }
+        }
+
+    }
+}

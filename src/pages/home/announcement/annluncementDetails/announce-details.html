@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar> <ion-title> 公告通知 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="announce-details-body">
+  <ion-item no-lines>
+    <ion-avatar item-start>
+      <img src="assets/imgs/image-default.png" />
+    </ion-avatar>
+    <h2>{{ item.zgxm }}   {{ item.jsm }}</h2>
+    <p>发布时间 {{  noticeDetails.cjsj }}</p>
+  </ion-item>
+  <div>
+    <p class="details-content">
+      {{noticeDetails.ggbt}}
+      <br/>
+      {{  noticeDetails.nr }}
+    </p>
+  </div>
+  <div>
+    <p class="center-text-label">{{ readUsers.length }}人已查阅，{{ unReadUsers.length }}人未查阅</p>
+    <div class="read-title">
+        <p class="header-title-label">已查阅 （{{ readUsers.length }} / {{ unReadUsers.length + readUsers.length  }})</p>
+        <button (click)="readOpenClick()" class="read-fold">
+          <ion-icon name="{{isReadOpen ? 'arrow-dropdown' : 'arrow-dropup'}}"></ion-icon>
+        </button>
+    </div>
+    <ion-row class="read-list" [hidden]="isReadOpen" >
+      <ion-col *ngFor="let user of readUsers">
+        <ion-avatar item-start>
+          <img
+            class="header-image"
+            src="{{user.image}}"
+            onerror="this.src='assets/imgs/image-default.png'"
+          />
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <div class="read-title">
+        <p class="header-title-label">未查阅 （{{ unReadUsers.length }} / {{ unReadUsers.length + readUsers.length  }})</p>
+        <button (click)="unReadOpenClick()" class="read-fold">
+            <ion-icon name="{{unReadOpen ? 'arrow-dropdown' : 'arrow-dropup'}}"></ion-icon>
+          </button>
+    </div>
+    <ion-row class="read-list" [hidden]="unReadOpen">
+      <ion-col *ngFor="let user of unReadUsers">
+        <ion-avatar item-start>
+          <img
+            class="header-image"
+            src="{{user.image}}"
+            onerror="this.src='assets/imgs/image-default.png'"
+          />
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <p padding-horizontal>
+      <button ion-button block (click)="presentAlertConfirm()">一键提醒</button>
+    </p>
+  </div>
+</ion-content>

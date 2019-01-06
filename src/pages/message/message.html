@@ -1,0 +1,33 @@
+<ion-content>
+  消息
+
+  <ion-list>
+
+    <ion-item>
+      <button ion-button color="primary" (click)="goToClassManage()">班级管理</button>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button color="primary" (click)="goToChildCheckOnManage()">幼儿考勤</button>
+    </ion-item>
+  </ion-list>
+  <calendar [defaultSelectToday]="defaultSelectToday" (selectDateChange)="selectDateChange($event)"></calendar>
+  <div>currentSelectDate: {{currentSelectDate}}</div>
+
+  <div style="background: red;">
+    <month-switch (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
+  </div>
+
+  <div style="background: yellow;">
+    <season-switch (prevSeasonChange)="prevSeason($event)" (nextSeasonChange)="nextSeason($event)"></season-switch>
+  </div>
+
+  <div style="background:blue;">
+    <year-switch (prevYearChange)="prevYear($event)" (nextYearChange)="nextYear($event)"></year-switch> 
+  </div>
+
+  <div>
+    <button ion-button color="primary" (click)="getFile()">选照片</button>
+  </div>
+  <input type="file" accept="audio/*;capture=microphone" />input选文件
+</ion-content>

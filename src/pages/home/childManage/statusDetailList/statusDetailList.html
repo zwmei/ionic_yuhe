@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{'当天' + title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chart-detail-list-page" color="background">
+
+  <!-- <div class="chart-summary">
+    <span>手足口病</span><span>4人</span>
+  </div> -->
+
+  <div class="class-student-list" *ngFor="let item of list" >
+    <div class="class-student-header">
+      <span>{{item.className}}（{{item.studentCount}}人）</span>
+    </div>
+    <div class="class-student-body">
+        <ion-item   *ngFor="let student of item.students" >
+            
+            <ion-label><img onerror="this.src='assets/imgs/image-default.png'"  src="{{student.photo}}" /> <span>{{student.name}}</span><span class="right">{{student.time}}</span></ion-label>
+        </ion-item>
+    </div>
+  </div>
+
+</ion-content>

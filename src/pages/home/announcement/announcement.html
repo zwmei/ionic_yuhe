@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+     <ion-title> 公告通知 </ion-title> 
+     <ion-buttons end>
+       <button ion-button icon-only (click)="editAnnouncemnetClick()" > 
+          <ion-icon item-end name="create"></ion-icon>
+       </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="announcement-body">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="circles"
+      refreshingText="加载中......"
+    >
+    </ion-refresher-content>
+  </ion-refresher> -->
+  <ion-list>
+    <ion-list-header>
+      <ion-segment [(ngModel)]="isRead">
+        <ion-segment-button class="segment-button-one" [ngClass]="isRead"   value="false"> 未读 </ion-segment-button>
+        <ion-segment-button class="segment-button-two" [ngClass]="isRead" value="true"> 已读 </ion-segment-button>
+      </ion-segment>
+    </ion-list-header>
+    <ion-item [hidden]="isRead==='false'" *ngFor="let item of readNotiList" (click)="clickItem(item)" >
+      <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
+        item.id
+      }}</ion-badge> -->
+      <ion-avatar item-start>
+        <img src="assets/imgs/image-default.png" />
+      </ion-avatar>
+      <h2>{{ item.zgxm }}</h2>
+      <p>{{ item.nr }}</p>
+    </ion-item>
+    <ion-item [hidden]="isRead==='true'" *ngFor="let item of unReadNotiList" (click)="clickItem(item)">
+      <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
+        item.id
+      }}</ion-badge> -->
+      <ion-avatar item-start>
+        <img src="assets/imgs/image-default.png" />
+      </ion-avatar>
+      <h2>{{ item.zgxm }}</h2>
+      <p>{{ item.nr }}</p>
+    </ion-item>
+  </ion-list>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载更多..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

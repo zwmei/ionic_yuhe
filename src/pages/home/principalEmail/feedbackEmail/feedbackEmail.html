@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> 回复邮件 </ion-title>
+    <ion-buttons end>
+      <button (click)="sendFeedback()" color="clear">发送</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="body">
+    <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/image-default.png" />
+        </ion-avatar>
+        <h2>{{ item.title }}</h2>
+        <p class="sub-Title-label">{{ item.subTitle }}</p>
+      </ion-item>
+  <ion-item>
+    <ion-label stacked>内容</ion-label>
+    <ion-textarea placeholder="请输入你的回复" rows="20"> </ion-textarea>
+  </ion-item>
+</ion-content>

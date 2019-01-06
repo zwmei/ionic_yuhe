@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      职工出勤
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="child-check-page" color="background">
+  <div class="attenance-statistic">
+    <!-- <div class="box-title-nav"><span class="left">全教职工出勤</span><span class="right" ><ion-icon name="arrow-forward"></ion-icon></span></div> -->
+    <div class="box-content">
+      <ion-grid>
+        <ion-row (click)="goToListPage()">
+          <ion-col>
+            <span>应到</span>
+            <strong class="secondary" color="secondary">{{infos.totalCount}}</strong>
+          </ion-col>
+          <ion-col>
+            <span>实到</span>
+            <strong>{{infos.signCount}}</strong>
+          </ion-col>
+          <ion-col>
+            <span>请假</span>
+            <strong>{{infos.leaveCount}}</strong>
+          </ion-col>
+          <ion-col>
+            <span>未签到</span>
+            <strong>{{infos.absenceCount}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="attenance-statistic">
+    <div class="box-title-nav" (click)="goToDetail()"><span class="left">全教职工出勤率</span>
+      <span class="right">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span>
+    </div>
+    <div class="box-content chart-box">
+      <div class="date-picker-area">
+        <ion-icon name="arrow-back" (click)="goPrevMonth()"></ion-icon>
+        <span>{{startDate|date:'yyyy-MM'}}</span>
+        <ion-icon name="arrow-forward" (click)="goNextMonth()"></ion-icon>
+      </div>
+      <div class="chart-area">
+        <div [chart]="chart1" class="chart-content"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="attenance-statistic">
+    <div class="box-title-nav"><span class="left">全教职工出勤率</span></div>
+    <div class="box-content">
+      <ion-list>
+        <ion-item *ngFor="let people of attendanceList; index as i">
+          <label class="color-1">{{i+1}}</label><span>{{people.name}}</span><strong>{{people.rate}}%</strong>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

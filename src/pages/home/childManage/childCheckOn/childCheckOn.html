@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      幼儿考勤
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="child-check-page" color="background">
+  <div class="attenance-statistic">
+    <div class="box-title-nav"><span class="left">全教幼儿出勤</span><span class="right" (click)="goToPage('app-home-childCheckList')">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span></div>
+    <div class="box-content">
+      <ion-grid>
+        <ion-row>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','应到')">
+            <span>应到</span>
+            <strong class="secondary" color="secondary">{{summary.totalCount}}</strong>
+          </ion-col>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','实到')">
+            <span>实到</span>
+            <strong>{{summary.signCount}}</strong>
+          </ion-col>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','请假')">
+            <span>请假</span>
+            <strong>{{summary.leaveCount}}</strong>
+
+          </ion-col>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','未签到')">
+            <span>未签到</span>
+            <strong>{{summary.absenceCount}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="attenance-statistic">
+    <div class="box-title-nav"><span class="left">全教幼儿出勤率</span><span class="right">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span></div>
+    <div class="box-content chart-box">
+        <month-switch (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
+      <div class="chart-area">
+        <div [chart]="chart" class="chart-content" (click)="goToPage('app-home-childCheckChartDetail')"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="attenance-statistic">
+    <div class="box-title-nav"><span class="left">幼儿出勤率</span></div>
+    <div class="box-content">
+      <ion-list>
+        <ion-item *ngFor="let child of rankings;let number = index;">
+          <label class="color-{{(number + 1) % 4}}">{{number + 1}}</label><span>{{child.name}}</span><strong>{{child.signRate * 100}}%</strong>
+        </ion-item>
+      </ion-list>
+
+
+
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      班级列表
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="class-content" color="background">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of list" (click)="goToStudentList(item)">
+        <div class='class-item'>
+          <div class="class-detail photo">
+              <img class="header-image"  src="assets/imgs/image-default.png" />
+          </div>
+          <div class="class-detail class-name">
+            <label>{{item.name}}</label>
+          </div>
+          <div class="class-detail student-count">
+            <label>总人数:</label><span>{{item.totalCount}}人</span>
+          </div>
+          <div class="class-detail student-detail">
+            <span>男:{{item.boy}}人</span>
+            <span>女:{{item.girl}}人</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
