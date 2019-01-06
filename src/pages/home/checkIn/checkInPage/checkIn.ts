@@ -10,6 +10,8 @@ import {
   STORAGE_KEY
 } from "../../../../service/storage.service";
 import { formatDate } from "../../../../network/http";
+import { Geolocation } from '@ionic-native/geolocation';
+import { LoadingService } from '../../../../service/loading.service';
 
 
 @IonicPage({
@@ -36,6 +38,8 @@ export class CheckInPage {
     private storage: StorageService,
     // public datePipe: DatePipe
     public toast: ToastService,
+    public loading: LoadingService,
+    public geolocation: Geolocation
   ) {
     console.warn(
       "hshdfhashdfhsa======",
@@ -46,7 +50,7 @@ export class CheckInPage {
     this.user = {
       name: loginInfo.zgxm,
       team: "考勤组：技术部",
-      image: HTTP_URL.MAIN + '/images/' +  loginInfo.photo,
+      image: HTTP_URL.MAIN + '/images/' + loginInfo.photo,
     };
 
     let middle = new Date(formatDate(new Date(), "yyyy-MM-dd") + " 12:00:00");
@@ -99,6 +103,18 @@ export class CheckInPage {
     this.nav.push("app-home-attendanceReport");
   }
   checkInClick() {
+
+    this.loading.show();
+    this.geolocation.getCurrentPosition().then(res => {
+      this.loading.hide();
+
+      this.toast.show(`定位成功,${res.coords.longitude},${res.coords.latitude}`);
+    }, err => {
+      this.loading.hide();
+      this.toast.show('定位失败');
+    })
+
+
     if (this.companyLocation.length < 2) {
       return;
     }
@@ -112,8 +128,8 @@ export class CheckInPage {
           (data: any) => {
             console.log(data);
             if (data.status == 0) {
-                this.checkData.sbjs = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
-                this.toast.show('打卡成功');
+              this.checkData.sbjs = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+              this.toast.show('打卡成功');
             }
           },
           error => {
@@ -130,8 +146,8 @@ export class CheckInPage {
           (data: any) => {
             console.log(data);
             if (data.status == 0) {
-                this.checkData.xbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
-                this.toast.show('打卡成功');
+              this.checkData.xbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+              this.toast.show('打卡成功');
             }
           },
           error => {
@@ -141,5 +157,5 @@ export class CheckInPage {
     }
   }
 
-  reloadLocation() {}
+  reloadLocation() { }
 }
