@@ -8,6 +8,7 @@ import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
 import { ToastService } from '../../service/toast.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   templateUrl: 'home.html'
@@ -21,6 +22,7 @@ export class HomePage {
     private actionSheetService: ActionSheetService,
     private platform: Platform,
     private storage: StorageService,
+    private auth: AuthService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork
   ) {
 
@@ -303,6 +305,10 @@ export class HomePage {
         }
       ]
     })
+  }
+
+  hasPermission(key: string) {
+    return this.auth.hasPermission(key);
   }
 
   goToPage(pageName): void {

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
+import {Chooser} from '@ionic-native/chooser';
 import { MyApp } from './app';
 import { LoginPage } from '../pages/login/login';
 import { ForgetPasswordPageModule } from '../pages/forgetPassword/forgetPassword.module';
@@ -44,16 +45,12 @@ import { StorageService } from '../service/storage.service';
     SplashScreen,
     ComponentsModule,
     Geolocation,
+    Chooser,
     HttpNetwork,
     UserNetwork,
     ClassNetwork,
     ToastService,
-
-    // Chooser,
-
     StorageService,
-
-
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

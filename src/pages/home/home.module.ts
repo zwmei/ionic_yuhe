@@ -31,6 +31,7 @@ import { SicknessCasePageModule } from './kindergartenOverview/sicknessCase/sick
 import { HttpNetwork } from '../../network/http';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { FinancialReportingPageModule } from './kindergartenOverview/financialReporting/financialReporting.module';
+import { AuthService } from '../../service/auth.service';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { FinancialReportingPageModule } from './kindergartenOverview/financialRe
     MessageService,
     ConfirmService,
     ActionSheetService,
+    AuthService,
     HttpNetwork,
     KindergartenOverviewNetwork,
   ],

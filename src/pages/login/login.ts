@@ -5,6 +5,7 @@ import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Chooser } from '@ionic-native/chooser';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class LoginPage {
   constructor(
     public geolocation: Geolocation,
+    public chooser: Chooser,
     public navCtrl: NavController,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
@@ -81,13 +83,28 @@ export class LoginPage {
     })
 
   }
-  onSmsCode() {
-    this.geolocation.getCurrentPosition().then(res => {
-      this.toastService.show(`成功定位,${res.coords.longitude},${res.coords.latitude}`);
-    }, err => {
-      console.log(err);
-      this.toastService.show('定位失败');
-    });
+  async onSmsCode() {
+    // this.geolocation.getCurrentPosition().then(res => {
+    //   this.toastService.show(`成功定位,${res.coords.longitude},${res.coords.latitude}`);
+    // }, err => {
+    //   console.log(err);
+    //   this.toastService.show('定位失败');
+    // });
+    // this.chooser.getFile('image/*')
+    //   .then(file => {
+    //     console.log('file', file);
+    //     this.toastService.show(`file ok`);
+    //   })
+    //   .catch(err => {
+    //     console.log('error', err);
+    //     this.toastService.show('file error');
+    //   })
+
+    const file = await (<any>window).chooser.getFile();
+    if (file.name) {
+      console.log(file);
+    }
+    console.log('err',file);
   }
 
   onForgetPassword() {
