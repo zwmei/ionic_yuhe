@@ -1,0 +1,42 @@
+@import "../../theme/variables.scss";
+
+.page-login-view {
+  position: relative;
+  // background: $color-light;
+  .password-opt {
+    color: $color-grey;
+  }
+
+  .page-back {
+    width: 100%;
+    height: 250px;
+    background: #03ccc6 no-repeat 90% -45%;
+    background-image: url(../assets/image/login/page_login_back.jpeg);
+    img {
+    }
+  }
+
+  .view-bottom {
+    padding: 30px;
+
+    ion-item {
+      margin-bottom: 20px;
+      border: 1px solid $color-icon !important;
+      box-shadow: none !important;
+      .item-inner {
+        border:none !important;
+        box-shadow: none !important;
+      }
+      &.input-has-focus {
+        border-color: $color-primary !important;
+      }
+    }
+
+
+
+    .bottom-login{
+      margin-top: 60px;
+      width: 100%;
+    }
+  }
+}

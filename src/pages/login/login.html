@@ -1,25 +1,38 @@
-
 <ion-content class="page-login-view">
-  <img alt="背景图" src="assets/image/login/background.jpeg"/>
 
-  <ion-list>
-    <ion-item>
-      <ion-label><ion-icon name="person"></ion-icon></ion-label>
-      <ion-input placeholder="输入账号"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label><ion-icon name="unlock"></ion-icon></ion-label>
-      <ion-input placeholder="输入密码"></ion-input>
-    </ion-item>
+  <ion-row class="page-back" justify-content-center align-items-center>
+    <img alt="花" src="assets/image/login/page_login_logo.png" />
+  </ion-row>
 
-    <ion-item>
-      <button ion-button item-start color="primary">记住密码</button>
-      <button ion-button outline item-end>忘记密码</button>
-    </ion-item>
+  <div class="view-bottom">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="person"></ion-icon>
+        </ion-label>
+        <ion-input [(ngModel)]="username" placeholder="输入账号" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="unlock"></ion-icon>
+        </ion-label>
+        <ion-input [(ngModel)]="password" placeholder="输入密码" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
 
-    <ion-item>
-      <button ion-button color="primary" (click)="getGps()">登录</button>
-    </ion-item>
-  </ion-list>
+    <ion-row justify-content-between align-items-center class="password-opt">
+      <ion-row justify-content-start align-items-center>
+        <ion-checkbox [(ngModel)]="isRememberPassword" (ionChange)="onRememberPassword(e)">
+        </ion-checkbox>
+        <span>记住密码</span>
+      </ion-row>
+      <span (click)="onForgetPassword()">忘记密码</span>
+      <!-- <span (click)="onSmsCode()">忘记密码</span> -->
+    </ion-row>
+
+    <ion-row justify-content-center class="bottom-login">
+      <button ion-button color="primary" default block (click)="onLogin()">登录</button>
+    </ion-row>
+  </div>
 
 </ion-content>

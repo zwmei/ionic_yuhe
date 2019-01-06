@@ -1,3 +1,102 @@
-page-home {
+.page-home-view {
+  background: $color-background;
+  .header-back {
+    width: 100%;
+    height: 200px;
+    background: url('../assets/image/home/page_home_back.png') no-repeat;
+    background-position: center;
+    background-size: cover;
 
+    .searchbar.searchbar-md {
+      position: relative;
+      top: 10px;
+      padding: 0 10px;
+      .searchbar-input {
+        border-radius: 50px;
+        padding: 0 55px;
+        background: rgba(255,255,255,0.8);
+      }
+      .searchbar-search-icon {
+        top: 8px;
+      }
+    }
+  }
+  .message-view {
+    background: $color-white;
+    .message {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      animation: marquee 5s linear infinite;
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    @keyframes marquee {
+      0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      50% { 
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+        visibility: hidden;
+      }
+      60% {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0); 
+        visibility: hidden;
+      }
+      100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+  .detail-block {
+    margin: 10px 0;
+    padding: 10px;
+    background: $color-white;
+
+    .block-title {
+      margin-bottom: 20px;
+      padding-left: 5px;
+      border-left: 5px solid $color-primary;
+      font-weight: bold;
+      font-size: 16px;
+      color: $color-text;
+    }
+    .block-item {
+      text-align: center;
+
+      .item-image {
+        margin: auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+
+        // &.primary {
+        //   background: $color-primary;
+        // }
+        ion-icon {
+          font-size: 24px;
+        }
+      }
+      .item-text {
+        margin-top: 5px;
+        color: $color-icon;
+      }
+    }
+  }
+
+  .chart-view {
+    width: 100%;
+    height: 300px;
+    .chart-item {
+      height: 100%;
+    }
+  }
 }

@@ -1,15 +1,15 @@
 {
-    "name": "helloionic",
+    "name": "yuhe",
     "version": "0.0.1",
-    "author": "Ionic Framework",
+    "author": "NB Team",
     "homepage": "http://ionicframework.com/",
     "private": true,
     "scripts": {
         "start": "ionic-app-scripts serve",
         "start:android": "ionic cordova run android",
         "start:ios": "ionic cordova run ios",
-        "run:android": "ionic cordova run android --device",
-        "run:ios": "ionic cordova run ios --device",
+        "device:android": "ionic cordova run android --device",
+        "device:ios": "ionic cordova run ios --device",
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint"
@@ -32,6 +32,8 @@
         "@ionic/pro": "2.0.3",
         "@ionic/storage": "2.2.0",
         "ajv": "^5.0.0",
+        "angular-highcharts": "^5.2.13",
+        "highcharts": "^6.2.0",
         "cordova-android": "^6.2.3",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.2",
@@ -50,6 +52,7 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "3.2.0",
+        "@types/highcharts": "^5.0.33",
         "typescript": "~2.6.2"
     },
     "peerDependencies": {},
