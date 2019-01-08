@@ -40,7 +40,7 @@
         <!-- <img src="{{}}" /> -->
       </ion-avatar>
       <h2>{{ item.title }}</h2>
-      <p>{{ item.summary }}</p>
+      <p>{{ item.billTypeName }}</p>
     </ion-item>
     <ion-item *ngFor="let item of unReadList" (click)="clickItem(item)" [hidden]="isRead === 'true' " >
         <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
@@ -51,7 +51,7 @@
           <!-- <img src="{{}}" /> -->
         </ion-avatar>
         <h2>{{ item.title }}</h2>
-        <p>{{ item.summary }}</p>
+        <p>{{ item.billTypeName }}</p>
       </ion-item>
   </ion-list>
 
