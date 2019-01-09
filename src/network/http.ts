@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../service/toast.service';
 import { App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
+import { StorageService, STORAGE_KEY } from '../service/storage.service';
 
 @Injectable()
 export class HttpNetwork {
@@ -150,6 +151,12 @@ export function json2form(a) {
   return buildParams('', a).join('&').replace(/%20/g, '+');
 };
 
+export function getServerAddress() {
+  let storage = new StorageService();
+  return storage.get(STORAGE_KEY.SERVER_ADDR) || 'http://www.yuhe.insighthink.com/yh_YEManager';
+}
+
 export const HTTP_URL = {
-  MAIN: 'http://www.yuhe.insighthink.com/yh_YEManager'
+  // MAIN: 'http://www.yuhe.insighthink.com/yh_YEManager'
+  MAIN: getServerAddress()
 }

@@ -6,6 +6,7 @@ import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Chooser } from '@ionic-native/chooser';
+import { HTTP_URL, getServerAddress } from '../../network/http';
 
 
 @Component({
@@ -13,6 +14,11 @@ import { Chooser } from '@ionic-native/chooser';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  isRememberPassword: Boolean = false;
+  username = '';
+  password = '';
+  serverAddress = '';
+
   constructor(
     public geolocation: Geolocation,
     public chooser: Chooser,
@@ -23,12 +29,8 @@ export class LoginPage {
     private loading: LoadingService,
     private app: App
   ) {
-
+    this.serverAddress = this.storage.get(STORAGE_KEY.SERVER_ADDR) || '';
   }
-  isRememberPassword: Boolean = false;
-  username = '';
-  password = '';
-
 
   ionViewDidEnter() {
     let loginInfo = this.storage.get(STORAGE_KEY.LOGIN_INFO);
@@ -104,12 +106,23 @@ export class LoginPage {
     if (file.name) {
       console.log(file);
     }
-    console.log('err',file);
+    console.log('err', file);
   }
 
   onForgetPassword() {
     // this.userNetwork.postData().subscribe(data=>{console.log(data)}); //测试代码
     this.navCtrl.push('app-forget-password');
+  }
+
+  onChangeAddress() {
+    this.serverAddress = this.serverAddress || '';
+    if (this.serverAddress.endsWith('/')) {
+      this.serverAddress = this.serverAddress.slice(0, -1);
+    }
+    this.storage.set(STORAGE_KEY.SERVER_ADDR, this.serverAddress);
+    HTTP_URL.MAIN = getServerAddress();
+
+    this.toastService.show('修改成功');
   }
 
 }

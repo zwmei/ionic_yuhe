@@ -33,6 +33,15 @@
     <ion-row justify-content-center class="bottom-login">
       <button ion-button color="primary" default block (click)="onLogin()">登录</button>
     </ion-row>
+
+    <ion-row>
+      <ion-input 
+        style="border:1px solid #eee"
+      [(ngModel)]="serverAddress" placeholder="本地地址: http://10.21.89.22:8001" type="text">
+      </ion-input>
+      <button ion-button color="primary" (click)="onChangeAddress()">修改</button>
+    </ion-row>
+
   </div>
 
 </ion-content>
