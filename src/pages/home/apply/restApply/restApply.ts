@@ -157,6 +157,22 @@ export class RestApply {
       return;
     }
 
+    if (!this.applyData.qjsc || !this.applyData.qjsy || !this.applyData.qjlx) {
+      this.toast.show("请完善申请内容");
+      return;
+    }
+
+    if (this.applyData.qjsc <= 0) {
+      this.toast.show("数字大于0");
+      return;
+    }
+
+    if (this.spr.length < 1) {
+      this.toast.show("请选择审批人");
+      return;
+    }
+
+
     var spid = this.spr.map(item => {
       return item.id;
     });

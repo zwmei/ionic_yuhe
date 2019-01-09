@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 // import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { EditAnnouncement } from "./editAnnouncement";
 import { NgModule } from "@angular/core";
@@ -14,7 +15,8 @@ import { DatePipe } from '@angular/common';
   providers: [
     // Geolocation,
     NoticeNetWork,
-    DatePipe
+    DatePipe,
+    ToastService,
   ]
 })
 export class EditAnnouncementPageModule {}

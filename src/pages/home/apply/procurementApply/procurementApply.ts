@@ -149,6 +149,33 @@ export class ProcurementApply {
   }
 
   procurementApply() {
+    if (!this.applyData.cgsj || !this.applyData.sqsy) {
+      this.toast.show("请完善申请内容");
+      return;
+    }
+
+    for (var i = 0; i < this.applyData.cgqds.length; i++) {
+      let item = this.applyData.cgqds[i];
+      if (item.name === "请选择" || !item.sl || !item.zj) {
+        this.toast.show("请完善物资明细");
+        return;
+      }
+
+      if (item.sl <= 0 || item.zj <= 0) {
+        this.toast.show("数字大于0");
+        return;
+      }
+    }
+    if (this.spr.length < 1) {
+      this.toast.show("请选择审批人");
+      return;
+    }
+
+    // if (this.csr.length < 1) {
+    //   this.toast.show("请选择抄送人");
+    //   return;
+    // }
+
     var spid = this.spr.map(item => {
       return item.id;
     });
@@ -162,8 +189,8 @@ export class ProcurementApply {
     var apply = {
       billType: 1,
       cgsj: start,
-      sqsy: this.applyData.sqsy,
-      cglx: this.applyData.cglx
+      sqsy: this.applyData.sqsy
+      // cglx: this.applyData.cglx
     };
     var items = this.applyData.cgqds.map(item => {
       item.lyid = item.id;

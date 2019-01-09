@@ -1,8 +1,10 @@
+import { ToastService } from './../../../../service/toast.service';
 import { DatePipe } from '@angular/common';
 import { NoticeNetWork } from "./../../../../network/notice.network";
 import { Component } from "@angular/core";
 import { IonicPage, AlertController, NavController } from "ionic-angular";
 // import { Geolocation } from "@ionic-native/geolocation/ngx";
+
 @IonicPage({
   name: "app-home-edit-announcement"
 })
@@ -22,6 +24,7 @@ export class EditAnnouncement {
     // private geolocation: Geolocation,
     private notiNetWork: NoticeNetWork,
     private datePipe: DatePipe,
+    public toast: ToastService,
   ) {
 
   }
@@ -79,6 +82,7 @@ export class EditAnnouncement {
 
   sendAnnounceMent() {
     if (this.title.length < 1 && this.content.length < 1) {
+      this.toast.show("请完善内容");
       return;
     }
     this.notiNetWork.saveNewNotice({
@@ -87,6 +91,7 @@ export class EditAnnouncement {
     }).subscribe((data: any) => {
       console.log(data)
       if (data.status == 0) {
+        this.toast.show("发布成功");
         this.navCtr.pop()
       }
     }, error => {
