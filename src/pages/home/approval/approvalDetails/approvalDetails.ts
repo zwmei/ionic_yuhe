@@ -1,4 +1,4 @@
-import { ToastService } from './../../../../service/toast.service';
+import { ToastService } from "./../../../../service/toast.service";
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -33,7 +33,7 @@ export class ApprovalDetails {
     public alertCtrl: AlertController,
     params: NavParams,
     public approvalNetWork: ApprovalNetwork,
-    public toast: ToastService,
+    public toast: ToastService
   ) {
     this.params = params.data.params;
     this.type = params.data.type;
@@ -151,114 +151,62 @@ export class ApprovalDetails {
   }
 
   approvalClick() {
-    const confirm = this.alertCtrl.create({
-      title: "",
-      message: "你确定要通过审批吗?",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {}
-        },
-        {
-          text: "通过",
-          handler: () => {
-            this.approvalNetWork
-              .approvalSucceed({
-                billType: this.params.billType,
-                id: this.params.id
-              })
-              .subscribe(
-                (data: any) => {
-                  console.log(data);
-                  if (data.status === 0) {
-                    this.toast.show('审批通过');
-                    this.navCtrl.pop();
-                  }
-                },
-                error => {
-                  console.log(error);
-                }
-              );
+    this.approvalNetWork
+      .approvalSucceed({
+        billType: this.params.billType,
+        id: this.params.id
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data.status === 0) {
+            this.toast.show("审批通过");
+            this.navCtrl.pop();
           }
+        },
+        error => {
+          console.log(error);
         }
-      ]
-    });
-    confirm.present();
+      );
   }
 
   disApprovalClick() {
-    const confirm = this.alertCtrl.create({
-      title: "",
-      message: "你确定要不通过审批吗?",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {
-            console.log("Disagree clicked");
+    this.approvalNetWork
+      .approvalFaild({
+        billType: this.params.billType,
+        id: this.params.id
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data.status === 0) {
+            this.toast.show("审批不通过");
+            this.navCtrl.pop();
           }
         },
-        {
-          text: "确定",
-          handler: () => {
-            this.approvalNetWork
-              .approvalFaild({
-                billType: this.params.billType,
-                id: this.params.id
-              })
-              .subscribe(
-                (data: any) => {
-                  console.log(data);
-                  if (data.status === 0) {
-                    this.toast.show('审批不通过');
-                    this.navCtrl.pop();
-                  }
-                },
-                error => {
-                  console.log(error);
-                }
-              );
-          }
+        error => {
+          console.log(error);
         }
-      ]
-    });
-    confirm.present();
+      );
   }
 
   withDrow() {
-    const confirm = this.alertCtrl.create({
-      title: "",
-      message: "你确定要撤回审批吗?",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {
-            console.log("Disagree clicked");
+    this.approvalNetWork
+      .withdrowApplay({
+        billType: this.params.billType,
+        id: this.params.id
+      })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data.status === 0) {
+            this.navCtrl.pop();
+            this.toast.show("撤回成功");
           }
         },
-        {
-          text: "确定",
-          handler: () => {
-            this.approvalNetWork
-              .withdrowApplay({
-                billType: this.params.billType,
-                id: this.params.id
-              })
-              .subscribe(
-                (data: any) => {
-                  console.log(data);
-                  if (data.status === 0) {
-                    this.navCtrl.pop();
-                    this.toast.show('撤回成功');
-                  }
-                },
-                error => {
-                  console.log(error);
-                }
-              );
-          }
+        error => {
+          console.log(error);
         }
-      ]
-    });
-    confirm.present();
+      );
   }
 }
