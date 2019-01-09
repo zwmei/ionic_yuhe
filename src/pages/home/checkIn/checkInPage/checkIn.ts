@@ -135,7 +135,7 @@ export class CheckInPage {
           (data: any) => {
             console.log(data);
             if (data.status == 0) {
-              this.checkData.sbjs = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+              this.checkData.sbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
               this.toast.show('打卡成功');
             }
           },

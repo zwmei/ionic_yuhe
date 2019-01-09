@@ -35,13 +35,12 @@ export class MyApproval {
     })
   }
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     params: NavParams,
     public approavlNetWork: ApprovalNetwork
     ) {
   }
   clickItem(item) {
-    item.approvalStatus = 0;
     this.navCtrl.push('app-home-approval-details', {params: item, type: 1});
   }
 }
