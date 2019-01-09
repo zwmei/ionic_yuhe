@@ -8,6 +8,8 @@ import {
   ActionSheetController,
   NavController
 } from "ionic-angular";
+import { ToastService } from '../../../../service/toast.service';
+
 
 @IonicPage({
   name: "app-home-procurement-apply"
@@ -30,6 +32,7 @@ export class ProcurementApply {
     public approvalNetWork: ApprovalNetwork,
     public navCtrl: NavController,
     private datePipe: DatePipe,
+    public toast: ToastService,
   ) {
     this.applyData.cgqds.push({name: "请选择"});
   }
@@ -194,6 +197,7 @@ export class ProcurementApply {
             this.approvalNetWork.applyForBuy(params).subscribe(
               (data: any) => {
                 console.log(data);
+                this.toast.show("申请成功");
                 this.navCtrl.pop();
               },
               error => {

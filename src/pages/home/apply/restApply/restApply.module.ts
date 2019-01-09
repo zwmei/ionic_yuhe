@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { RestApply } from "./restApply";
 import { NgModule } from "@angular/core";
@@ -12,6 +13,6 @@ import { DatePipe } from '@angular/common';
       IonicPageModule.forChild(RestApply),
     ],
   entryComponents: [RestApply],
-  providers: [ApprovalNetwork, DatePipe],
+  providers: [ApprovalNetwork, DatePipe, ToastService],
 })
 export class RestApplyPageModule {}

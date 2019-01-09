@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -31,7 +32,8 @@ export class ApprovalDetails {
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     params: NavParams,
-    public approvalNetWork: ApprovalNetwork
+    public approvalNetWork: ApprovalNetwork,
+    public toast: ToastService,
   ) {
     this.params = params.data.params;
     this.type = params.data.type;
@@ -169,6 +171,7 @@ export class ApprovalDetails {
                 (data: any) => {
                   console.log(data);
                   if (data.status === 0) {
+                    this.toast.show('审批通过');
                     this.navCtrl.pop();
                   }
                 },
@@ -206,6 +209,7 @@ export class ApprovalDetails {
                 (data: any) => {
                   console.log(data);
                   if (data.status === 0) {
+                    this.toast.show('审批不通过');
                     this.navCtrl.pop();
                   }
                 },
@@ -244,6 +248,7 @@ export class ApprovalDetails {
                   console.log(data);
                   if (data.status === 0) {
                     this.navCtrl.pop();
+                    this.toast.show('撤回成功');
                   }
                 },
                 error => {

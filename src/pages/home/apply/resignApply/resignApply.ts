@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { DatePipe } from '@angular/common';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { Component } from "@angular/core";
@@ -23,7 +24,7 @@ export class ResignApply {
   approvalPersons: any= [];
   spr: any = [];
   csr: any = [];
-  
+
   constructor(
     public alertCtrl: AlertController,
     params: NavParams,
@@ -31,8 +32,9 @@ export class ResignApply {
     public approvalNetWork: ApprovalNetwork,
     public navCtrl: NavController,
     private datePipe: DatePipe,
+    public toast: ToastService,
   ) {
-    
+
   }
 
   /// 审批人
@@ -139,6 +141,7 @@ export class ResignApply {
             this.approvalNetWork.applyForLeave(params).subscribe(
               (data: any) => {
                 console.log(data);
+                this.toast.show("申请成功");
                 this.navCtrl.pop();
               },
               error => {

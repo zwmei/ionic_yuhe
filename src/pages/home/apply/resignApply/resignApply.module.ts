@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { ResignApply } from "./resignApply";
 import { NgModule } from "@angular/core";
@@ -10,6 +11,6 @@ import { DatePipe } from '@angular/common';
       IonicPageModule.forChild(ResignApply),
     ],
   entryComponents: [ResignApply],
-  providers: [ApprovalNetwork, DatePipe]
+  providers: [ApprovalNetwork, DatePipe, ToastService]
 })
 export class ResignApplyPageModule {}

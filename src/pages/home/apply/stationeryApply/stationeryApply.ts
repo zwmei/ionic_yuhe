@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { DatePipe } from '@angular/common';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { Component } from "@angular/core";
@@ -30,6 +31,7 @@ export class StationeryApply {
     public approvalNetWork: ApprovalNetwork,
     public navCtrl: NavController,
     private datePipe: DatePipe,
+    public toast: ToastService,
   ) {
       this.applyData.lymxs.push({name: "请选择"});
   }
@@ -172,7 +174,6 @@ export class StationeryApply {
             var items = this.applyData.lymxs.map((item) => {
               item.lyid = item.id;
               item.wpmc = item.name;
-              item.dj = item.price;
               item.gg = item.model;
               item.goodsItem = {
                 id: item.id,
@@ -183,7 +184,7 @@ export class StationeryApply {
               };
               return item;
             })
-        
+
             var params = {
               apply: JSON.stringify(apply),
               spid: spid.join(','),
@@ -193,6 +194,7 @@ export class StationeryApply {
             this.approvalNetWork.applyForGood(params).subscribe(
               (data: any) => {
                 console.log(data);
+                this.toast.show("申请成功");
                 this.navCtrl.pop();
               },
               error => {

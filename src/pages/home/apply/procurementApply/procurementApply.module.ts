@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { ProcurementApply } from "./procurementApply";
 import { NgModule } from "@angular/core";
@@ -11,8 +12,8 @@ import { DatePipe } from '@angular/common';
       IonicPageModule.forChild(ProcurementApply),
     ],
   entryComponents: [ProcurementApply],
-  providers: [ApprovalNetwork, DatePipe],
+  providers: [ApprovalNetwork, DatePipe, ToastService],
 })
 export class ProcurementApplyPageModule {
-    
+
 }

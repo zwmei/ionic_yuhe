@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { DatePipe } from '@angular/common';
 import { Component } from "@angular/core";
 import {
@@ -8,6 +9,7 @@ import {
   NavController,
 } from "ionic-angular";
 import { ApprovalNetwork } from "./../../../../network/approval.network";
+
 
 @IonicPage({
   name: "app-home-rest-apply"
@@ -29,6 +31,7 @@ export class RestApply {
     public approvalNetWork: ApprovalNetwork,
     public navCtrl: NavController,
     private datePipe: DatePipe,
+    public toast: ToastService,
   ) {
     this.applyData.qjyy = "请选择";
   }
@@ -142,6 +145,17 @@ export class RestApply {
   }
 
   resetApply() {
+
+    if (!this.applyData.qssj || !this.applyData.jssj) {
+      this.toast.show("请选择请假时间");
+      return;
+    }
+
+    if ((new Date(this.applyData.qssj)).getTime() > (new Date(this.applyData.jssj)).getTime()) {
+      this.toast.show("请选择正确的时间");
+      return;
+    }
+
     const confirm = this.alertCtrl.create({
       title: "",
       message: "你确定要申请吗?",
@@ -176,6 +190,7 @@ export class RestApply {
             this.approvalNetWork.applyForReset(params).subscribe(
               (data: any) => {
                 console.log(data);
+                this.toast.show("申请成功");
                 this.navCtrl.pop();
               },
               error => {

@@ -15,6 +15,7 @@
         placeholder="请选择"
         displayFormat="YYYY-MM-DD HH:mm"
         [(ngModel)]="applyData.qssj"
+        cancelText="取消" doneText="确定"
         >{{ applyData.qssj }}</ion-datetime
       >
     </ion-item>
@@ -25,6 +26,7 @@
         placeholder="请选择"
         displayFormat="YYYY-MM-DD HH:mm"
         [(ngModel)]="applyData.jssj"
+        cancelText="取消" doneText="确定"
         >{{ applyData.jssj }}</ion-datetime
       >
     </ion-item>
@@ -34,6 +36,7 @@
         class="right"
         item-end
         placeholder="请输入"
+        type="number"
         [(ngModel)]="applyData.qjsc"
       >{{ applyData.qjsc }}</ion-input>
     </ion-item>
@@ -43,7 +46,7 @@
     <div class="title-view">
       <p class="left title"></p>
       <ion-textarea
-        placeholder="请输入通知内容"
+        placeholder="请输入请假事由"
         rows="10"
         [(ngModel)]="applyData.qjsy"
       >

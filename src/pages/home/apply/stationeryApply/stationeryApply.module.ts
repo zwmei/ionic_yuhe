@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../service/toast.service';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { StationeryApply } from "./stationeryApply";
 import { NgModule } from "@angular/core";
@@ -11,8 +12,8 @@ import { DatePipe } from '@angular/common';
       IonicPageModule.forChild(StationeryApply),
     ],
   entryComponents: [StationeryApply],
-  providers: [ApprovalNetwork, DatePipe],
+  providers: [ApprovalNetwork, DatePipe, ToastService],
 })
 export class StationeryApplyPageModule {
-    
+
 }

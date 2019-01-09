@@ -48,7 +48,7 @@
 
     <div class="block-view" *ngFor="let item of buyDetail.cgqds">
       <ion-item>
-        <ion-label class="left">名称</ion-label>
+        <ion-label class="left">物资</ion-label>
         <ion-label item-end class="right">{{ item.goodsItem.name }}</ion-label>
       </ion-item>
       <ion-item>
@@ -117,25 +117,16 @@
 
     <div class="block-view" *ngFor="let item of goodDetail.lymxs">
       <ion-item>
-        <ion-label class="left">名称</ion-label>
+        <ion-label class="left">物资</ion-label>
         <ion-label item-end class="right">{{ item.wpmc }}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label class="left">规格</ion-label>
-          <ion-label item-end class="right">{{ item.goodsItem.model }}</ion-label>
+          <ion-label item-end class="right">{{ item.model }}</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label class="left">单价</ion-label>
-          <ion-label item-end class="right">{{ item.goodsItem.price }}</ion-label>
-        </ion-item>
-
       <ion-item>
         <ion-label class="left">数量</ion-label>
         <ion-label item-end class="right">{{ item.sl }}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label class="left">总价</ion-label>
-        <ion-label item-end class="right">{{ item.je }}</ion-label>
       </ion-item>
     </div>
   </div>
