@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { UserNetwork } from './../../../network/user.network';
 import { Component } from "@angular/core";
 import { IonicPage } from "ionic-angular";
+import { formatDate } from '../../../network/http';
 
 
 @IonicPage({
@@ -22,23 +23,34 @@ export class Salary {
     private datePipe: DatePipe,
   ) {
     this.salaryDate = new Date();
-    this.getSalaryData();
+    // this.getSalaryData();
+    this.loadSalaryData(new Date());
   }
 
-  nextMonth() {
-    console.log("下一月")
-    this.month ++;
-    this.getSalaryData();
+  // nextMonth() {
+  //   console.log("下一月")
+  //   this.month ++;
+  //   this.getSalaryData();
+  // }
+  // preMonth() {
+  //   console.log("上一月")
+  //   this.month --;
+  //   this.getSalaryData();
+  // }
+
+
+  nextMonth(date) {
+    console.log('next month:');
+    this.loadSalaryData(date);
   }
-  preMonth() {
-    console.log("上一月")
-    this.month --;
-    this.getSalaryData();
+  prevMonth(date) {
+    console.log('prev month:', date);
+    this.loadSalaryData(date);
   }
 
-  getSalaryData() {
-    this.salaryDate = new Date().setMonth(new Date().getMonth() + this.month);
-    let dateString = this.datePipe.transform(this.salaryDate, 'yyyy-MM');
+  loadSalaryData(date){
+    let dateString = formatDate(date, 'yyyy-MM');
+    console.log('date:', dateString);
     this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
       console.log(data)
       this.salaryData = data;
@@ -46,4 +58,15 @@ export class Salary {
       console.log(error)
     })
   }
+
+  // getSalaryData() {
+  //   this.salaryDate = new Date().setMonth(new Date().getMonth() + this.month);
+  //   let dateString = this.datePipe.transform(this.salaryDate, 'yyyy-MM');
+  //   this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
+  //     console.log(data)
+  //     this.salaryData = data;
+  //   }, error => {
+  //     console.log(error)
+  //   })
+  // }
 }
