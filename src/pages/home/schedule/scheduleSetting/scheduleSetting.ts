@@ -45,7 +45,10 @@ export class ScheduleSettingPage {
     this.loadSchedule(now, (list)=>{
       this.list.today = list;
     });
-    this.loadSchedule(new Date(new Date().getDate() + 1), (list)=>{
+    let tomorrow = new Date(new Date().setDate(now.getDate() + 1));
+    console.log('now:', formatDate(now, 'yyyy-MM-dd'));
+    console.log('tomorrow', formatDate(tomorrow, 'yyyy-MM-dd'));
+    this.loadSchedule(tomorrow, (list)=>{
       this.list.tomorrow = list;
     });
   }
