@@ -1,7 +1,6 @@
 import { IonicPage, NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { formatDate } from '../../../../network/http';
-import { ConfirmService } from '../../../../service/confirm.service';
 import { ToastService } from '../../../../service/toast.service';
 import { ScheduleNetwork } from '../../../../network/schedule.network';
 
@@ -21,7 +20,6 @@ export class ScheduleSettingPage {
 
   constructor(
     private navCtrl: NavController,
-    private confirmService: ConfirmService,
     private toastService: ToastService,
     private scheduleNetwork: ScheduleNetwork
     ) {
