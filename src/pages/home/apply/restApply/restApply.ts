@@ -1,15 +1,14 @@
-import { ToastService } from './../../../../service/toast.service';
-import { DatePipe } from '@angular/common';
+import { ToastService } from "./../../../../service/toast.service";
+import { DatePipe } from "@angular/common";
 import { Component } from "@angular/core";
 import {
   IonicPage,
   AlertController,
   NavParams,
   ActionSheetController,
-  NavController,
+  NavController
 } from "ionic-angular";
 import { ApprovalNetwork } from "./../../../../network/approval.network";
-
 
 @IonicPage({
   name: "app-home-rest-apply"
@@ -20,8 +19,8 @@ import { ApprovalNetwork } from "./../../../../network/approval.network";
 })
 export class RestApply {
   applyData: any = {};
-  approvalPersons: any= [];
-  applyTypes: any= [];
+  approvalPersons: any = [];
+  applyTypes: any = [];
   spr: any = [];
   csr: any = [];
   constructor(
@@ -31,7 +30,7 @@ export class RestApply {
     public approvalNetWork: ApprovalNetwork,
     public navCtrl: NavController,
     private datePipe: DatePipe,
-    public toast: ToastService,
+    public toast: ToastService
   ) {
     this.applyData.qjyy = "请选择";
   }
@@ -40,13 +39,13 @@ export class RestApply {
   selectRestType() {
     /// 请假类型没有定义
     if (this.applyTypes.length > 0) {
-      this.showSelectTypeAlert()
+      this.showSelectTypeAlert();
     } else {
       this.approvalNetWork.getRestApplayType().subscribe(
         (data: any) => {
           console.log(data);
           this.applyTypes = data;
-          this.showSelectTypeAlert()
+          this.showSelectTypeAlert();
         },
         error => {
           console.log(error);
@@ -57,31 +56,31 @@ export class RestApply {
 
   /// 请假类型
   showSelectTypeAlert() {
-    var buttons = this.applyTypes.map((item) => {
+    var buttons = this.applyTypes.map(item => {
       return {
         text: item.qjyy,
         handler: () => {
           this.applyData.qjlx = item.id;
           this.applyData.qjyy = item.qjyy;
         }
-      }
-    })
+      };
+    });
     const actionSheet = this.actionSheet.create({
-      buttons: buttons,
+      buttons: buttons
     });
     actionSheet.present();
   }
 
   /// 审批人
   getApprovalPerson() {
-    if (this.approvalPersons.length> 0)  {
-      this.showAddApprovalAlert()
+    if (this.approvalPersons.length > 0) {
+      this.showAddApprovalAlert();
     } else {
       this.approvalNetWork.getStaffList().subscribe(
         (data: any) => {
           console.log(data);
           this.approvalPersons = data;
-          this.showAddApprovalAlert()
+          this.showAddApprovalAlert();
         },
         error => {
           console.log(error);
@@ -91,33 +90,33 @@ export class RestApply {
   }
   /// 审批人
   showAddApprovalAlert() {
-    var buttons = this.approvalPersons.map((item) => {
+    var buttons = this.approvalPersons.map(item => {
       return {
         text: item.zgxm,
         handler: () => {
           this.spr.push({
             id: item.id,
-            zgName: item.zgxm,
-          })
+            zgName: item.zgxm
+          });
         }
-      }
-    })
+      };
+    });
     const actionSheet = this.actionSheet.create({
-      buttons: buttons,
+      buttons: buttons
     });
     actionSheet.present();
   }
 
   /// 抄送人
   getCopyToPerson() {
-    if (this.approvalPersons.length> 0)  {
-      this.showAddCopyToAlert()
+    if (this.approvalPersons.length > 0) {
+      this.showAddCopyToAlert();
     } else {
       this.approvalNetWork.getStaffList().subscribe(
         (data: any) => {
           console.log(data);
           this.approvalPersons = data;
-          this.showAddCopyToAlert()
+          this.showAddCopyToAlert();
         },
         error => {
           console.log(error);
@@ -127,80 +126,73 @@ export class RestApply {
   }
   /// 抄送人
   showAddCopyToAlert() {
-    var buttons = this.approvalPersons.map((item) => {
+    var buttons = this.approvalPersons.map(item => {
       return {
         text: item.zgxm,
         handler: () => {
           this.csr.push({
             id: item.id,
-            zgName: item.zgxm,
-          })
+            zgName: item.zgxm
+          });
         }
-      }
-    })
+      };
+    });
     const actionSheet = this.actionSheet.create({
-      buttons: buttons,
+      buttons: buttons
     });
     actionSheet.present();
   }
 
   resetApply() {
-
     if (!this.applyData.qssj || !this.applyData.jssj) {
       this.toast.show("请选择请假时间");
       return;
     }
 
-    if ((new Date(this.applyData.qssj)).getTime() > (new Date(this.applyData.jssj)).getTime()) {
+    if (
+      new Date(this.applyData.qssj).getTime() >
+      new Date(this.applyData.jssj).getTime()
+    ) {
       this.toast.show("请选择正确的时间");
       return;
     }
 
-    const confirm = this.alertCtrl.create({
-      title: "",
-      message: "你确定要申请吗?",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {
-            console.log("Disagree clicked");
-          }
-        },
-        {
-          text: "确定",
-          handler: () => {
-            console.log("Agree clicked");
-            var spid = this.spr.map((item) => { return item.id });
-            var csid = this.csr.map((item) => { return item.id });
-            var start = this.datePipe.transform(this.applyData.qssj, 'yyyy-MM-dd HH:mm:ss');
-            var end = this.datePipe.transform(this.applyData.jssj, 'yyyy-MM-dd HH:mm:ss');
-            var apply =  {
-              billType: 3,
-              qssj: start,
-              jssj: end,
-              qjsc: this.applyData.qjsc,
-              qjsy: this.applyData.qjsy,
-              qjlx: this.applyData.qjlx,
-            };
-            var params = {
-              apply: JSON.stringify(apply),
-              spid: spid.join(','),
-              csid: csid.join(','),
-            };
-            this.approvalNetWork.applyForReset(params).subscribe(
-              (data: any) => {
-                console.log(data);
-                this.toast.show("申请成功");
-                this.navCtrl.pop();
-              },
-              error => {
-                console.log(error);
-              }
-            );
-          }
-        }
-      ]
+    var spid = this.spr.map(item => {
+      return item.id;
     });
-    confirm.present();
+    var csid = this.csr.map(item => {
+      return item.id;
+    });
+    var start = this.datePipe.transform(
+      this.applyData.qssj,
+      "yyyy-MM-dd HH:mm:ss"
+    );
+    var end = this.datePipe.transform(
+      this.applyData.jssj,
+      "yyyy-MM-dd HH:mm:ss"
+    );
+    var apply = {
+      billType: 3,
+      qssj: start,
+      jssj: end,
+      qjsc: this.applyData.qjsc,
+      qjsy: this.applyData.qjsy,
+      qjlx: this.applyData.qjlx
+    };
+    var params = {
+      apply: JSON.stringify(apply),
+      spid: spid.join(","),
+      csid: csid.join(",")
+    };
+    this.approvalNetWork.applyForReset(params).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.toast.show("申请成功");
+        this.navCtrl.pop();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

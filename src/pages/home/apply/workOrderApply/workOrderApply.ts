@@ -111,21 +111,7 @@ export class WorkOrderApply {
   }
 
   procurementApply() {
-    const confirm = this.alertCtrl.create({
-      title: "",
-      message: "你确定要通过申请吗?",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {
-            console.log("Disagree clicked");
-          }
-        },
-        {
-          text: "确定",
-          handler: () => {
-            console.log("Agree clicked");
-            var spid = this.spr.map((item) => { return item.id });
+    var spid = this.spr.map((item) => { return item.id });
             var csid = this.csr.map((item) => { return item.id });
             var start = this.datePipe.transform(this.applyData.bxsj, 'yyyy-MM-dd HH:mm:ss');
             var apply = {
@@ -151,10 +137,5 @@ export class WorkOrderApply {
                 console.log(error);
               }
             );
-          }
-        }
-      ]
-    });
-    confirm.present();
   }
 }

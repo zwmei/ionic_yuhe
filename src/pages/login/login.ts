@@ -72,14 +72,14 @@ export class LoginPage {
 
       this.storage.set(STORAGE_KEY.USER_INFO, data);
 
-      let nav = this.app.getRootNav();
-      if (nav.canGoBack()) {
-        nav.pop();
-      }
-      else {
-        nav.push('app-tab', { id: 2 });
-
-      }
+      this.navCtrl.push('app-tab', { id: 2 });
+      // let nav = this.app.getRootNav();
+      // if (nav.canGoBack()) {
+      //   nav.pop();
+      // }
+      // else {
+      //   nav.push('app-tab', { id: 2 });
+      // }
     }, err => {
       this.loading.hide();
     })
