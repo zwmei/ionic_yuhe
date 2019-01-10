@@ -19,7 +19,6 @@ export class ScheduleDetailPage {
       this.loadSchedule();
     }
   }
-
   goToPage(pageName, id) {
     pageName = pageName || 'app-home-childCheckList';
     console.log('id:', id);
