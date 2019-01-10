@@ -48,6 +48,15 @@ export class ApprovalDetails {
             (data: any) => {
               console.log(data);
               this.buyDetail = data;
+              this.goodDetail.lymxs = this.buyDetail.cgqds.map(item => {
+                if (item.goodsItem) {
+                  item.name = item.goodsItem.name;
+                  item.brand = item.goodsItem.brand;
+                  item.model = item.goodsItem.model;
+                  item.price = item.goodsItem.price;
+                }
+                return item;
+              })
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
               console.log(this.spr);
@@ -67,6 +76,13 @@ export class ApprovalDetails {
             (data: any) => {
               console.log(data);
               this.goodDetail = data;
+              this.goodDetail.lymxs = this.goodDetail.lymxs.map(item => {
+                if (item.goodsItem) {
+                  item.model = item.goodsItem.model;
+                  item.brand = item.goodsItem.brand;
+                }
+                return item;
+              })
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
               this.picture = data.path;

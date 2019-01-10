@@ -91,7 +91,8 @@
         placeholder="请选择"
         displayFormat="YYYY-MM-DD HH:mm"
         [(ngModel)]="applyData.bxsj"
-        cancelText="取消" doneText="确定"
+        cancelText="取消"
+        doneText="确定"
         >{{ applyData.bxsj }}</ion-datetime
       >
     </ion-item>
@@ -106,10 +107,10 @@
     </ion-item>
     <ion-row padding-horizontal>
       <ion-col class="approval-person" *ngFor="let item of spr; let i = index">
-        <img
-          class="person-image"
-          src="assets/imgs/image-default.png"
-        />
+        <button class="close-button" (click)="deleteSpr(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img class="person-image" src="assets/imgs/image-default.png" />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -130,10 +131,10 @@
     </ion-item>
     <ion-row padding-horizontal>
       <ion-col class="approval-person" *ngFor="let item of csr; let i = index">
-        <img
-          class="person-image"
-          src="assets/imgs/image-default.png"
-        />
+        <button class="close-button" (click)="deleteCsr(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img class="person-image" src="assets/imgs/image-default.png" />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon

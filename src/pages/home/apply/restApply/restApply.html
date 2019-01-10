@@ -6,7 +6,9 @@
   <div class="block-view">
     <ion-item>
       <ion-label class="left">请假类型</ion-label>
-      <button item-end class="right" (click)="selectRestType()">{{applyData.qjyy}}</button>
+      <button item-end class="right" (click)="selectRestType()">
+        {{ applyData.qjyy }}
+      </button>
     </ion-item>
     <ion-item>
       <ion-label class="left">开始时间</ion-label>
@@ -15,7 +17,8 @@
         placeholder="请选择"
         displayFormat="YYYY-MM-DD HH:mm"
         [(ngModel)]="applyData.qssj"
-        cancelText="取消" doneText="确定"
+        cancelText="取消"
+        doneText="确定"
         >{{ applyData.qssj }}</ion-datetime
       >
     </ion-item>
@@ -26,7 +29,8 @@
         placeholder="请选择"
         displayFormat="YYYY-MM-DD HH:mm"
         [(ngModel)]="applyData.jssj"
-        cancelText="取消" doneText="确定"
+        cancelText="取消"
+        doneText="确定"
         >{{ applyData.jssj }}</ion-datetime
       >
     </ion-item>
@@ -38,7 +42,8 @@
         placeholder="请输入"
         type="number"
         [(ngModel)]="applyData.qjsc"
-      >{{ applyData.qjsc }}</ion-input>
+        >{{ applyData.qjsc }}</ion-input
+      >
     </ion-item>
   </div>
 
@@ -70,17 +75,17 @@
 
   <div class="appoval-person-list">
     <ion-item no-lines>
-        <ion-label class="left-title"> 审批人： </ion-label>
-        <button item-end (click)="getApprovalPerson()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-item>
+      <ion-label class="left-title"> 审批人： </ion-label>
+      <button item-end (click)="getApprovalPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
     <ion-row padding-horizontal>
       <ion-col class="approval-person" *ngFor="let item of spr; let i = index">
-        <img
-          class="person-image"
-          src="assets/imgs/image-default.png"
-        />
+        <button class="close-button" (click)="deleteSpr(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img class="person-image" src="assets/imgs/image-default.png" />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -93,27 +98,27 @@
     </ion-row>
   </div>
   <div class="appoval-person-list end">
-      <ion-item no-lines>
-          <ion-label class="left-title"> 抄送人： </ion-label>
-          <button item-end (click)="getCopyToPerson()">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
+    <ion-item no-lines>
+      <ion-label class="left-title"> 抄送人： </ion-label>
+      <button item-end (click)="getCopyToPerson()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
     <ion-row padding-horizontal>
       <ion-col class="approval-person" *ngFor="let item of csr; let i = index">
-          <img
-            class="person-image"
-            src="assets/imgs/image-default.png"
-          />
-          <p>{{ item.zgName }}</p>
-          <!-- <p>{{ item.date }}</p> -->
-          <ion-icon
-            name="arrow-round-forward"
-            class="arrow-right"
-            [ngClass]="item.last"
-            [hidden]="i == csr.length - 1"
-          ></ion-icon>
-        </ion-col>
+        <button class="close-button" (click)="deleteCsr(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img class="person-image" src="assets/imgs/image-default.png" />
+        <p>{{ item.zgName }}</p>
+        <!-- <p>{{ item.date }}</p> -->
+        <ion-icon
+          name="arrow-round-forward"
+          class="arrow-right"
+          [ngClass]="item.last"
+          [hidden]="i == csr.length - 1"
+        ></ion-icon>
+      </ion-col>
     </ion-row>
   </div>
 </ion-content>
