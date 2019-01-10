@@ -201,4 +201,8 @@ export class WorkOrderApply {
   deleteCsr(index) {
     this.csr.splice(index, 1);
   }
+
+  deleteGood(index) {
+    this.applyData.bxqds.splice(index, 1);
+  }
 }

@@ -247,4 +247,7 @@ export class StationeryApply {
   deleteCsr(index) {
     this.csr.splice(index, 1);
   }
+  deleteGood(index) {
+    this.applyData.lymxs.splice(index, 1);
+  }
 }

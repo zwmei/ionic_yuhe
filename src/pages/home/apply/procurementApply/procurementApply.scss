@@ -1,10 +1,8 @@
 .procurement-apply-body {
   background: $color-background;
-
   .block-view {
     margin: 10px 10px;
     background: white;
-
     .left {
       font-size: 14px;
       color: black;
@@ -23,6 +21,17 @@
       margin: 0px 0px;
       text-align: right;
       height: 14px;
+    }
+
+    .header {
+      height: 30px;
+      border-bottom: 1px solid $color-border;
+      .delete-button {
+        position: absolute;
+        margin-top: 5px;
+        right: 16px;
+        border-radius: 8px;
+      }
     }
   }
 

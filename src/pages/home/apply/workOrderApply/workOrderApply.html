@@ -24,7 +24,12 @@
     </ion-item>
   </div>
 
-  <div class="block-view" *ngFor="let item of applyData.bxqds">
+  <div class="block-view" *ngFor="let item of applyData.bxqds; let i = index">
+    <div class="header">
+      <button class="delete-button" (click)="deleteGood(i)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
     <ion-item>
       <ion-label class="left">项目名称</ion-label>
       <ion-input

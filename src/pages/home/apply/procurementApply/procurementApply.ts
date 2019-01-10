@@ -178,7 +178,9 @@ export class ProcurementApply {
   deleteCsr(index) {
     this.csr.splice(index, 1);
   }
-
+  deleteGood(index) {
+    this.applyData.cgqds.splice(index, 1);
+  }
   procurementApply() {
     if (!this.applyData.cgsj || !this.applyData.sqsy) {
       this.toast.show("请完善申请内容");
