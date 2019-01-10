@@ -6,24 +6,6 @@
   <div class="container-fluid">
     <month-switch class="white-switch" (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
   </div>
-  <ion-grid>
-    <!-- <ion-row>
-      <ion-col class="icon-left">
-        <button (click)="preMonth()">
-          <ion-icon name="arrow-dropleft"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col
-        ><p class="date-center">{{ salaryDate | date: "yyyy-MM" }}</p></ion-col
-      >
-      <ion-col>
-        <button (click)="nextMonth()">
-          <ion-icon name="arrow-dropright"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row> -->
-
-  </ion-grid>
   <h2 class="salary-number">{{salaryData.sfgz}}</h2>
   <ion-card class="content-card">
     <ion-list>
