@@ -18,7 +18,7 @@
       <ion-col *ngFor="let item of list" (click)="goToStudentDetail(item.id)">
         <div class='student-item'>
           <div class="student-detail photo">
-              <img class="header-image" src="{{item.image}}" onerror="this.src='../../../assets/imgs/image-default.png'" />
+              <img class="header-image" src="{{item.image}}" onerror="this.src='assets/imgs/image-default.png'" />
           </div>
           <div class="student-detail">
             <label>{{item.name}}</label>

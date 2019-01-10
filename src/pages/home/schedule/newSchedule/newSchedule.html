@@ -16,11 +16,11 @@
     <div class="schedule-setting-area">
       <ion-item>
         <ion-label>日程日期</ion-label>
-        <ion-datetime [(ngModel)]="schedule.startDateString" placeholder="YYYY-MM-DD" displayFormat="YYYY-MM-DD"></ion-datetime>
+        <ion-datetime [(ngModel)]="schedule.startDateString" cancelText="取消" doneText="确定" placeholder="YYYY-MM-DD" displayFormat="YYYY-MM-DD"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>日程时间</ion-label>
-        <ion-datetime [(ngModel)]="schedule.startTimeString" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
+        <ion-datetime [(ngModel)]="schedule.startTimeString" cancelText="取消" doneText="确定" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>标题</ion-label>
