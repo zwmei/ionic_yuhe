@@ -54,6 +54,9 @@ export class ApprovalDetails {
                   item.brand = item.goodsItem.brand;
                   item.model = item.goodsItem.model;
                   item.price = item.goodsItem.price;
+                  if (item.goodsItem.goodsUnit) {
+                    item.unit = item.goodsItem.goodsUnit.name;
+                  }
                 }
                 return item;
               })
