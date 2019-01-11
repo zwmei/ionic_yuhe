@@ -4,6 +4,7 @@ import { CalendarComponent } from './calendar/calendar';
 import { YearSwitchComponent } from './year-switch/year-switch';
 import { MonthSwitchComponent } from './month-switch/month-switch';
 import { SeasonSwitchComponent } from './season-switch/season-switch';
+import { WeekSwitchComponent } from './week-switch/week-switch';
 
 
 @NgModule({
@@ -11,13 +12,15 @@ import { SeasonSwitchComponent } from './season-switch/season-switch';
 		CalendarComponent,
     YearSwitchComponent,
     MonthSwitchComponent,
-    SeasonSwitchComponent
+    SeasonSwitchComponent,
+    WeekSwitchComponent
 	],
 	imports: [IonicModule],
 	exports: [
 		CalendarComponent,
     YearSwitchComponent,
     MonthSwitchComponent,
-    SeasonSwitchComponent]
+    SeasonSwitchComponent,
+    WeekSwitchComponent]
 })
 export class ComponentsModule { }

@@ -1,0 +1,57 @@
+week-switch {
+
+    .calendar-area{
+        
+        display: block;
+        overflow: hidden;
+        margin-top: 20px;
+        background: #fff;
+        
+        height: 132px;
+        padding: 0 16px;
+
+        >p{
+            line-height: 30px;
+            font-size: 20px;
+        }
+        ion-row{
+            color: $color-text;
+            ion-col >span{
+                margin-bottom: 10px;
+            }
+            span, strong{
+                display: block;
+                width: 100%;
+                line-height: 20px;
+                text-align: center;
+                color: $color-text;
+                &.status{
+                    color: $color-primary;
+                    font-weight: bolder;
+                }
+            }
+            .current{
+                
+                >span,>strong{
+                    color: $color-primary;
+                }
+            }
+
+            .today{
+                background: $color-primary;
+                
+                >span,>strong{
+                    color: #fff;
+                }
+                border-radius: 25px;
+            }
+
+            strong{
+                font-size: 20px;
+                //todo 暂时去掉阴历 添加代码支持上下居中
+                height: 40px;
+                line-height: 36px;
+            }
+        }
+    }
+}

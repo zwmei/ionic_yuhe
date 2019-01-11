@@ -69,8 +69,13 @@ export class NewSchedulePage {
     })
       .subscribe((result: { status: number }) => {
         if (result.status === 0) {
-          this.navCtrl.pop();
-          // this.navCtrl.push('app-home-scheduleSetting');
+          if(this.navCtrl.canGoBack()){
+            console.log('can go back');
+            this.navCtrl.pop();
+          }else{
+            console.log('can not go back');
+            this.navCtrl.push('app-home-scheduleSetting');
+          }
         } else {
           this.toastService.show('保存失败！');
         }

@@ -1,0 +1,61 @@
+<!-- Generated template for the WeekSwitchComponent component -->
+<div>
+    <div class="calendar-area">
+        <p>{{currentMonthString}}</p>
+    
+        <ion-row>
+          <ion-col *ngFor="let item of weekDay">
+            <span>{{item.name}}</span>
+            <div ngClass="{{item.current === true ? 'current' : ''}}" (click)="changeDate(item)">
+              <strong class="secondary" color="secondary">{{item.dateNumber}}</strong>
+              <!-- <span>初三</span> -->
+            </div>
+            <!-- <span class="status">*</span> -->
+          </ion-col>
+          <!-- <ion-col>
+            <span>二</span>
+            <div>
+              <strong class="secondary" color="secondary">2</strong>
+              <span>初四</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <span>三</span>
+            <div>
+              <strong class="secondary" color="secondary">3</strong>
+              <span>初五</span>
+            </div>
+            <span class="status">*</span>
+          </ion-col>
+          <ion-col>
+            <span>四</span>
+            <div>
+              <strong class="secondary" color="secondary">4</strong>
+              <span>初六</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <span>五</span>
+            <div class="current">
+                <strong class="secondary" color="secondary">5</strong>
+                <span>初七</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <span>六</span>
+            <div>
+                <strong class="secondary" color="secondary">6</strong>
+                <span>初八</span>
+            </div>
+            <span class="status">*</span>
+          </ion-col>
+          <ion-col>
+            <span>日</span>
+            <div>
+                <strong class="secondary" color="secondary">7</strong>
+                <span>初九</span>
+            </div>
+          </ion-col> -->
+        </ion-row>
+      </div>
+</div>
