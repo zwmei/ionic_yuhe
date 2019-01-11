@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '../../network/http';
 
 /**
@@ -12,6 +12,7 @@ import { formatDate } from '../../network/http';
   templateUrl: 'week-switch.html'
 })
 export class WeekSwitchComponent {
+  @Output () dateChange: EventEmitter <Date> = new EventEmitter();
 
   list = {
     today: [],
