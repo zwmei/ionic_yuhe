@@ -59,6 +59,23 @@
     max-width: 33%;
     padding-right: 20px;
     font-size: 12px;
+    .close-button {
+      position: absolute;
+      top: 0px;
+      right: 26px;
+      border-radius: 8px;
+    }
+  }
+
+  .header {
+    height: 30px;
+    border-bottom: 1px solid $color-border;
+    .delete-button {
+      position: absolute;
+      margin-top: 5px;
+      right: 16px;
+      border-radius: 8px;
+    }
   }
 
   .person-image {

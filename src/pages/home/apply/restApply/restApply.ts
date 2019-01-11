@@ -94,6 +94,10 @@ export class RestApply {
       return {
         text: item.zgxm,
         handler: () => {
+          if (this.isContainId(item.id)) {
+            this.toast.show("已存在，请重新选择");
+            return;
+          }
           this.spr.push({
             id: item.id,
             zgName: item.zgxm
@@ -130,6 +134,10 @@ export class RestApply {
       return {
         text: item.zgxm,
         handler: () => {
+          if (this.isContainId(item.id)) {
+            this.toast.show("已存在，请重新选择");
+            return;
+          }
           this.csr.push({
             id: item.id,
             zgName: item.zgxm
@@ -141,6 +149,19 @@ export class RestApply {
       buttons: buttons
     });
     actionSheet.present();
+  }
+  isContainId(id: any) {
+    for(var i = 0; i < this.spr.length; i ++) {
+      if (id === this.spr[i].id) {
+        return true;
+      }
+    }
+    for(var j = 0; j < this.csr.length; j ++) {
+      if (id === this.csr[j].id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   resetApply() {
@@ -210,5 +231,14 @@ export class RestApply {
         console.log(error);
       }
     );
+  }
+
+  /// 删除审批人
+  deleteSpr(index) {
+    this.spr.splice(index, 1);
+  }
+  /// 删除抄送人
+  deleteCsr(index) {
+    this.csr.splice(index, 1);
   }
 }
