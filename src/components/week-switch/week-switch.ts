@@ -21,6 +21,7 @@ export class WeekSwitchComponent {
   currentFilterDateString: string;
   weekDay;
   todayString: string;
+  currentChangeDateString: string;
   constructor() {
     this.todayString = formatDate(new Date(), 'yyyy-MM-dd');
     this.refreshBoard(new Date());
@@ -70,7 +71,10 @@ export class WeekSwitchComponent {
   }
 
   filterChange(dateString){
-    this.refreshBoard(new Date(dateString));
+    console.log('onchange:');
+    let changeDate = new Date(dateString);
+    this.refreshBoard(changeDate);
+    this.dateChange.emit(changeDate);
   }
 
 
