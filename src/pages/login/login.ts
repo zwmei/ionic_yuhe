@@ -5,7 +5,7 @@ import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
-import { HTTP_URL, getServerAddress } from '../../network/http';
+import { HTTP_URL, getServerAddress, formatDate } from '../../network/http';
 import {isEmpty} from 'lodash';
 
 
@@ -21,6 +21,7 @@ export class LoginPage {
   serverAddress = '';
 
   upStyle={width:'20px', height:'20px'}
+  imgSrc="http://www.yuhe.insighthink.com/yh_YEManager/images/20190112163412478.png";
 
 
   constructor(
@@ -147,6 +148,8 @@ export class LoginPage {
   }
   changeFileName(fileName) {
     this.toastService.show('haha,'+fileName);
+    this.imgSrc = 'http://www.yuhe.insighthink.com/yh_YEManager/images/'+fileName;
+
   }
 
 }
