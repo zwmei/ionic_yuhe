@@ -5,8 +5,9 @@ import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Chooser } from '@ionic-native/chooser';
 import { HTTP_URL, getServerAddress } from '../../network/http';
+import {isEmpty} from 'lodash';
+
 
 
 @Component({
@@ -21,7 +22,6 @@ export class LoginPage {
 
   constructor(
     public geolocation: Geolocation,
-    public chooser: Chooser,
     public navCtrl: NavController,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
@@ -101,12 +101,14 @@ export class LoginPage {
     //     console.log('error', err);
     //     this.toastService.show('file error');
     //   })
+    // this.chooser.open()
 
-    const file = await (<any>window).chooser.getFile();
-    if (file.name) {
-      console.log(file);
-    }
-    console.log('err', file);
+    // const file = await (<any>window).chooser.getFile();
+    // if (file.name) {
+    //   console.log(file);
+    // }
+    // console.log('err', file);
+    // this.userNetwork.uploadFile(file);
   }
 
   onForgetPassword() {
@@ -114,8 +116,8 @@ export class LoginPage {
     this.navCtrl.push('app-forget-password');
   }
 
-  onChangeAddress(event,num) {
-    console.log('event===',event,num);
+  onChangeAddress(event, num) {
+    console.log('event===', event, num);
     this.serverAddress = this.serverAddress || '';
     if (this.serverAddress.endsWith('/')) {
       this.serverAddress = this.serverAddress.slice(0, -1);
@@ -124,6 +126,24 @@ export class LoginPage {
     HTTP_URL.MAIN = getServerAddress();
 
     this.toastService.show('修改成功');
+  }
+
+  changeFile(event) {
+    console.log('file event1', event);
+
+    let files = event.target.files;
+    if (isEmpty(files)) {
+      return;
+    }
+    let file = files[0];
+    event.target.value="";
+    this.userNetwork.uploadFile(file).subscribe((a:any) => {
+      this.toastService.show(a.result.fileName)
+    });
+
+  }
+  changeFileName(fileName) {
+    this.toastService.show('haha,'+fileName);
   }
 
 }

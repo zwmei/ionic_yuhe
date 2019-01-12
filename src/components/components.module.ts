@@ -5,6 +5,7 @@ import { YearSwitchComponent } from './year-switch/year-switch';
 import { MonthSwitchComponent } from './month-switch/month-switch';
 import { SeasonSwitchComponent } from './season-switch/season-switch';
 import { WeekSwitchComponent } from './week-switch/week-switch';
+import { FileUploaderComponent } from './file-uploader/file-uploader';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { WeekSwitchComponent } from './week-switch/week-switch';
     YearSwitchComponent,
     MonthSwitchComponent,
     SeasonSwitchComponent,
-    WeekSwitchComponent
+    WeekSwitchComponent,
+    FileUploaderComponent
 	],
 	imports: [IonicModule],
 	exports: [
@@ -21,6 +23,8 @@ import { WeekSwitchComponent } from './week-switch/week-switch';
     YearSwitchComponent,
     MonthSwitchComponent,
     SeasonSwitchComponent,
-    WeekSwitchComponent]
+    WeekSwitchComponent,
+    FileUploaderComponent
+  ]
 })
 export class ComponentsModule { }
