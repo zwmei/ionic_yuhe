@@ -24,7 +24,7 @@ export class ApprovalDetails {
   levelDetail: any = { lzsq: {} };
   goodDetail: any = { lymxs: [], lysqb: {} };
   orderDetail: any = { bxqds: [], gdsq: {} };
-
+  canRevoke = 0;
   csr: any = [];
   spr: any = [];
   picture: any = [];
@@ -62,8 +62,8 @@ export class ApprovalDetails {
               })
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
+              this.canRevoke = data.canRevoke;
               console.log(this.spr);
-              this.picture = data.path;
             },
             error => {
               console.log(error);
@@ -88,7 +88,8 @@ export class ApprovalDetails {
               })
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
-              this.picture = data.path;
+              this.canRevoke = data.canRevoke;
+              console.log(this.spr);
             },
             error => {
               console.log(error);
@@ -109,7 +110,13 @@ export class ApprovalDetails {
               this.restDetail = data;
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
-              this.picture = data.path;
+              if (data.path) {
+                this.picture = data.path.map(photo => {
+                  return HTTP_URL.MAIN + "/images/" + photo;
+                });
+              }
+              this.canRevoke = data.canRevoke;
+              console.log(this.spr);
             },
             error => {
               console.log(error);
@@ -130,7 +137,13 @@ export class ApprovalDetails {
               this.levelDetail = data;
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
-              this.picture = data.path;
+              if (data.path) {
+                this.picture = data.path.map(photo => {
+                  return HTTP_URL.MAIN + "/images/" + photo;
+                });
+              }
+              this.canRevoke = data.canRevoke;
+              console.log(this.spr);
             },
             error => {
               console.log(error);
@@ -148,7 +161,8 @@ export class ApprovalDetails {
               this.orderDetail = data;
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
-              this.picture = data.path;
+              this.canRevoke = data.canRevoke;
+              console.log(this.spr);
             },
             error => {
               console.log(error);
@@ -164,18 +178,6 @@ export class ApprovalDetails {
     return users.map(item => {
       if (item.staffInformations) {
         item.image = HTTP_URL.MAIN + "/images/" + item.staffInformations.photo;
-      }
-      if (item.zt == 1) {
-        item.ztName = "待审批";
-      } else if (item.zt == 2) {
-        item.ztName = "审批通过";
-        this.orderDetail.isUsed = true;
-      } else if (item.zt == 3) {
-        item.ztName = "审批不通过";
-        this.orderDetail.isUsed = true;
-      } else if (item.zt == 4) {
-        item.ztName = "转让审批";
-        this.orderDetail.isUsed = true;
       }
       return item;
     });
