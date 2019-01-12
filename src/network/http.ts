@@ -128,8 +128,13 @@ export function formatDate(dateTime: Date | string | number, format: string) {
     return '';
   }
   if (!isDate(dateTime)) {
+    if (typeof dateTime == 'string') {
+      dateTime = dateTime.replace(/-/g, '/');
+    }
     dateTime = new Date(dateTime as string);
   }
+
+
   if (!isDate(dateTime)) {
     throw new TypeError('时间格式错误');
   }

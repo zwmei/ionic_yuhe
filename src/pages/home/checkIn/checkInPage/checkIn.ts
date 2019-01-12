@@ -53,7 +53,9 @@ export class CheckInPage {
       image: HTTP_URL.MAIN + '/images/' + loginInfo.photo,
     };
 
-    let middle = new Date(formatDate(new Date(), "yyyy-MM-dd") + " 12:00:00");
+    let middleString = formatDate(new Date(), "yyyy/MM/dd 12:00:00");
+    console.log('middleString:', middleString);
+    let middle = new Date(middleString);
     console.log('middle:', middle);
     let now = new Date();
     if (now.getTime() - middle.getTime() > 0) {
