@@ -7,6 +7,7 @@ import { ToastService } from '../service/toast.service';
 import { App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { StorageService, STORAGE_KEY } from '../service/storage.service';
+import { isDate } from 'lodash';
 
 @Injectable()
 export class HttpNetwork {
@@ -17,24 +18,9 @@ export class HttpNetwork {
     private app: App
   ) { }
 
-  fetch(url, options?) {
-    const httpOptions = {
-      body: undefined,
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      withCredentials: true
-    };
-
-    if (url.indexOf('http') !== 0) {
-      url = `${HTTP_URL.MAIN}${url}`;
-    }
-    options = options || {};
-
-    extend(httpOptions.headers, options.headers || {});
-    if (options.body) {
-      httpOptions.body = options.body;
-    }
+  wrapHttp(requestFunc) {
     return new Observable((observe) => {
-      this.http.request(options.method, url, httpOptions).subscribe({
+      requestFunc.subscribe({
         next: (data: any) => {
           if (!data) {
             this.toast.show('请求没有返回数据');
@@ -57,7 +43,26 @@ export class HttpNetwork {
         complete: () => { observe.complete() }
       });
     });
+  }
 
+  fetch(url, options?) {
+    const httpOptions = {
+      body: undefined,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      withCredentials: true
+    };
+
+    if (url.indexOf('http') !== 0) {
+      url = `${HTTP_URL.MAIN}${url}`;
+    }
+    options = options || {};
+
+    extend(httpOptions.headers, options.headers || {});
+    if (options.body) {
+      httpOptions.body = options.body;
+    }
+    let aa = this.http.request(options.method, url, httpOptions);
+    return this.wrapHttp(aa);
   }
 
   get(url, params?) {
@@ -99,13 +104,56 @@ export class HttpNetwork {
     }
     return this.fetch(url, options);
   }
+  uploadFile(file) {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    let aa = this.http.post(HTTP_URL.MAIN + '/app/approval/application/postFile',
+      formData,
+      {
+        withCredentials: true
+      });
+    return this.wrapHttp(aa);
+  }
 
 
 }
 
-export function formatDate(date: number | Date | string, format: string) {
-  return new DatePipe('en-US').transform(date, format);
+// export function formatDate(date: number | Date | string, format: string) {
+//   return new DatePipe('en-US').transform(date, format);
+// }
+
+export function formatDate(dateTime: Date | string | number, format: string) {
+  if (!dateTime || !format) {
+    return '';
+  }
+  if (!isDate(dateTime)) {
+    dateTime = new Date(dateTime);
+  }
+  if (!isDate(dateTime)) {
+    throw new TypeError('时间格式错误');
+  }
+  dateTime = dateTime as Date;
+
+  let o: any = {
+    "M+": dateTime.getMonth() + 1,                 //月份   
+    "d+": dateTime.getDate(),                    //日   
+    "h+": dateTime.getHours(),                   //小时   
+    "H+": dateTime.getHours(),                   //小时   
+    "m+": dateTime.getMinutes(),                 //分   
+    "s+": dateTime.getSeconds(),                 //秒   
+    "q+": Math.floor((dateTime.getMonth() + 3) / 3), //季度   
+    "S": dateTime.getMilliseconds()             //毫秒   
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (dateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (let k in o)
+    if (new RegExp("(" + k + ")").test(format))
+      format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+
+  return format;
 }
+
 
 export function json2form(a) {
   var s = [],
