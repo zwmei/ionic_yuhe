@@ -9,6 +9,7 @@ import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.
 import { formatDate } from '../../network/http';
 import { ToastService } from '../../service/toast.service';
 import { AuthService } from '../../service/auth.service';
+import { NoticeNetWork } from '../../network/notice.network';
 
 @Component({
   templateUrl: 'home.html'
@@ -23,7 +24,8 @@ export class HomePage {
     private platform: Platform,
     private storage: StorageService,
     private auth: AuthService,
-    private kindergartenOverviewNetwork: KindergartenOverviewNetwork
+    private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
+    private notiNetWork: NoticeNetWork
   ) {
 
     let user = this.storage.get(STORAGE_KEY.USER_INFO);
@@ -319,8 +321,15 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.messageText='关于2018年中秋节、国庆节放假安排';
-
+    this.messageText="";
+    this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
+      console.log(data);
+      data = data ||[];
+      if (data.status){
+        return;
+      }
+      this.messageText = data.slice(0,8).map(item=> item.nr).join('  ');
+    });
     this.onSelectChart('chart1');
   }
 
