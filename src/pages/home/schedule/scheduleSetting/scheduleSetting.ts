@@ -27,6 +27,10 @@ export class ScheduleSettingPage {
     private scheduleNetwork: ScheduleNetwork,
     private confirmService: ConfirmService
   ) {
+    // this.dateChange(new Date());
+  }
+
+  ionViewDidLoad() {
     this.dateChange(new Date());
   }
 
