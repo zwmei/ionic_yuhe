@@ -27,7 +27,7 @@
       <div class="schedule-detail">
         <span>{{item.scheduleTitle}}</span>
       </div>
-
+      <ion-icon name="trash" (click)="deleteSchedule(item)"></ion-icon>
     </div>
     <div class="blank" *ngIf="list.today.length === 0">
       <p>您还没有添加任何日程</p>
@@ -45,6 +45,7 @@
       <div class="schedule-detail">
         <p>{{item.scheduleTitle}}</p>
       </div>
+      <ion-icon name="trash" (click)="deleteSchedule(item)"></ion-icon>
     </div>
 
     <div class="blank" *ngIf="list.tomorrow.length === 0">
@@ -64,6 +65,7 @@
         <div class="schedule-detail">
           <p>{{item.scheduleTitle}}</p>
         </div>
+        <ion-icon name="trash" (click)="removeSchedule($event, item)"></ion-icon>
       </div>
   
       <div class="blank" *ngIf="list.other.length === 0">

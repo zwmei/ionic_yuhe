@@ -114,7 +114,8 @@ export class LoginPage {
     this.navCtrl.push('app-forget-password');
   }
 
-  onChangeAddress() {
+  onChangeAddress(event,num) {
+    console.log('event===',event,num);
     this.serverAddress = this.serverAddress || '';
     if (this.serverAddress.endsWith('/')) {
       this.serverAddress = this.serverAddress.slice(0, -1);
