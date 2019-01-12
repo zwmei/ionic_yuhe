@@ -15,11 +15,13 @@ export class HttpNetwork {
   constructor(
     private http: HttpClient,
     private toast: ToastService,
+    private storage: StorageService,
     private app: App
   ) { }
 
   waitDebounceLogout = () => {
     console.log('logout to login page');
+    this.storage.set(STORAGE_KEY.USER_INFO,null);
     this.app.getRootNav().push(LoginPage);
   }
   debouncedFnc = debounce(this.waitDebounceLogout, 250);
