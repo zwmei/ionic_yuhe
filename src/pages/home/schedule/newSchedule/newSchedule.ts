@@ -1,4 +1,4 @@
-import { IonicPage, NavController, Loading } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ConfirmService } from '../../../../service/confirm.service';
 import { formatDate } from '../../../../network/http';
