@@ -107,6 +107,7 @@ export class ScheduleSettingPage {
         },
         {
           handler: () => {
+            console.log(schedule.id);
             this.scheduleNetwork.deleteSchedule({ id: schedule.id })
               .subscribe((result: any) => {
                 if (result.status === 0) {
@@ -120,7 +121,7 @@ export class ScheduleSettingPage {
         }
       ]
     });
-    // event.stopPropagation();
+    event.stopPropagation();
   }
 
 }

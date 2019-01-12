@@ -38,6 +38,6 @@ export class ScheduleNetwork {
   //删除日程
   //params:id
   deleteSchedule(data) {
-    return this.http.post('/app/schedule/removeSchedule', data);
+    return this.http.postForm('/app/schedule/removeSchedule', data);
   }
 }
