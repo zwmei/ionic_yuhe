@@ -6,7 +6,12 @@
   <div class="block-view">
     <ion-item>
       <ion-label class="left">请假类型</ion-label>
-      <button style="background: none;" item-end class="right" (click)="selectRestType()">
+      <button
+        style="background: none;"
+        item-end
+        class="right"
+        (click)="selectRestType()"
+      >
         {{ applyData.qjyy }}
       </button>
     </ion-item>
@@ -59,19 +64,26 @@
     </div>
   </div>
 
-  <!-- <div class="block-view">
-    <div class="title-view">
-      <p class="left title">图片</p>
-      <ion-row>
-        <ion-col class="reason-img">
-          <img
-            class="header-image"
-            src="assets/imgs/image-default.png"
-          />
-        </ion-col>
-      </ion-row>
-    </div>
-  </div> -->
+  <div class="block-view">
+    <ion-item no-lines>
+      <ion-label class="left-title">图片</ion-label>
+      <button item-end >
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-row>
+      <ion-col class="reason-img" *ngFor="let image of photos; let i = index">
+        <button class="delete-button" (click)="deletePhoto(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img
+          class="header-image"
+          src="{{ image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
+      </ion-col>
+    </ion-row>
+  </div>
 
   <div class="appoval-person-list">
     <ion-item no-lines>
@@ -85,9 +97,11 @@
         <button class="close-button" (click)="deleteSpr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-        src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -111,9 +125,11 @@
         <button class="close-button" (click)="deleteCsr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-        src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon

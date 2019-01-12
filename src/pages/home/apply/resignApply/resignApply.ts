@@ -23,6 +23,8 @@ export class ResignApply {
   approvalPersons: any = [];
   spr: any = [];
   csr: any = [];
+  images = [];
+  photos= [];
 
   constructor(
     public alertCtrl: AlertController,
@@ -186,5 +188,9 @@ export class ResignApply {
   /// 删除抄送人
   deleteCsr(index) {
     this.csr.splice(index, 1);
+  }
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
   }
 }
