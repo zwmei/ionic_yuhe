@@ -63,6 +63,11 @@ export class ApprovalDetails {
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
               this.canRevoke = data.canRevoke;
+              if (data.path) {
+                this.picture = data.path.map(photo => {
+                  return HTTP_URL.MAIN + "/images/" + photo;
+                });
+              }
               console.log(this.spr);
             },
             error => {
@@ -89,6 +94,11 @@ export class ApprovalDetails {
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
               this.canRevoke = data.canRevoke;
+              if (data.path) {
+                this.picture = data.path.map(photo => {
+                  return HTTP_URL.MAIN + "/images/" + photo;
+                });
+              }
               console.log(this.spr);
             },
             error => {
@@ -162,6 +172,11 @@ export class ApprovalDetails {
               this.csr = this.addImageToUser(data.csr);
               this.spr = this.addImageToUser(data.spr);
               this.canRevoke = data.canRevoke;
+              if (data.path) {
+                this.picture = data.path.map(photo => {
+                  return HTTP_URL.MAIN + "/images/" + photo;
+                });
+              }
               console.log(this.spr);
             },
             error => {

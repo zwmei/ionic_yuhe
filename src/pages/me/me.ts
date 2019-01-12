@@ -59,6 +59,7 @@ export class MePage {
     this.userNetwork.logout().subscribe((data:{status:number, message?:string}) => {
       console.log(data);
       if(data.status === 0){
+        this.storage.set(STORAGE_KEY.USER_INFO,null);
         this.navCtrl.setRoot(LoginPage);
       }
 

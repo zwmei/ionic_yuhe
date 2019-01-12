@@ -37,6 +37,11 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
+    let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
+    if (userInfo) {
+      return this.navCtrl.push('app-tab', { id: 2 });
+    }
+
     let loginInfo = this.storage.get(STORAGE_KEY.LOGIN_INFO);
     if (loginInfo && typeof loginInfo === "object") {
       this.username = loginInfo.username;
