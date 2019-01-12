@@ -77,12 +77,19 @@
   .header {
     height: 30px;
     border-bottom: 1px solid $color-border;
-    .delete-button {
+    .delete-good {
       position: absolute;
       margin-top: 5px;
       right: 16px;
       border-radius: 8px;
     }
+  }
+
+  .center-button {
+    background: white;
+    color: aqua;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .person-image {

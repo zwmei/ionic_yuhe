@@ -2,7 +2,11 @@
 
   <div class="header-back">
     <div>
-      <ion-searchbar [(ngModel)]="searchText" [showCancelButton]="true" (ionInput)="onSearch($event)" (ionCancel)="onClearSearchText($event)">
+      <ion-searchbar [(ngModel)]="searchText" 
+      placeholder="搜索"
+      [showCancelButton]="true"
+       (ionInput)="onSearch($event)"
+        (ionCancel)="onClearSearchText($event)">
       </ion-searchbar>
     </div>
   </div>
