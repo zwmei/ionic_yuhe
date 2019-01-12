@@ -29,10 +29,15 @@
             padding: 10px 16px;
             line-height: 20px;
             &.remark{
+                padding: 0;
+                margin: 14px 0;
                 display: block;
                 width: 100%;
                 height: 60px;
             }
+        }
+        .detail{
+            padding: 10px 16px;
         }
     }
 }

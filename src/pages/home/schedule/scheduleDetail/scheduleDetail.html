@@ -9,11 +9,17 @@
 <ion-content class="schedule-detail-page" color="background">
   <div class="schedule-setting-area">
     <p>{{schedule.startDateString}}</p>
-    <ion-item>
+    <div class="detail">
+      <span>内容：</span>
+      <pre>{{schedule.content || '无内容'}}</pre></div>
+    <!-- <ion-item>
       <ion-textarea [(ngModel)]="schedule.content"  readonly disabled>
       </ion-textarea>
-    </ion-item>
-    <p class="remark">{{schedule.remark}}</p>
+    </ion-item> -->
+    <div class="detail">
+        <span>备注：</span>
+        <p class="remark">{{schedule.remark || '无内容'}}</p>
+    </div>
   </div>
 
   <div class="schedule-setting-area">
