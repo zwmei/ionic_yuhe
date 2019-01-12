@@ -7,7 +7,7 @@ import { ToastService } from '../service/toast.service';
 import { App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { StorageService, STORAGE_KEY } from '../service/storage.service';
-import { isDate } from 'lodash';
+import { isDate, debounce } from 'lodash';
 
 @Injectable()
 export class HttpNetwork {
@@ -18,6 +18,12 @@ export class HttpNetwork {
     private app: App
   ) { }
 
+  waitDebounceLogout = () => {
+    console.log('logout to login page');
+    this.app.getRootNav().push(LoginPage);
+  }
+  debouncedFnc = debounce(this.waitDebounceLogout, 250);
+
   wrapHttp(requestFunc) {
     return new Observable((observe) => {
       requestFunc.subscribe({
@@ -27,7 +33,7 @@ export class HttpNetwork {
           }
           else if (data.status) {
             if (data.status == 7001) {
-              this.app.getRootNav().push(LoginPage);
+              this.debouncedFnc();
             }
             this.toast.show(data.message || '获取数据错误');
           }

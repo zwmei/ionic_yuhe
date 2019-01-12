@@ -6,7 +6,7 @@ import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HTTP_URL, getServerAddress, formatDate } from '../../network/http';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
 
 
@@ -20,8 +20,8 @@ export class LoginPage {
   password = '';
   serverAddress = '';
 
-  upStyle={width:'20px', height:'20px'}
-  imgSrc="http://www.yuhe.insighthink.com/yh_YEManager/images/20190112163412478.png";
+  upStyle = { width: '20px', height: '20px' }
+  imgSrc = "http://www.yuhe.insighthink.com/yh_YEManager/images/20190112163412478.png";
 
 
   constructor(
@@ -76,18 +76,15 @@ export class LoginPage {
 
       this.storage.set(STORAGE_KEY.USER_INFO, data);
 
-      this.navCtrl.push('app-tab', { id: 2 });
-      // let nav = this.app.getRootNav();
-      // if (nav.canGoBack()) {
-      //   nav.pop();
-      // }
-      // else {
-      //   nav.push('app-tab', { id: 2 });
-      // }
+      if (this.navCtrl.canGoBack()) {
+        this.navCtrl.pop();
+      }
+      else {
+        this.navCtrl.push('app-tab', { id: 2 });
+      }
     }, err => {
       this.loading.hide();
     })
-
   }
   async onSmsCode() {
     // this.geolocation.getCurrentPosition().then(res => {
@@ -116,7 +113,6 @@ export class LoginPage {
   }
 
   onForgetPassword() {
-    // this.userNetwork.postData().subscribe(data=>{console.log(data)}); //测试代码
     this.navCtrl.push('app-forget-password');
   }
 
@@ -140,16 +136,15 @@ export class LoginPage {
       return;
     }
     let file = files[0];
-    event.target.value="";
-    this.userNetwork.uploadFile(file).subscribe((a:any) => {
+    event.target.value = "";
+    this.userNetwork.uploadFile(file).subscribe((a: any) => {
       this.toastService.show(a.result.fileName)
     });
 
   }
   changeFileName(fileName) {
-    this.toastService.show('haha,'+fileName);
-    this.imgSrc = 'http://www.yuhe.insighthink.com/yh_YEManager/images/'+fileName;
-
+    this.toastService.show('haha,' + fileName);
+    this.imgSrc = 'http://www.yuhe.insighthink.com/yh_YEManager/images/' + fileName;
   }
 
 }
