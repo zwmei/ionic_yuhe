@@ -328,7 +328,7 @@ export class HomePage {
       if (data.status){
         return;
       }
-      this.messageText = data.slice(0,8).map(item=> item.nr).join('  ');
+      this.messageText = data.slice(0,8).map(item=> item.ggbt).join('  ');
     });
     this.onSelectChart('chart1');
   }
