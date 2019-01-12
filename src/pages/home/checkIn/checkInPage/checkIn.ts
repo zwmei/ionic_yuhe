@@ -109,7 +109,7 @@ export class CheckInPage {
 
 
   getUerLocation() {
-    this.loading.show();
+    this.loading.show({content: '定位中...'});
     this.geolocation.getCurrentPosition().then(res => {
       this.loading.hide();
       this.toast.show(`定位成功,${res.coords.longitude},${res.coords.latitude}`);
