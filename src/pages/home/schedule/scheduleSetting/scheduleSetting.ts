@@ -32,12 +32,13 @@ export class ScheduleSettingPage {
 
   loadTodayData() {
     let now = new Date();
-    this.loadSchedule(now, (list) => {
-      this.list.today = list;
-    });
     let tomorrow = new Date(new Date().setDate(now.getDate() + 1));
     console.log('now:', formatDate(now, 'yyyy-MM-dd'));
     console.log('tomorrow', formatDate(tomorrow, 'yyyy-MM-dd'));
+
+    this.loadSchedule(now, (list) => {
+      this.list.today = list;
+    });
     this.loadSchedule(tomorrow, (list) => {
       this.list.tomorrow = list;
     });
@@ -71,19 +72,27 @@ export class ScheduleSettingPage {
   }
 
   loadSchedule(date, callback) {
+    console.log('load schedule:', date);
     this.scheduleNetwork.getScheduleList({
       queryDate: formatDate(date, 'yyyy-MM-dd')
     })
       .subscribe((scheduleList) => {
+        console.log('load schedule success:', scheduleList);
         if (Array.isArray(scheduleList) && scheduleList.length > 0) {
           let newList = scheduleList.map(item => {
+            let timeArray = item.beginTime.spint[':'];
+            let time = '未知'
+            if(timeArray.length === 3){
+              time = [timeArray[0],timeArray[1]].join(':');
+            }
+            console.log('time split', time);
             return {
               id: item.id,
               scheduleTitle: item.title,
-              time: formatDate(new Date(item.scheduleDate + ' ' + item.beginTime), 'HH:mm')
+              time: time
             }
           });
-          console.log(newList);
+          console.log('new list:', JSON.stringify(newList));
           return callback(newList);
         } else {
           return callback([]);
