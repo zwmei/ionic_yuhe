@@ -5,6 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ClassNetwork } from "../../../../network/class.network";
 import { ToastService } from "../../../../service/toast.service";
 import { HTTP_URL } from "../../../../network/http";
+import { LoadingService } from '../../../../service/loading.service';
 
 @IonicPage({
   name: 'app-home-studentManage'
@@ -17,7 +18,7 @@ export class StudentManagePage {
   classId;
   className;
   list: any = [];
-  constructor(private navCtrl: NavController, params: NavParams, private classNetwork: ClassNetwork, private toastService: ToastService) {
+  constructor(private navCtrl: NavController, params: NavParams, private classNetwork: ClassNetwork, private toastService: ToastService, private loadingService:LoadingService) {
     // params.data = params.data || {};
     console.log(params.data);
     this.classId = params.data.id;
@@ -31,15 +32,17 @@ export class StudentManagePage {
   }
 
   getClassStudentList(onSuccess?: any) {
+    this.loadingService.show();
     this.classNetwork.getClassStudents({classId: this.classId})
       .subscribe((studentList: [{ id: number, xm: string, zp: string, normal: number, statusValue: string }]) => {
         console.log(studentList);
+        this.loadingService.hide();
         if(Array.isArray(studentList) && studentList.length > 0){
           this.list = studentList.map((student) => {
             return {
               id: student.id,
               name: student.xm,
-              image: HTTP_URL.MAIN + '/images/' + student.zp,
+              image: student.zp ? HTTP_URL.MAIN + '/images/' + student.zp:'',
               statusDescription: student.normal === 1 ? '正常' : '不正常',
               status: student.normal === 1 ? 'normal' :'unnormal',
               statusString: student.statusValue,
@@ -51,6 +54,7 @@ export class StudentManagePage {
           onSuccess();
         }
       }, err => {
+        this.loadingService.hide();
         this.toastService.show(err.message || '获取班级列表失败！');
       });
   }
