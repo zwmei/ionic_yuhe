@@ -24,6 +24,8 @@ export class ProcurementApply {
   purseGoods: any = [];
   spr: any = [];
   csr: any = [];
+  images = [];
+  photos= [];
 
   constructor(
     public alertCtrl: AlertController,
@@ -247,7 +249,8 @@ export class ProcurementApply {
       apply: JSON.stringify(apply),
       spid: spid.join(","),
       csid: csid.join(","),
-      items: JSON.stringify(items)
+      items: JSON.stringify(items),
+      fileNames: this.images.join(","),
     };
     this.approvalNetWork.applyForBuy(params).subscribe(
       (data: any) => {
@@ -294,4 +297,14 @@ export class ProcurementApply {
   //   });
   //   actionSheet.present();
   // }
+
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
+  }
+
+  changeFileName(fileName) {
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
+  }
 }

@@ -28,7 +28,14 @@ export class StaffAttendancePage {
     this.statistic = {};
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad=====',Date.now());
+  }
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter=====',Date.now());
+  }
   ionViewDidEnter() {
+    console.log('bbhhhhh=====',Date.now());
     this.refreshData();
   }
 

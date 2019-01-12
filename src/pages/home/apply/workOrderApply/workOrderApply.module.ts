@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../../../components/components.module';
 import { ToastService } from './../../../../service/toast.service';
 import { DatePipe } from '@angular/common';
 import { ApprovalNetwork } from './../../../../network/approval.network';
@@ -10,6 +11,7 @@ import { IonicPageModule } from "ionic-angular";
   declarations: [WorkOrderApply],
   imports: [
       IonicPageModule.forChild(WorkOrderApply),
+      ComponentsModule,
     ],
   entryComponents: [WorkOrderApply],
   providers: [ApprovalNetwork, DatePipe, ToastService],

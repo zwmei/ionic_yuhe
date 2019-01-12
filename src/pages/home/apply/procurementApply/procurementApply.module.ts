@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../../../components/components.module';
 import { ToastService } from './../../../../service/toast.service';
 import { ApprovalNetwork } from './../../../../network/approval.network';
 import { ProcurementApply } from "./procurementApply";
@@ -10,6 +11,7 @@ import { DatePipe } from '@angular/common';
   declarations: [ProcurementApply],
   imports: [
       IonicPageModule.forChild(ProcurementApply),
+      ComponentsModule,
     ],
   entryComponents: [ProcurementApply],
   providers: [ApprovalNetwork, DatePipe, ToastService],

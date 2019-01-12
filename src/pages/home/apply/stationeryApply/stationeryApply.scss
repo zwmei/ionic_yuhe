@@ -27,6 +27,13 @@
     }
   }
 
+  .center-button {
+    background: white;
+    color: aqua;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
   .text-input {
     margin: 0 0;
   }
@@ -77,6 +84,13 @@
       right: 16px;
       border-radius: 8px;
     }
+  }
+
+  .delete-button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    border-radius: 8px;
   }
 
   .person-image {

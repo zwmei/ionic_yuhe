@@ -24,6 +24,8 @@ export class WorkOrderApply {
   stationTypes: any = [];
   spr: any = [];
   csr: any = [];
+  images = [];
+  photos= [];
   constructor(
     public alertCtrl: AlertController,
     params: NavParams,
@@ -182,7 +184,8 @@ export class WorkOrderApply {
       spid: spid.join(","),
       csid: csid.join(","),
       // items: items.join(','),
-      items: JSON.stringify(this.applyData.bxqds)
+      items: JSON.stringify(this.applyData.bxqds),
+      fileNames: this.images.join(","),
     };
     this.approvalNetWork.applyForOrder(params).subscribe(
       (data: any) => {
@@ -206,5 +209,15 @@ export class WorkOrderApply {
 
   deleteGood(index) {
     this.applyData.bxqds.splice(index, 1);
+  }
+
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
+  }
+
+  changeFileName(fileName) {
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
   }
 }

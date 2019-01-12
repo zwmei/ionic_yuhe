@@ -24,6 +24,8 @@ export class StationeryApply {
   stationGoods: any = [];
   spr: any = [];
   csr: any = [];
+  images = [];
+  photos= [];
   constructor(
     public alertCtrl: AlertController,
     params: NavParams,
@@ -229,7 +231,8 @@ export class StationeryApply {
       apply: JSON.stringify(apply),
       spid: spid.join(","),
       csid: csid.join(","),
-      items: JSON.stringify(items)
+      items: JSON.stringify(items),
+      fileNames: this.images.join(","),
     };
     this.approvalNetWork.applyForGood(params).subscribe(
       (data: any) => {
@@ -252,5 +255,15 @@ export class StationeryApply {
   }
   deleteGood(index) {
     this.applyData.lymxs.splice(index, 1);
+  }
+
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
+  }
+
+  changeFileName(fileName) {
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
   }
 }
