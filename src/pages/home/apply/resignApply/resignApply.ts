@@ -167,7 +167,8 @@ export class ResignApply {
     var params = {
       apply: JSON.stringify(apply),
       spid: spid.join(","),
-      csid: csid.join(",")
+      csid: csid.join(","),
+      fileNames: this.images.join(","),
     };
     this.approvalNetWork.applyForLeave(params).subscribe(
       (data: any) => {

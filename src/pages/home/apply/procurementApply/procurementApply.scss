@@ -51,6 +51,20 @@
     padding: 10px 5px;
   }
 
+  .center-button {
+    background: white;
+    color: aqua;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .delete-button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    border-radius: 8px;
+  }
+
   .header-image {
     border-radius: 50%;
   }

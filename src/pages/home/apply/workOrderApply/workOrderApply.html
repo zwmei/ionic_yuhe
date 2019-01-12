@@ -103,6 +103,27 @@
     </ion-item>
   </div>
 
+  <!-- <div class="block-view">
+    <ion-item no-lines>
+      <ion-label class="left-title">图片</ion-label>
+      <app-file-uploader
+        item-end
+        (onChange)="changeFileName($event)"
+      ></app-file-uploader>
+    </ion-item>
+    <ion-row>
+      <ion-col class="reason-img" *ngFor="let image of photos; let i = index">
+        <button class="delete-button" (click)="deletePhoto(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img
+          onerror="this.src='assets/imgs/image-faild.png'"
+          src="{{ image }}"
+        />
+      </ion-col>
+    </ion-row>
+  </div> -->
+
   <div class="appoval-person-list">
     <ion-item no-lines>
       <ion-label class="left-title"> 审批人： </ion-label>
@@ -115,9 +136,11 @@
         <button class="close-button" (click)="deleteSpr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-        src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -141,9 +164,11 @@
         <button class="close-button" (click)="deleteCsr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-         src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon

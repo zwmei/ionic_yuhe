@@ -226,7 +226,6 @@ export class RestApply {
       spid: spid.join(","),
       csid: csid.join(","),
       fileNames: this.images.join(","),
-
     };
     this.approvalNetWork.applyForReset(params).subscribe(
       (data: any) => {
