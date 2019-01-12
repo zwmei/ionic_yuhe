@@ -26,7 +26,7 @@
     <div class="block-view">
       <div class="title-view">
         <p class="left title">事由</p>
-        <p >{{ restDetail.qjsq.qjsy }}</p>
+        <p>{{ restDetail.qjsq.qjsy }}</p>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@
     <div class="block-view">
       <div class="title-view">
         <p class="left title">事由</p>
-        <p >{{ levelDetail.lzsq.lzyy }}</p>
+        <p>{{ levelDetail.lzsq.lzyy }}</p>
       </div>
     </div>
   </div>
@@ -195,12 +195,16 @@
       </ion-item>
     </div>
   </div>
-  <div class="block-view" *ngIf="picture.length > 0" >
+  <div class="block-view" *ngIf="picture.length > 0">
     <div class="title-view">
       <p class="left title">图片</p>
       <ion-row>
         <ion-col class="reason-img" *ngFor="let item of picture">
-          <img class="header-image" src="{{item}}" />
+          <img
+            class="header-image"
+            src="{{ item }}"
+            onerror="this.src='assets/imgs/image-default.png'"
+          />
         </ion-col>
       </ion-row>
     </div>
@@ -221,7 +225,7 @@
           class="arrow-right"
           [ngClass]="item.last"
         ></ion-icon>
-        <p>{{ item.ztName || '' }}</p>
+        <p>{{ item.ztName || "" }}</p>
       </ion-col>
     </ion-row>
   </div>
@@ -246,7 +250,7 @@
   </div>
 </ion-content>
 <div>
-  <div class="bottom-view" *ngIf="type === 1 && params.approvalStatus ===3">
+  <div class="bottom-view" *ngIf="type === 1 && params.approvalStatus === 3">
     <button button ion-button (click)="approvalClick()" class="bottom-button">
       通过
     </button>

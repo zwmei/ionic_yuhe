@@ -77,8 +77,8 @@
         <button class="delete-button" (click)="deletePhoto(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <!-- onerror="this.src='assets/imgs/image-default.png'" -->
         <img
+          onerror="this.src='assets/imgs/image-faild.png'"
           src="{{ image }}"
         />
       </ion-col>
