@@ -8,6 +8,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HTTP_URL, getServerAddress } from '../../network/http';
 import {isEmpty} from 'lodash';
 
+
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -139,6 +141,9 @@ export class LoginPage {
       this.toastService.show(a.result.fileName)
     });
 
+  }
+  changeFileName(fileName) {
+    this.toastService.show('haha,'+fileName);
   }
 
 }

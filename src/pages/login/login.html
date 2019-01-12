@@ -42,7 +42,9 @@
     </ion-row>
 
     <input type="file" accept="image/*" id="upload" (change)="changeFile($event)"/>
-
+    <app-file-uploader
+      (onChange)="changeFileName($event)"
+    ></app-file-uploader>
   </div>
 
 </ion-content>
