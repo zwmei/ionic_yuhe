@@ -321,7 +321,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.messageText="";
+    // this.messageText="";
     this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
       console.log(data);
       data = data ||[];

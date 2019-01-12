@@ -7,7 +7,9 @@
     </div>
   </div>
 
-  <ion-row *ngIf="hasPermission('home/note') && !!messageText" class="message-view" justify-content-start align-items-center>
+  <ion-row *ngIf="hasPermission('home/note') && !!messageText" 
+  (click)="goToPage('app-home-announcement')"
+  class="message-view" justify-content-start align-items-center>
     <ion-col col-auto style="padding-right: 0">
       <img alt="花" style="width:24px;height:auto" src="assets/image/home/index/notice.png" />
     </ion-col>
