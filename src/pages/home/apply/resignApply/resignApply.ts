@@ -195,9 +195,7 @@ export class ResignApply {
   }
 
   changeFileName(fileName) {
-    setTimeout(() => {
-      this.images.push(fileName);
-      this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
-    }, 1000);
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
   }
 }
