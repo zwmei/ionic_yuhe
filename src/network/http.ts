@@ -99,6 +99,19 @@ export class HttpNetwork {
     }
     return this.fetch(url, options);
   }
+  uploadFile(file) {
+    let formData = new FormData();
+    formData.append('file',file);
+    this.http.post(HTTP_URL.MAIN+'/app/approval/application/postFile',
+    file,{
+      headers: { 'Content-Type': 'multipart/form-data' },
+      withCredentials: true
+    }).subscribe(data=>{
+      console.log(data);
+    },err=>{
+      console.log(err);
+    });
+  }
 
 
 }

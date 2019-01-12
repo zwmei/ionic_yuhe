@@ -101,12 +101,14 @@ export class LoginPage {
     //     console.log('error', err);
     //     this.toastService.show('file error');
     //   })
+    this.chooser.open()
 
     const file = await (<any>window).chooser.getFile();
     if (file.name) {
       console.log(file);
     }
     console.log('err', file);
+    this.userNetwork.uploadFile(file);
   }
 
   onForgetPassword() {

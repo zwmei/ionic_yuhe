@@ -25,6 +25,11 @@ export class UserNetwork {
     return this.http.get('/app/salary/getSalaryDetail', data);
   }
 
+  uploadFile(file) {
+    return this.http.uploadFile(file);
+  }
+
+
   postData() {
     return this.http.postForm('/app/approval/application/postResignation', {
       "apply": JSON.stringify({ "billType": 4, "sqsj": "2018-12-31 00:00:00", "yjlzsj": "2018-12-31 00:00:00", "lzyy": "对对对" }),
