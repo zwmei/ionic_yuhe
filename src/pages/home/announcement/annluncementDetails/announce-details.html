@@ -52,7 +52,7 @@
         </ion-avatar>
       </ion-col>
     </ion-row>
-    <p padding-horizontal>
+    <p padding-horizontal *ngIf="userid === noticeDetails.fbrid" >
       <button ion-button block (click)="presentAlertConfirm()">一键提醒</button>
     </p>
   </div>

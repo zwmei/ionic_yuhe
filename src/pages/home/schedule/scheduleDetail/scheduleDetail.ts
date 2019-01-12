@@ -2,6 +2,7 @@ import { IonicPage, NavController,NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ScheduleNetwork } from '../../../../network/schedule.network';
 import { ToastService } from '../../../../service/toast.service';
+import { LoadingService } from '../../../../service/loading.service';
 
 @IonicPage({
   name: 'app-home-scheduleDetail'
@@ -12,7 +13,8 @@ import { ToastService } from '../../../../service/toast.service';
 export class ScheduleDetailPage {
   schedule = {};
   scheduleId;
-  constructor(params: NavParams, private navCtrl: NavController, private scheduleNetwork: ScheduleNetwork, private toastService: ToastService) {
+  constructor(params: NavParams, private navCtrl: NavController, private scheduleNetwork: ScheduleNetwork, private toastService: ToastService,
+    private loading: LoadingService) {
     this.scheduleId = params.data.id;
 
     if(this.scheduleId){
@@ -27,10 +29,12 @@ export class ScheduleDetailPage {
 
 
   loadSchedule(){
+    this.loading.show();
     this.scheduleNetwork.getScheduleDetail({
       id: this.scheduleId
     })
       .subscribe((result:any) => {
+        this.loading.hide();
         if(result){
           this.schedule = {
             title: result.title,
@@ -41,6 +45,7 @@ export class ScheduleDetailPage {
           }
         }
       }, err => {
+        this.loading.hide();
         this.toastService.show('获取安排信息失败！');
       });
 

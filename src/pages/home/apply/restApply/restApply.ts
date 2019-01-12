@@ -9,6 +9,7 @@ import {
   NavController
 } from "ionic-angular";
 import { ApprovalNetwork } from "./../../../../network/approval.network";
+import { HTTP_URL } from "../../../../network/http";
 
 @IonicPage({
   name: "app-home-rest-apply"
@@ -91,6 +92,7 @@ export class RestApply {
   /// 审批人
   showAddApprovalAlert() {
     var buttons = this.approvalPersons.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.zgxm,
         handler: () => {
@@ -131,6 +133,7 @@ export class RestApply {
   /// 抄送人
   showAddCopyToAlert() {
     var buttons = this.approvalPersons.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.zgxm,
         handler: () => {

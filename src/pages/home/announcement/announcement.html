@@ -31,7 +31,8 @@
         item.id
       }}</ion-badge> -->
       <ion-avatar item-start>
-        <img src="assets/imgs/image-default.png" />
+        <img src="{{ item.image }}"
+        onerror="this.src='assets/imgs/image-default.png'" />
       </ion-avatar>
       <h2>{{ item.zgxm || '未知' }}</h2>
       <p>{{ item.ggbt || '  ' }}</p>
@@ -41,7 +42,9 @@
         item.id
       }}</ion-badge> -->
       <ion-avatar item-start>
-        <img src="assets/imgs/image-default.png" />
+        <img
+        src="{{ item.image }}"
+        onerror="this.src='assets/imgs/image-default.png'" />
       </ion-avatar>
       <h2>{{ item.zgxm || '未知' }}</h2>
       <p>{{ item.ggbt || '  ' }}</p>

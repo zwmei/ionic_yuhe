@@ -2,6 +2,11 @@ import { NoticeNetWork } from './../../../../network/notice.network';
 import { Component } from "@angular/core";
 import { NavParams, IonicPage, AlertController, NavController } from "ionic-angular";
 import { HTTP_URL } from "../../../../network/http";
+import {
+  StorageService,
+  STORAGE_KEY
+} from "../../../../service/storage.service";
+
 
 @IonicPage({
     name: "app-home-announce-details",
@@ -21,13 +26,18 @@ export class AnnounceDetails {
   unReadUsers: any = [];
   readUsers: any = [];
   noticeDetails = {};
-  
+  userid = "";
   constructor(
-    public alertController: AlertController, 
+    public alertController: AlertController,
     params: NavParams,
     private notiNetWork: NoticeNetWork,
     private navCtr: NavController,
+    private storage: StorageService,
     ) {
+    let loginInfo = this.storage.get(STORAGE_KEY.USER_INFO);
+    console.log("---------------------");
+    console.log(loginInfo);
+    this.userid = loginInfo.id;
     this.item = params.data;
     if (this.item.isRead === 'true') {
       this.notiNetWork.getReadNoticeDetails({id: this.item.id}).subscribe((data) => {

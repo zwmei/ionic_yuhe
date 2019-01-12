@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NavParams, NavController, IonicPage } from "ionic-angular";
 import { NoticeNetWork } from './../../../network/notice.network';
+import { HTTP_URL } from "../../../network/http";
 
 @IonicPage({
   name: "app-home-announcement"
@@ -17,21 +18,31 @@ export class Announcement {
   ionViewDidEnter () {
     this.notiNetWork.getReadNoticeList().subscribe((data: any) => {
       console.log(data);
-      this.readNotiList = data;
+      if (data) {
+        this.readNotiList = data.map(item => {
+          item.image = HTTP_URL.MAIN + "/images/" + item.photo;
+          return item;
+        });
+      }
     }, err => {
       console.log(err)
     });
 
     this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
       console.log(data);
-      this.unReadNotiList = data;
+      if (data) {
+        this.unReadNotiList = data.map(item => {
+          item.image = HTTP_URL.MAIN + "/images/" + item.photo;
+          return item;
+        });
+      }
     }, err => {
       console.log(err)
     });
   }
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     params: NavParams,
     private notiNetWork: NoticeNetWork
     ) {

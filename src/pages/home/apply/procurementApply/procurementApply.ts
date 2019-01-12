@@ -9,6 +9,7 @@ import {
   NavController
 } from "ionic-angular";
 import { ToastService } from "../../../../service/toast.service";
+import { HTTP_URL } from "../../../../network/http";
 
 @IonicPage({
   name: "app-home-procurement-apply"
@@ -96,6 +97,7 @@ export class ProcurementApply {
   /// 审批人
   showAddApprovalAlert() {
     var buttons = this.approvalPersons.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.zgxm,
         handler: () => {
@@ -136,6 +138,7 @@ export class ProcurementApply {
   /// 抄送人
   showAddCopyToAlert() {
     var buttons = this.approvalPersons.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.zgxm,
         handler: () => {

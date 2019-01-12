@@ -1,9 +1,10 @@
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, Loading } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ConfirmService } from '../../../../service/confirm.service';
 import { formatDate } from '../../../../network/http';
 import { ToastService } from "../../../../service/toast.service";
 import { ScheduleNetwork } from "../../../../network/schedule.network";
+import { LoadingService } from '../../../../service/loading.service';
 
 @IonicPage({
   name: 'app-home-newSchedule'
@@ -18,7 +19,8 @@ export class NewSchedulePage {
     private navCtrl: NavController,
     private confirmService: ConfirmService,
     private toastService: ToastService,
-    private scheduleNetwork: ScheduleNetwork
+    private scheduleNetwork: ScheduleNetwork,
+    private loading: LoadingService
   ) {
 
     let now = new Date();
@@ -60,6 +62,8 @@ export class NewSchedulePage {
       return this.toastService.show('描述必填');
     }
 
+    
+    this.loading.show();
     this.scheduleNetwork.saveSchedule({
       title: this.schedule.title,
       content: this.schedule.content,
@@ -68,6 +72,7 @@ export class NewSchedulePage {
       beginTime: this.schedule.startTimeString + ':00'
     })
       .subscribe((result: { status: number }) => {
+        this.loading.hide();
         if (result.status === 0) {
           if(this.navCtrl.canGoBack()){
             console.log('can go back');
@@ -80,6 +85,7 @@ export class NewSchedulePage {
           this.toastService.show('保存失败！');
         }
       }, err => {
+        this.loading.hide();
         this.toastService.show('保存出错！');
       });
 

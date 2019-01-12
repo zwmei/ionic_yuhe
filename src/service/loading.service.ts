@@ -12,7 +12,7 @@ export class LoadingService {
     opt = opt || {};
     this.loading = this.loadingCtrl.create({
       spinner: 'circles',
-      content: opt.content || 'Waiting',
+      content: opt.content || '努力加载中...',
       dismissOnPageChange: true,
       enableBackdropDismiss: true
     });

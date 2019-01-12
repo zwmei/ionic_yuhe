@@ -165,6 +165,18 @@ export class ApprovalDetails {
       if (item.staffInformations) {
         item.image = HTTP_URL.MAIN + "/images/" + item.staffInformations.photo;
       }
+      if (item.zt == 1) {
+        item.ztName = "待审批";
+      } else if (item.zt == 2) {
+        item.ztName = "审批通过";
+        this.orderDetail.isUsed = true;
+      } else if (item.zt == 3) {
+        item.ztName = "审批不通过";
+        this.orderDetail.isUsed = true;
+      } else if (item.zt == 4) {
+        item.ztName = "转让审批";
+        this.orderDetail.isUsed = true;
+      }
       return item;
     });
   }
