@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, App } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { UserNetwork } from '../../network/user.network';
 import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
-import { HTTP_URL, getServerAddress, formatDate } from '../../network/http';
+import { HTTP_URL, getServerAddress } from '../../network/http';
 import { isEmpty } from 'lodash';
 
 
@@ -30,8 +30,7 @@ export class LoginPage {
     private userNetwork: UserNetwork,
     private toastService: ToastService,
     private storage: StorageService,
-    private loading: LoadingService,
-    private app: App
+    private loading: LoadingService
   ) {
     this.serverAddress = this.storage.get(STORAGE_KEY.SERVER_ADDR) || '';
   }

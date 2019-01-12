@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { formatDate } from '../../../../network/http';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
-import { isArray, isEmpty } from 'lodash';
+import { isArray } from 'lodash';
 
 @IonicPage({
   name: 'app-home-staffAttendance'

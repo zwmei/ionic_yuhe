@@ -7,7 +7,6 @@ import { Platform, NavController } from 'ionic-angular';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
-import { ToastService } from '../../service/toast.service';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
 
@@ -18,7 +17,6 @@ export class HomePage {
   constructor(
     private navCtrl: NavController,
     private messageService: MessageService,
-    private toastService: ToastService,
     private confirmService: ConfirmService,
     private actionSheetService: ActionSheetService,
     private platform: Platform,

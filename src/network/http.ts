@@ -1,7 +1,6 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { extend } from 'lodash';
-import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../service/toast.service';
 import { App } from 'ionic-angular';
