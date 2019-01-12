@@ -5,7 +5,6 @@ import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Chooser } from '@ionic-native/chooser';
 import { HTTP_URL, getServerAddress } from '../../network/http';
 
 
@@ -21,7 +20,6 @@ export class LoginPage {
 
   constructor(
     public geolocation: Geolocation,
-    public chooser: Chooser,
     public navCtrl: NavController,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
@@ -101,7 +99,7 @@ export class LoginPage {
     //     console.log('error', err);
     //     this.toastService.show('file error');
     //   })
-    this.chooser.open()
+    // this.chooser.open()
 
     const file = await (<any>window).chooser.getFile();
     if (file.name) {
