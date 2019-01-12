@@ -40,7 +40,7 @@ export class AttendanceChartPage {
     switch (this.currentTag) {
       case 'month':
         console.log('init month');
-        this.loadMonthChart(new Date(formatDate(new Date(), 'yyyy-MM-1')));
+        this.loadMonthChart(new Date(formatDate(new Date(), 'yyyy/MM/1')));
         break;
       case 'season':
         console.log('init season');
@@ -144,7 +144,7 @@ export class AttendanceChartPage {
 
   loadMonthChart(date) {
     let startString = formatDate(date, 'yyyy-MM-dd');
-    let nextMonth = new Date(new Date(startString).setMonth(date.getMonth() + 1));
+    let nextMonth = new Date(new Date(startString.replace(/-/g, '/')).setMonth(date.getMonth() + 1));
     let end = new Date(nextMonth.setDate(nextMonth.getDate() - 1));
     let endString = formatDate(end, 'yyyy-MM-dd');
 

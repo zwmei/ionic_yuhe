@@ -103,7 +103,7 @@ export class ChildCheckChartDetail {
     switch (this.currentTag) {
       case 'month':
         console.log('init month');
-        this.loadMonthChart(new Date(formatDate(new Date(), 'yyyy-MM' + '-1')));
+        this.loadMonthChart(new Date(formatDate(new Date(), 'yyyy/MM' + '/1')));
         break;
       case 'season':
         console.log('init season');
@@ -135,7 +135,7 @@ export class ChildCheckChartDetail {
   }
 
   loadAttendanceStatisticOnChart(startDate, endDate) {
-    this.childAttendanceNetwork.getAttendanceRateChart({ startDate: startDate, endDate: endDate })
+    this.childAttendanceNetwork.getAttendanceRateChart({ startDate: startDate.replace(/\//g, '-'), endDate: endDate.replace(/-g/, '/') })
       .subscribe((result: { absenceCount: number, absenceRate: number, leaveCount: number, leaveRate: number, signCount: number, signRate: number, totalCount: number }) => {
         console.log(result);
         if (result) {
@@ -170,7 +170,7 @@ export class ChildCheckChartDetail {
 
   loadMonthChart(date){
     let startString = formatDate(date, 'yyyy-MM-dd');
-    let nextMonth = new Date(new Date(startString).setMonth(date.getMonth() + 1));
+    let nextMonth = new Date(new Date(startString.replace(/-/g, '/')).setMonth(date.getMonth() + 1));
     let end = new Date(nextMonth.setDate(nextMonth.getDate() - 1));
     let endString = formatDate(end, 'yyyy-MM-dd');
 
@@ -193,7 +193,7 @@ export class ChildCheckChartDetail {
 
   loadSeasonChart(date){
     let startString = formatDate(date, 'yyyy-MM-dd');
-    let nextSeason = new Date(new Date(startString).setMonth(date.getMonth() + 3));
+    let nextSeason = new Date(new Date(startString.replace(/-/g, '/')).setMonth(date.getMonth() + 3));
     let end = new Date(nextSeason.setDate(nextSeason.getDate() - 1));
     let endString = formatDate(end, 'yyyy-MM-dd');
 

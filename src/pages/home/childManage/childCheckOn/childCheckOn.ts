@@ -16,9 +16,11 @@ export class ChildCheckOn {
 
   loadMonthFirstDayAndLastDayString(monthString){
     let firstDayString =monthString + '-' + 1;
-    let lastDayString = monthString + '-' + this.getDayCount(new Date(monthString))
-    this.currentMonthFirstDay = new Date(firstDayString);
-    this.currentMonthLastDay = new Date(lastDayString);
+    let lastDayString = monthString + '-' + this.getDayCount(new Date(firstDayString.replace(/-/g, '/')))
+    this.currentMonthFirstDay = new Date(firstDayString.replace(/-/g, '/'));
+    this.currentMonthLastDay = new Date(lastDayString.replace(/-/g, '/'));
+    console.log('first day:', this.currentMonthFirstDay);
+    console.log('last:', this.currentMonthLastDay);
   }
   
   currentMonthFirstDay :Date;
