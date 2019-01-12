@@ -39,7 +39,12 @@
     </div>
     <ion-item>
       <ion-label class="left">物资</ion-label>
-      <button style="background: none;" item-end class="right" (click)="selectGood(i)">
+      <button
+        style="background: none;"
+        item-end
+        class="right"
+        (click)="selectGood(i)"
+      >
         {{ item.name }}
       </button>
     </ion-item>
@@ -64,6 +69,26 @@
   </div>
 
   <button class="center-button" (click)="addMoreGood()">+添加明细</button>
+  <!-- <div class="block-view">
+    <ion-item no-lines>
+      <ion-label class="left-title">图片</ion-label>
+      <app-file-uploader
+        item-end
+        (onChange)="changeFileName($event)"
+      ></app-file-uploader>
+    </ion-item>
+    <ion-row>
+      <ion-col class="reason-img" *ngFor="let image of photos; let i = index">
+        <button class="delete-button" (click)="deletePhoto(i)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <img
+          onerror="this.src='assets/imgs/image-faild.png'"
+          src="{{ image }}"
+        />
+      </ion-col>
+    </ion-row>
+  </div> -->
 
   <div class="appoval-person-list">
     <ion-item no-lines>
@@ -77,9 +102,11 @@
         <button class="close-button" (click)="deleteSpr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-         src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -103,9 +130,11 @@
         <button class="close-button" (click)="deleteCsr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image"
-         src="{{ item.image }}"
-        onerror="this.src='assets/imgs/image-default.png'" />
+        <img
+          class="person-image"
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
