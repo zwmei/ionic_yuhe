@@ -128,7 +128,7 @@ export function formatDate(dateTime: Date | string | number, format: string) {
     return '';
   }
   if (!isDate(dateTime)) {
-    dateTime = new Date(dateTime);
+    dateTime = new Date(dateTime as string);
   }
   if (!isDate(dateTime)) {
     throw new TypeError('时间格式错误');
@@ -205,6 +205,6 @@ export function getServerAddress() {
 }
 
 export const HTTP_URL = {
-  // MAIN: 'http://www.yuhe.insighthink.com/yh_YEManager'
+  // MAIN: ''
   MAIN: getServerAddress()
 }

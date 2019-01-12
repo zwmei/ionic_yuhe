@@ -36,12 +36,6 @@ export class RestApply {
     public toast: ToastService
   ) {
     this.applyData.qjyy = "请选择";
-    this.images.push("20190112143051820.jpg");
-    this.images.push("20190112143051820.jpg");
-    this.images.push("20190112143051820.jpg");
-    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
-    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
-    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
   }
 
   /// 请假类型
@@ -258,5 +252,9 @@ export class RestApply {
   deletePhoto(index) {
     this.photos.splice(index, 1);
     this.images.splice(index, 1);
+  }
+  changeFileName(fileName) {
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
   }
 }

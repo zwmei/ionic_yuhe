@@ -193,4 +193,11 @@ export class ResignApply {
     this.photos.splice(index, 1);
     this.images.splice(index, 1);
   }
+
+  changeFileName(fileName) {
+    setTimeout(() => {
+      this.images.push(fileName);
+      this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
+    }, 1000);
+  }
 }

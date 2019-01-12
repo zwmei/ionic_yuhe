@@ -8,7 +8,7 @@ import { UserNetwork } from '../../network/user.network';
 @Component({
   selector: 'app-file-uploader',
   template: `
-    <div class="component-view-file-upload" [ngStyle]="styleInfo">
+    <div class="component-view-file-upload">
       <input type="file" accept="image/*" id="upload" (change)="changeFile($event)"/>
       <ion-icon name="add"></ion-icon>
     </div>
