@@ -26,7 +26,7 @@
     <div class="block-view">
       <div class="title-view">
         <p class="left title">事由</p>
-        <p class="right">{{ restDetail.qjsq.qjsy }}</p>
+        <p >{{ restDetail.qjsq.qjsy }}</p>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@
     <div class="block-view">
       <div class="title-view">
         <p class="left title">事由</p>
-        <p class="right">{{ levelDetail.lzsq.lzyy }}</p>
+        <p >{{ levelDetail.lzsq.lzyy }}</p>
       </div>
     </div>
   </div>
@@ -222,7 +222,7 @@
           class="arrow-right"
           [ngClass]="item.last"
         ></ion-icon>
-        <p>{{ item.spsj || '待审批' }}</p>
+        <p>{{ item.ztName || '' }}</p>
       </ion-col>
     </ion-row>
   </div>
@@ -260,7 +260,7 @@
       不通过
     </button>
   </div>
-  <div class="bottom-view" *ngIf="type === 2">
+  <div class="bottom-view" *ngIf="type === 2 && orderDetail.isUsed !== true">
     <button button ion-button (click)="withDrow()" class="center-button">
       撤回
     </button>

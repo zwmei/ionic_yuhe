@@ -2,11 +2,11 @@
         <ion-navbar>
           <ion-title> 编辑邮件 </ion-title>
           <ion-buttons end>
-            <button (click)="sendAnnounceMent()" color="clear">发送</button>
+            <button style="background: none;" (click)="sendAnnounceMent()" color="clear">发送</button>
           </ion-buttons>
         </ion-navbar>
       </ion-header>
-      
+
       <ion-content class="edit-email-body">
         <ion-item>
           <p class="left-title"> 收件人 </p>
@@ -14,11 +14,11 @@
             <ion-icon name="add"></ion-icon>
           </button>
         </ion-item>
-      
+
         <div class="person-list">
           <p class="person-item" *ngFor="let item of reciverList">{{ item }}</p>
         </div>
-      
+
         <ion-item>
           <ion-label class="left-title">邮件主题</ion-label>
           <ion-input type="text" placeholder="请输入通知主题" clearInput [(ngModel)]="title"></ion-input>
@@ -27,14 +27,14 @@
           <ion-label class="left-title" stacked>内容</ion-label>
           <ion-textarea placeholder="请输入通知内容" rows="10" [(ngModel)]="content"> </ion-textarea>
         </ion-item>
-      
+
         <ion-item no-lines>
           <ion-label class="left-title"> 图片 </ion-label>
           <button item-end (click)="addPicture()">
             <ion-icon name="add"></ion-icon>
           </button>
         </ion-item>
-      
+
         <ion-grid>
             <ion-row>
                 <ion-col class="info-img">
@@ -46,4 +46,3 @@
               </ion-row>
         </ion-grid>
       </ion-content>
-      
