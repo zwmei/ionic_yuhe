@@ -34,7 +34,7 @@
         <img src="assets/imgs/image-default.png" />
       </ion-avatar>
       <h2>{{ item.zgxm || '未知' }}</h2>
-      <p>{{ item.ggbt }}</p>
+      <p>{{ item.ggbt || '  ' }}</p>
     </ion-item>
     <ion-item [hidden]="isRead==='true'" *ngFor="let item of unReadNotiList" (click)="clickItem(item)">
       <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
@@ -44,7 +44,7 @@
         <img src="assets/imgs/image-default.png" />
       </ion-avatar>
       <h2>{{ item.zgxm || '未知' }}</h2>
-      <p>{{ item.ggbt }}</p>
+      <p>{{ item.ggbt || '  ' }}</p>
     </ion-item>
   </ion-list>
 

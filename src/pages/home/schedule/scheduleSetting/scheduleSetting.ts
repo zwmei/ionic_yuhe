@@ -13,10 +13,11 @@ import { ScheduleNetwork } from '../../../../network/schedule.network';
 export class ScheduleSettingPage {
   list = {
     today: [],
-    tomorrow: []
+    tomorrow: [],
+    other: []
   };
-  currentMonthString: string;
-  weekDay;
+  todayString = formatDate(new Date(), 'yyyy-MM-dd');
+  isToday = false;
 
   constructor(
     private navCtrl: NavController,
@@ -24,24 +25,11 @@ export class ScheduleSettingPage {
     private scheduleNetwork: ScheduleNetwork
     ) {
     
-    let now = new Date();
-    this.currentMonthString = formatDate(now, 'yyyy-MM');
-    this.weekDay = [{name: '日'}, {name: '一'}, {name: '二'},{name: '三'},{name: '四'},{name: '五'},{name: '六'}];
-    let nowWeekIndex = now.getDay();
+      this.loadTodayData();
+  }
 
-    for(let i = 0; i < 7; i++){
-      if(i < nowWeekIndex){
-        this.weekDay[i].date = new Date(new Date().setDate(now.getDate() - (nowWeekIndex - i)));
-      }else if(i > nowWeekIndex){
-        this.weekDay[i].date = new Date(new Date().setDate(now.getDate() + (i - nowWeekIndex)));
-      }else{
-        this.weekDay[i].date = new Date(formatDate(now, 'yyyy-MM-dd'));
-        this.weekDay[i].today = true;
-      }
-
-      this.weekDay[i].dateNumber = formatDate(this.weekDay[i].date, 'd');
-    }
-
+  loadTodayData(){
+    let now  = new Date();
     this.loadSchedule(now, (list)=>{
       this.list.today = list;
     });
@@ -51,9 +39,26 @@ export class ScheduleSettingPage {
     this.loadSchedule(tomorrow, (list)=>{
       this.list.tomorrow = list;
     });
+    this.isToday = true;
   }
 
-  changeDate(){}
+  
+  dateChange(newDate){
+    console.log('caller');
+    console.log(newDate);
+    this.list.today = [];
+    this.list.tomorrow = [];
+    this.list.other = [];
+    if(formatDate(newDate, 'yyyy-MM-dd') === this.todayString){
+      this.loadTodayData();
+    }else{
+      this.isToday = false;
+      this.loadSchedule(newDate, (list)=>{
+        this.list.other = list;
+      })
+    }
+
+  }
 
   goToPage(pageName, id) {
     pageName = pageName || 'app-home-scheduleDetail';

@@ -13,67 +13,10 @@
 
 <ion-content class="schedule-setting-page" color="background">
 
-    <!-- <week-switch></week-switch> -->
-  <div class="calendar-area">
-    <p>{{currentMonthString}}</p>
+    <week-switch (dateChange)="dateChange($event)"></week-switch>
+ 
 
-    <ion-row>
-      <ion-col *ngFor="let item of weekDay">
-        <span>{{item.name}}</span>
-        <div ngClass="{{item.today === true ? 'current' : ''}}" (click)="changeDate(item)">
-          <strong class="secondary" color="secondary">{{item.dateNumber}}</strong>
-          <!-- <span>初三</span> -->
-        </div>
-        <!-- <span class="status">*</span> -->
-      </ion-col>
-      <!-- <ion-col>
-        <span>二</span>
-        <div>
-          <strong class="secondary" color="secondary">2</strong>
-          <span>初四</span>
-        </div>
-      </ion-col>
-      <ion-col>
-        <span>三</span>
-        <div>
-          <strong class="secondary" color="secondary">3</strong>
-          <span>初五</span>
-        </div>
-        <span class="status">*</span>
-      </ion-col>
-      <ion-col>
-        <span>四</span>
-        <div>
-          <strong class="secondary" color="secondary">4</strong>
-          <span>初六</span>
-        </div>
-      </ion-col>
-      <ion-col>
-        <span>五</span>
-        <div class="current">
-            <strong class="secondary" color="secondary">5</strong>
-            <span>初七</span>
-        </div>
-      </ion-col>
-      <ion-col>
-        <span>六</span>
-        <div>
-            <strong class="secondary" color="secondary">6</strong>
-            <span>初八</span>
-        </div>
-        <span class="status">*</span>
-      </ion-col>
-      <ion-col>
-        <span>日</span>
-        <div>
-            <strong class="secondary" color="secondary">7</strong>
-            <span>初九</span>
-        </div>
-      </ion-col> -->
-    </ion-row>
-  </div>
-
-  <div class="schedule-content">
+  <div class="schedule-content" *ngIf="isToday">
     <p class="label-tip">
       您今天需要做：
     </p>
@@ -91,7 +34,7 @@
     </div>
   </div>
 
-  <div class="schedule-content">
+  <div class="schedule-content" *ngIf="isToday">
     <p class="label-tip">
       您明天需要做：
     </p>
@@ -108,4 +51,23 @@
       <p>您还没有添加任何日程</p>
     </div>
   </div>
+
+
+  <div class="schedule-content" *ngIf="!isToday">
+      <p class="label-tip">
+        您需要做：
+      </p>
+      <div class="schedule-item" *ngFor="let item of list.other" (click)="goToPage('app-home-scheduleDetail', item.id)">
+        <div class="schedule-time">
+          <time>{{item.time}}</time>
+        </div>
+        <div class="schedule-detail">
+          <p>{{item.scheduleTitle}}</p>
+        </div>
+      </div>
+  
+      <div class="blank" *ngIf="list.other.length === 0">
+        <p>您还没有添加任何日程</p>
+      </div>
+    </div>
 </ion-content>

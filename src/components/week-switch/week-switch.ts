@@ -18,27 +18,33 @@ export class WeekSwitchComponent {
     today: [],
     tomorrow: []
   };
-  currentMonthString: string;
+  currentFilterDateString: string;
   weekDay;
+  todayString: string;
+  currentChangeDateString: string;
   constructor() {
-    let now = new Date();
-    this.refreshBoard(now);
-    console.log('today:', now);
+    this.todayString = formatDate(new Date(), 'yyyy-MM-dd');
+    this.refreshBoard(new Date());
+  }
+
+  isToday(newDate){
+    return formatDate(newDate, 'yyyy-MM-dd') === this.todayString;
   }
 
   refreshBoard(newDate){
-    this.currentMonthString = formatDate(newDate, 'yyyy-MM');
+    this.currentFilterDateString = formatDate(newDate, 'yyyy-MM-dd');
     this.weekDay = [{name: '日'}, {name: '一'}, {name: '二'},{name: '三'},{name: '四'},{name: '五'},{name: '六'}];
-    let newWeekIndex = newDate.getDay();
+    let theDateIndex = newDate.getDay();
 
     for(let i = 0; i < 7; i++){
-      if(i < newWeekIndex){
-        this.weekDay[i].date = new Date(new Date().setDate(newDate.getDate() - (newWeekIndex - i)));
-      }else if(i > newWeekIndex){
-        this.weekDay[i].date = new Date(new Date().setDate(newDate.getDate() + (i - newWeekIndex)));
-      }else{
+      if(i < theDateIndex){//筛选的这天之前
+        this.weekDay[i].date = new Date(new Date().setDate(newDate.getDate() - (theDateIndex - i)));
+      }else if(i > theDateIndex){//筛选的这天之后
+        this.weekDay[i].date = new Date(new Date().setDate(newDate.getDate() + (i - theDateIndex)));
+      }else{//筛选出的这一天
         this.weekDay[i].date = new Date(formatDate(newDate, 'yyyy-MM-dd'));
         this.weekDay[i].current = true;
+        this.weekDay[i].today = this.isToday(this.weekDay[i].date);
       }
 
       this.weekDay[i].dateNumber = formatDate(this.weekDay[i].date, 'd');
@@ -46,12 +52,29 @@ export class WeekSwitchComponent {
   }
 
   changeDate(dateItem){
+    if(dateItem.current){//点击以选中的日期，不做任何事情
+      return;
+    }
+
+    //清除其他所有日期的标记
     this.weekDay.forEach(item=>{
       item.current = false;
+      item.today = false;
     });
-    dateItem.current = true;
+
     //reloadData
     console.log('click date:', formatDate(dateItem.date, 'yyyy-MM-dd'));
+
+    dateItem.current = true;
+    dateItem.today = this.isToday(dateItem.date);
+    this.dateChange.emit(dateItem.date);
+  }
+
+  filterChange(dateString){
+    console.log('onchange:');
+    let changeDate = new Date(dateString);
+    this.refreshBoard(changeDate);
+    this.dateChange.emit(changeDate);
   }
 
 
