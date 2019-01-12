@@ -17,24 +17,9 @@ export class HttpNetwork {
     private app: App
   ) { }
 
-  fetch(url, options?) {
-    const httpOptions = {
-      body: undefined,
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      withCredentials: true
-    };
-
-    if (url.indexOf('http') !== 0) {
-      url = `${HTTP_URL.MAIN}${url}`;
-    }
-    options = options || {};
-
-    extend(httpOptions.headers, options.headers || {});
-    if (options.body) {
-      httpOptions.body = options.body;
-    }
+  wrapHttp(requestFunc) {
     return new Observable((observe) => {
-      this.http.request(options.method, url, httpOptions).subscribe({
+      requestFunc.subscribe({
         next: (data: any) => {
           if (!data) {
             this.toast.show('请求没有返回数据');
@@ -57,7 +42,26 @@ export class HttpNetwork {
         complete: () => { observe.complete() }
       });
     });
+  }
 
+  fetch(url, options?) {
+    const httpOptions = {
+      body: undefined,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      withCredentials: true
+    };
+
+    if (url.indexOf('http') !== 0) {
+      url = `${HTTP_URL.MAIN}${url}`;
+    }
+    options = options || {};
+
+    extend(httpOptions.headers, options.headers || {});
+    if (options.body) {
+      httpOptions.body = options.body;
+    }
+    let aa = this.http.request(options.method, url, httpOptions);
+    return this.wrapHttp(aa);
   }
 
   get(url, params?) {
@@ -101,16 +105,14 @@ export class HttpNetwork {
   }
   uploadFile(file) {
     let formData = new FormData();
-    formData.append('file',file);
-    this.http.post(HTTP_URL.MAIN+'/app/approval/application/postFile',
-    file,{
-      headers: { 'Content-Type': 'multipart/form-data' },
-      withCredentials: true
-    }).subscribe(data=>{
-      console.log(data);
-    },err=>{
-      console.log(err);
-    });
+    formData.append('file', file);
+
+    let aa = this.http.post(HTTP_URL.MAIN + '/app/approval/application/postFile',
+      formData,
+      {
+        withCredentials: true
+      });
+    return this.wrapHttp(aa);
   }
 
 
