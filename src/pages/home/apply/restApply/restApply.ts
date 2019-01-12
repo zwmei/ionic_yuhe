@@ -24,6 +24,8 @@ export class RestApply {
   applyTypes: any = [];
   spr: any = [];
   csr: any = [];
+  images = [];
+  photos= [];
   constructor(
     public alertCtrl: AlertController,
     params: NavParams,
@@ -34,6 +36,12 @@ export class RestApply {
     public toast: ToastService
   ) {
     this.applyData.qjyy = "请选择";
+    this.images.push("20190112143051820.jpg");
+    this.images.push("20190112143051820.jpg");
+    this.images.push("20190112143051820.jpg");
+    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
+    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
+    this.photos.push(HTTP_URL.MAIN + "/images/" + "20190112143051820.jpg");
   }
 
   /// 请假类型
@@ -222,7 +230,9 @@ export class RestApply {
     var params = {
       apply: JSON.stringify(apply),
       spid: spid.join(","),
-      csid: csid.join(",")
+      csid: csid.join(","),
+      fileNames: this.images.join(","),
+
     };
     this.approvalNetWork.applyForReset(params).subscribe(
       (data: any) => {
@@ -243,5 +253,10 @@ export class RestApply {
   /// 删除抄送人
   deleteCsr(index) {
     this.csr.splice(index, 1);
+  }
+
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
   }
 }
