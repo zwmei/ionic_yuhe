@@ -41,10 +41,8 @@
       <button ion-button color="primary" (click)="onChangeAddress($event,123)">修改</button>
     </ion-row>
 
-    <input type="file" accept="image/*" id="upload" (change)="changeFile($event)"/>
-    <app-file-uploader
-      (onChange)="changeFileName($event)"
-    ></app-file-uploader>
+    <input type="file" accept="image/*" id="upload" (change)="changeFile($event)" />
+    <app-file-uploader (onChange)="changeFileName($event)"></app-file-uploader>
   </div>
 
 </ion-content>

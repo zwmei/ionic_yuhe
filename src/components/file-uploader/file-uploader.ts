@@ -15,7 +15,7 @@ import { UserNetwork } from '../../network/user.network';
   `
 })
 export class FileUploaderComponent {
-
+  @Input() styleInfo: object;
   @Output() onChange = new EventEmitter<string>();
 
   constructor(
