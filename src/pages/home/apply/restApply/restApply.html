@@ -85,7 +85,9 @@
         <button class="close-button" (click)="deleteSpr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image" src="assets/imgs/image-default.png" />
+        <img class="person-image"
+        src="{{ item.image }}"
+        onerror="this.src='assets/imgs/image-default.png'" />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon
@@ -109,7 +111,9 @@
         <button class="close-button" (click)="deleteCsr(i)">
           <ion-icon name="close"></ion-icon>
         </button>
-        <img class="person-image" src="assets/imgs/image-default.png" />
+        <img class="person-image"
+        src="{{ item.image }}"
+        onerror="this.src='assets/imgs/image-default.png'" />
         <p>{{ item.zgName }}</p>
         <!-- <p>{{ item.date }}</p> -->
         <ion-icon

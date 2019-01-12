@@ -9,6 +9,7 @@ import {
   ActionSheetController,
   NavController
 } from "ionic-angular";
+import { HTTP_URL } from "../../../../network/http";
 
 @IonicPage({
   name: "app-home-stationery-apply"
@@ -62,6 +63,7 @@ export class StationeryApply {
   /// 领用类型
   showStationTypeAlert(i) {
     var buttons = this.stationGoods.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.name,
         handler: () => {
@@ -95,6 +97,7 @@ export class StationeryApply {
   /// 审批人
   showAddApprovalAlert() {
     var buttons = this.approvalPersons.map(item => {
+      item.image = HTTP_URL.MAIN + "/images/" + item.photo;
       return {
         text: item.zgxm,
         handler: () => {
