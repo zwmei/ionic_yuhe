@@ -31,9 +31,19 @@ export class ScheduleSettingPage {
   }
 
   ionViewDidLoad() {
-    this.dateChange(new Date());
+    console.log('ion view did load');
+    // this.dateChange(new Date());
   }
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.dateChange(new Date());
+    // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+    // this.dateChange(new Date());
+    // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
   loadTodayData() {
     let now = new Date();
     let tomorrow = new Date(new Date().setDate(now.getDate() + 1));
@@ -76,27 +86,25 @@ export class ScheduleSettingPage {
   }
 
   loadSchedule(date, callback) {
-    console.log('load schedule:', date);
+    
     this.scheduleNetwork.getScheduleList({
       queryDate: formatDate(date, 'yyyy-MM-dd')
     })
       .subscribe((scheduleList) => {
-        console.log('load schedule success:', scheduleList);
         if (Array.isArray(scheduleList) && scheduleList.length > 0) {
           let newList = scheduleList.map(item => {
-            let timeArray = item.beginTime.spint[':'];
+            let timeArray = item.beginTime.split(':');
             let time = '未知'
             if(timeArray.length === 3){
               time = [timeArray[0],timeArray[1]].join(':');
             }
-            console.log('time split', time);
+            
             return {
               id: item.id,
               scheduleTitle: item.title,
               time: time
             }
           });
-          console.log('new list:', JSON.stringify(newList));
           return callback(newList);
         } else {
           return callback([]);
@@ -109,7 +117,6 @@ export class ScheduleSettingPage {
   }
 
   removeSchedule(event, schedule) {
-    console.log('event:',event);
     this.confirmService.show({
       title: '删除日程',
       subTitle: '确认删除该日程吗？',
@@ -120,7 +127,7 @@ export class ScheduleSettingPage {
         },
         {
           handler: () => {
-            console.log(schedule.id);
+            
             this.scheduleNetwork.deleteSchedule({ id: schedule.id })
               .subscribe((result: any) => {
                 if (result.status === 0) {
