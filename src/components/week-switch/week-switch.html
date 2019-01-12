@@ -1,18 +1,23 @@
 <!-- Generated template for the WeekSwitchComponent component -->
 <div>
-    <div class="calendar-area">
-        <p>{{currentMonthString}}</p>
-    
-        <ion-row>
-          <ion-col *ngFor="let item of weekDay">
-            <span>{{item.name}}</span>
-            <div ngClass="{{item.current === true ? 'current' : ''}}" (click)="changeDate(item)">
-              <strong class="secondary" color="secondary">{{item.dateNumber}}</strong>
-              <!-- <span>初三</span> -->
-            </div>
-            <!-- <span class="status">*</span> -->
-          </ion-col>
-          <!-- <ion-col>
+  <div class="calendar-area">
+    <div class="date-range-pick">
+        <!-- <p>{{currentMonthString}}</p> -->
+        <ion-item middle>
+          <ion-datetime [(ngModel)]="currentFilterDateString" placeholder="筛选" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD"
+            pickerFormat="YYYY-MM-DD" (ngModelChange)="filterChange($event)"></ion-datetime>
+        </ion-item>
+    </div>
+    <ion-row>
+      <ion-col *ngFor="let item of weekDay">
+        <span>{{item.name}}</span>
+        <div [ngClass]="{'current': item.current === true, 'today': item.today === true}" (click)="changeDate(item)">
+          <strong class="secondary" color="secondary">{{item.dateNumber}}</strong>
+          <!-- <span>初三</span> -->
+        </div>
+        <!-- <span class="status">*</span> -->
+      </ion-col>
+      <!-- <ion-col>
             <span>二</span>
             <div>
               <strong class="secondary" color="secondary">2</strong>
@@ -56,6 +61,6 @@
                 <span>初九</span>
             </div>
           </ion-col> -->
-        </ion-row>
-      </div>
+    </ion-row>
+  </div>
 </div>

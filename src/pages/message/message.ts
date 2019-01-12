@@ -71,6 +71,11 @@ export class MessagePage {
     this.navCtrl.push('app-home-childCheckOnManage', { id: 123 });
   }
 
+  dateChange(event){
+    console.log('caller');
+    console.log(event);
+
+  }
 
   // menu: Array<any>;
 

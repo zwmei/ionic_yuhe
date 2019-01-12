@@ -1,7 +1,6 @@
 week-switch {
 
     .calendar-area{
-        
         display: block;
         overflow: hidden;
         margin-top: 20px;
@@ -10,10 +9,60 @@ week-switch {
         height: 132px;
         padding: 0 16px;
 
+       
         >p{
+            display: inline-block;
+            float: left;
+            width: 100%;
             line-height: 30px;
             font-size: 20px;
         }
+
+        .date-range-pick{
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 30px;
+            ion-item{
+                display: inline-block;
+                float: left;
+                width: 100%;
+                height: 30px;
+                margin: 0 auto;
+                text-align: center;
+                padding-left: 0 !important;
+                border: none !important;
+                .item-inner{
+                    border: none;
+                    height: 30px;
+                    overflow: hidden;
+
+                    .input-wrapper{
+                        height: 30px !important;
+                    }
+                    ion-datetime{
+                        padding: 0;
+                        margin: 0 auto;
+                    }
+                }
+            }
+            span{
+                display: inline-block;
+                float: left;
+                width: 10%;
+                line-height: 50px;
+                text-align: center;
+            }
+            >button{
+                display: inline-block;
+                float: left;
+                width: 20%;
+                height: 30px;
+                margin-top: 10px;
+            }
+        }
+
+
         ion-row{
             color: $color-text;
             ion-col >span{
@@ -37,7 +86,7 @@ week-switch {
                 }
             }
 
-            .today{
+            .current.today{
                 background: $color-primary;
                 
                 >span,>strong{
