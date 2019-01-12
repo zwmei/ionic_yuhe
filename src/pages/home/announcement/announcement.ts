@@ -31,7 +31,7 @@ export class Announcement {
   }
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     params: NavParams,
     private notiNetWork: NoticeNetWork
     ) {
