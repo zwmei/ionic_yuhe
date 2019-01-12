@@ -81,8 +81,6 @@ export class CheckInPage {
       }
     );
 
-    this.getUerLocation();
-
     this.checkNetWork.getDayReport({
       checkDate: formatDate(new Date(), "yyyy-MM-dd")
       // checkDate: "2019-1-1"
@@ -102,70 +100,62 @@ export class CheckInPage {
   ngOnDestroy() {
     clearInterval(this.timer);
   }
-
   attendanceRecord() {
     this.nav.push("app-home-attendanceReport");
   }
-
-
-  getUerLocation() {
+  checkInClick() {
     this.loading.show({content: '定位中...'});
     this.geolocation.getCurrentPosition().then(res => {
       this.loading.hide();
-      this.toast.show(`定位成功,${res.coords.longitude},${res.coords.latitude}`);
+      // this.toast.show(`定位成功,${res.coords.longitude},${res.coords.latitude}`);
+      console.log(res);
       this.userLocation = [];
       this.userLocation.push(res.coords.latitude);
       this.userLocation.push(res.coords.longitude);
+      if (this.isChenckIn) {
+        this.checkNetWork
+          .checkIn({
+            latitude: this.userLocation[0],
+            longitude: this.userLocation[1]
+          })
+          .subscribe(
+            (data: any) => {
+              console.log(data);
+              if (data.status == 0) {
+                this.checkData.sbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+                this.toast.show('打卡成功');
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
+      } else {
+        this.checkNetWork
+          .checkOut({
+            latitude: this.userLocation[0],
+            longitude: this.userLocation[1]
+          })
+          .subscribe(
+            (data: any) => {
+              console.log(data);
+              if (data.status == 0) {
+                this.checkData.xbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+                this.toast.show('打卡成功');
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
+      }
     }, err => {
       this.loading.hide();
       this.toast.show('定位失败');
     })
   }
 
-  checkInClick() {
-    if (this.userLocation.length < 2) {
-      this.getUerLocation();
-      return;
-    }
-    if (this.isChenckIn) {
-      this.checkNetWork
-        .checkIn({
-          latitude: this.userLocation[0],
-          longitude: this.userLocation[1]
-        })
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-            if (data.status == 0) {
-              this.checkData.sbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
-              this.toast.show('打卡成功');
-            }
-          },
-          error => {
-            console.log(error);
-          }
-        );
-    } else {
-      this.checkNetWork
-        .checkOut({
-          latitude: this.userLocation[0],
-          longitude: this.userLocation[1]
-        })
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-            if (data.status == 0) {
-              this.checkData.xbsj = formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
-              this.toast.show('打卡成功');
-            }
-          },
-          error => {
-            console.log(error);
-          }
-        );
-    }
-  }
   reloadLocation() {
-    this.getUerLocation();
-   }
+    // this.getUerLocation();
+  }
 }
