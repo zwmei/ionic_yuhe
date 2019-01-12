@@ -20,6 +20,9 @@ export class LoginPage {
   password = '';
   serverAddress = '';
 
+  upStyle={width:'20px', height:'20px'}
+
+
   constructor(
     public geolocation: Geolocation,
     public navCtrl: NavController,

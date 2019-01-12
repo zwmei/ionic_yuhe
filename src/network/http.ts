@@ -7,6 +7,7 @@ import { ToastService } from '../service/toast.service';
 import { App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { StorageService, STORAGE_KEY } from '../service/storage.service';
+import { isDate } from 'lodash';
 
 @Injectable()
 export class HttpNetwork {
@@ -118,9 +119,41 @@ export class HttpNetwork {
 
 }
 
-export function formatDate(date: number | Date | string, format: string) {
-  return new DatePipe('en-US').transform(date, format);
+// export function formatDate(date: number | Date | string, format: string) {
+//   return new DatePipe('en-US').transform(date, format);
+// }
+
+export function formatDate(dateTime: Date | string | number, format: string) {
+  if (!dateTime || !format) {
+    return '';
+  }
+  if (!isDate(dateTime)) {
+    dateTime = new Date(dateTime);
+  }
+  if (!isDate(dateTime)) {
+    throw new TypeError('时间格式错误');
+  }
+  dateTime = dateTime as Date;
+
+  let o: any = {
+    "M+": dateTime.getMonth() + 1,                 //月份   
+    "d+": dateTime.getDate(),                    //日   
+    "h+": dateTime.getHours(),                   //小时   
+    "H+": dateTime.getHours(),                   //小时   
+    "m+": dateTime.getMinutes(),                 //分   
+    "s+": dateTime.getSeconds(),                 //秒   
+    "q+": Math.floor((dateTime.getMonth() + 3) / 3), //季度   
+    "S": dateTime.getMilliseconds()             //毫秒   
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (dateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (let k in o)
+    if (new RegExp("(" + k + ")").test(format))
+      format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+
+  return format;
 }
+
 
 export function json2form(a) {
   var s = [],

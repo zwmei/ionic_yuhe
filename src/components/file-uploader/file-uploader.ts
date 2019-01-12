@@ -8,14 +8,14 @@ import { UserNetwork } from '../../network/user.network';
 @Component({
   selector: 'app-file-uploader',
   template: `
-    <div class="component-view-file-upload" [ngStyle]="{style}">
+    <div class="component-view-file-upload" [ngStyle]="styleInfo">
       <input type="file" accept="image/*" id="upload" (change)="changeFile($event)"/>
       <ion-icon name="add"></ion-icon>
     </div>
   `
 })
 export class FileUploaderComponent {
-  @Input() style: string;
+  @Input() styleInfo: object;
   @Output() onChange = new EventEmitter<string>();
 
   constructor(
