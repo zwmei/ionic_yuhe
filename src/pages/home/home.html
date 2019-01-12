@@ -45,15 +45,15 @@
       </div>
     </ion-row>
   </div>
-  <div class="chart-view" *ngIf="chartName==='chart1'">
+  <div class="chart-view chart-view1" *ngIf="chartName==='chart1'">
     <div class="chart-item" [chart]="chart1"></div>
   </div>
 
-  <div class="chart-view" *ngIf="chartName==='chart2'" (click)="goToPage('app-home-sickness-case')">
+  <div class="chart-view  chart-view2" *ngIf="chartName==='chart2'" (click)="goToPage('app-home-sickness-case')">
     <div class="chart-item" [chart]="chart2"></div>
   </div>
 
-  <div class="chart-view" *ngIf="chartName==='chart3'" (click)="goToPage('app-home-financial-reporting')">
+  <div class="chart-view  chart-view3" *ngIf="chartName==='chart3'" (click)="goToPage('app-home-financial-reporting')">
     <div class="chart-item" [chart]="chart3"></div>
   </div>
 
