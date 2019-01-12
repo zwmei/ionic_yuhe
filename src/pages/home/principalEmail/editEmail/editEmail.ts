@@ -34,13 +34,13 @@ export class EditEmail {
       ],
       buttons: [
         {
-          text: "Cancel",
+          text: "取消",
           handler: data => {
             console.log("Cancel clicked");
           }
         },
         {
-          text: "Save",
+          text: "确定",
           handler: data => {
             this.reciverList.push(data.email);
           }
@@ -55,6 +55,6 @@ export class EditEmail {
   }
 
   sendAnnounceMent() {
-      
+
   }
 }
