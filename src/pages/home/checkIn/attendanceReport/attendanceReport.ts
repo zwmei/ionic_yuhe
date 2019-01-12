@@ -80,9 +80,11 @@ export class AttendanceReportPage {
           console.log('count: ', this.checkIn.count);
 
           if (this.checkIn.count === 2) {
-            console.log('xbsj:', new Date(result[0].xbsj).getTime());
-            console.log('sbsj:', new Date(result[0].sbsj).getTime());
-            this.checkIn.hour = parseFloat(((new Date(result[0].xbsj).getTime() - new Date(result[0].sbsj).getTime()) / 1000 / 24 / 60 / 60).toFixed(2));
+            console.log('sb',result[0].xbsj);
+            console.log('xb',result[0].sbsj);
+            let end = new Date(result[0].xbsj.replace(/-/g, '/')).getTime();
+            let start = new Date(result[0].sbsj.replace(/-/g, '/')).getTime();
+            this.checkIn.hour = parseFloat(((end - start) / 1000 / 24 / 60 / 60).toFixed(2));
           }
           // [{"id":60,"sbsj":"2019-01-01 14:49:43","xbsj":"2019-01-01 19:12:49","zgid":1}]
         } else {
