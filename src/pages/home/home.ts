@@ -30,6 +30,7 @@ export class HomePage {
     console.log(user);
   }
 
+  messageText:string="";
   searchText: string = '';
   chartName = '';
   chart1 = null;
@@ -318,6 +319,8 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+    this.messageText='关于2018年中秋节、国庆节放假安排';
+
     this.onSelectChart('chart1');
   }
 
