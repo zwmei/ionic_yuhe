@@ -192,6 +192,11 @@ export class ProcurementApply {
       return;
     }
 
+    if (this.applyData.cgqds.length == 0) {
+      this.toast.show("至少添加一条明细");
+      return;
+    }
+
     for (var i = 0; i < this.applyData.cgqds.length; i++) {
       let item = this.applyData.cgqds[i];
       if (item.name === "请选择" || !item.sl || !item.zj) {

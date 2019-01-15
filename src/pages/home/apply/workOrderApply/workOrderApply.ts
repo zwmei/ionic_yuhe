@@ -145,6 +145,11 @@ export class WorkOrderApply {
       return;
     }
 
+    if (this.applyData.bxqds.length == 0) {
+      this.toast.show("至少添加一条明细");
+      return;
+    }
+
     for (var i = 0; i < this.applyData.bxqds.length; i++) {
       let item = this.applyData.bxqds[i];
       if (!item.xmmx || !item.xxms || !item.gys || !item.lxdh || !item.yjje) {

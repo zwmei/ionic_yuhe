@@ -57,6 +57,10 @@
       <ion-label class="right" item-end>{{ item.model }}</ion-label>
     </ion-item>
     <ion-item>
+      <ion-label class="left">单位</ion-label>
+      <ion-label class="right" item-end>{{ item.unitName }}</ion-label>
+    </ion-item>
+    <ion-item>
       <ion-label class="left">数量</ion-label>
       <ion-input
         class="right"
@@ -70,7 +74,7 @@
   <div class="block-view">
       <button class="center-button" (click)="addMoreGood()">+添加明细</button>
   </div>
-  <!-- <div class="block-view">
+  <div class="block-view">
     <ion-item no-lines>
       <ion-label class="left-title">图片</ion-label>
       <app-file-uploader
@@ -89,7 +93,7 @@
         />
       </ion-col>
     </ion-row>
-  </div> -->
+  </div>
 
   <div class="appoval-person-list">
     <ion-item no-lines>

@@ -181,6 +181,11 @@ export class StationeryApply {
       return;
     }
 
+    if (this.applyData.lymxs.length == 0) {
+      this.toast.show("至少添加一条明细");
+      return;
+    }
+
     for (var i = 0; i < this.applyData.lymxs.length; i++) {
       let item = this.applyData.lymxs[i];
       if (item.name === "请选择" || !item.sl) {
@@ -190,6 +195,11 @@ export class StationeryApply {
 
       if (item.sl <= 0) {
         this.toast.show("数字大于0");
+        return;
+      }
+
+      if (item.sl > item.nums) {
+        this.toast.show("大于库存数量");
         return;
       }
     }
