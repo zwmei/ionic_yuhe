@@ -47,6 +47,8 @@ export class WeekSwitchComponent {
         this.weekDay[i].today = this.isToday(this.weekDay[i].date);
       }
 
+      this.weekDay[i].now = this.isToday(this.weekDay[i].date);//标记面板的今天
+
       this.weekDay[i].dateNumber = formatDate(this.weekDay[i].date, 'd');
     }
   }

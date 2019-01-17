@@ -11,11 +11,11 @@
     <ion-row>
       <ion-col *ngFor="let item of weekDay">
         <span>{{item.name}}</span>
-        <div [ngClass]="{'current': item.current === true, 'today': item.today === true}" (click)="changeDate(item)">
+        <div [ngClass]="{'current': item.current === true}" (click)="changeDate(item)">
           <strong class="secondary" color="secondary">{{item.dateNumber}}</strong>
           <!-- <span>初三</span> -->
         </div>
-        <!-- <span class="status">*</span> -->
+        <div class="status" *ngIf="item.now === true"><span></span></div>
       </ion-col>
       <!-- <ion-col>
             <span>二</span>
