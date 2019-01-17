@@ -6,22 +6,14 @@
   <div class="block-view">
     <ion-item>
       <ion-label class="left">申请时间</ion-label>
-      <ion-datetime
-        class="right"
-        placeholder="请选择"
-        displayFormat="YYYY-MM-DD hh:mm"
-        [(ngModel)]="applyData.sqsj"
-        cancelText="取消"
-        doneText="确定"
-        >{{ applyData.sqsj }}</ion-datetime
-      >
+      <ion-label class="right">{{ applyData.sqsj }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="left">离职时间</ion-label>
       <ion-datetime
         class="right"
         placeholder="请选择"
-        displayFormat="YYYY-MM-DD hh:mm"
+        displayFormat="YYYY-MM-DD hh:mm:ss"
         [(ngModel)]="applyData.yjlzsj"
         cancelText="取消"
         doneText="确定"

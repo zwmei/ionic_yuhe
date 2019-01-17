@@ -181,6 +181,11 @@ export class StationeryApply {
       return;
     }
 
+    if (this.applyData.wpyt.length > 100) {
+      this.toast.show("用途超长，请保持在100个字符以内");
+      return;
+    }
+
     if (this.applyData.lymxs.length == 0) {
       this.toast.show("至少添加一条明细");
       return;
@@ -195,6 +200,12 @@ export class StationeryApply {
 
       if (item.sl <= 0) {
         this.toast.show("数字大于0");
+        return;
+      }
+
+      let number = item.sl.toString().split(".")[1];
+      if (item.unit > 0 && number && number.length > item.unit) {
+        this.toast.show( item.name + "数量超出精度限制，小数点后最多" + item.unit + "位");
         return;
       }
 
@@ -230,8 +241,11 @@ export class StationeryApply {
       item.goodsItem = {
         id: item.id,
         name: item.name,
+        wpmc: item.name,
         model: item.model,
         brand: item.brand,
+        inventoryBookId: item.inventoryBookId,
+        repertoryId: item.repertoryId,
         defaultRepertoryId: item.repertoryId
       };
       return item;

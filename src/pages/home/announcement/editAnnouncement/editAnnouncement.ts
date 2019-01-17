@@ -85,6 +85,14 @@ export class EditAnnouncement {
       this.toast.show("请完善内容");
       return;
     }
+    if (this.title.length > 25) {
+      this.toast.show("标题超长，请保持在25个字符以内");
+      return;
+    }
+    if (this.content.length > 125) {
+      this.toast.show("内容超长，请保持在125个字符以内");
+      return;
+    }
     this.notiNetWork.saveNewNotice({
       "ggbt": this.title,
       "nr": this.content

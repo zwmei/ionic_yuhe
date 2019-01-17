@@ -188,6 +188,11 @@ export class RestApply {
       return;
     }
 
+    if (this.applyData.qjsy.length > 100) {
+      this.toast.show("事由超长，请保持在100个字符以内");
+      return;
+    }
+
     if (this.applyData.qjsc <= 0) {
       this.toast.show("数字大于0");
       return;
