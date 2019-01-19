@@ -33,12 +33,13 @@ export class ChildCheckOn {
     totalCount: 0
   };
   constructor(private navCtrl: NavController, private childAttendanceNetwork: ChildAttendanceNetwork, private toastService: ToastService) {
-    this.loadMonthFirstDayAndLastDayString(formatDate(new Date(), 'yyyy-MM'));
-    this.getSummary();
-    this.loadAttendanceStatisticOnChart();
+    this.loadPageData(new Date());
+    // this.loadMonthFirstDayAndLastDayString(formatDate(new Date(), 'yyyy-MM'));
+    // this.getSummary();
+    // this.loadAttendanceStatisticOnChart();
 
-    this.loadRankingCompleted = false;
-    this.loadAttendanceRanking();
+    // this.loadRankingCompleted = false;
+    // this.loadAttendanceRanking();
   }
 
   chart: Chart = new Chart({
@@ -87,20 +88,25 @@ export class ChildCheckOn {
     }]
   });
 
-  nextMonth(date){
-    // let currentMonth = new Date(this.currentMonthString);
-    // currentMonth.setMonth(currentMonth.getMonth() + 1);
-    // this.currentMonthString = formatDate(new Date(currentMonth), 'yyyy-MM');
+
+  loadPageData(date){
     this.loadMonthFirstDayAndLastDayString(formatDate(date, 'yyyy-MM'));
+    this.getSummary();
     this.loadAttendanceStatisticOnChart();
+
+    this.pagination.currentPage = 1;this.pagination.size=10;
+    this.rankings = [];
+    this.loadRankingCompleted = false;
+    this.loadAttendanceRanking();
+  }
+
+  nextMonth(date){
+    console.log('next month', date);
+    this.loadPageData(date);
   }
   prevMonth(date){
-    // let currentMonth = new Date(this.currentMonthString);
-    // currentMonth.setMonth(currentMonth.getMonth() - 1);
-    // this.currentMonthString = formatDate(new Date(currentMonth), 'yyyy-MM');
-    
-    this.loadMonthFirstDayAndLastDayString(formatDate(date, 'yyyy-MM'));
-    this.loadAttendanceStatisticOnChart();
+    console.log('prev month', date);
+    this.loadPageData(date);
   }
 
 
@@ -111,8 +117,8 @@ export class ChildCheckOn {
   }
 
   getSummary() {
-    console.log('today:', this.todayString);
-    this.childAttendanceNetwork.getSummary({ startDate: this.todayString, endDate: this.todayString })
+    console.log('getSummary');
+    this.childAttendanceNetwork.getSummary({ startDate: formatDate(this.currentMonthFirstDay,'yyyy-MM-dd'), endDate: formatDate(this.currentMonthLastDay, 'yyyy-MM-dd') })
       .subscribe((result: { absenceCount: number, leaveCount: number, signCount: number, totalCount: number }) => {
         console.log(result);
         this.summary = {
@@ -167,9 +173,10 @@ export class ChildCheckOn {
   rankings: any = [];
   loadRankingCompleted: boolean;
   loadAttendanceRanking(onSuccess?:any, onError?:any){
+    console.log('loadAttendanceRanking');
     this.childAttendanceNetwork.getStudentRankings({
-      startDate: this.todayString,
-      endDate: this.todayString,
+      startDate: formatDate(this.currentMonthFirstDay,'yyyy-MM-dd'),
+      endDate: formatDate(this.currentMonthLastDay, 'yyyy-MM-dd'),
       pageSize: this.pagination.size,
       pageNo: this.pagination.currentPage
     }).subscribe((result: any)=>{
