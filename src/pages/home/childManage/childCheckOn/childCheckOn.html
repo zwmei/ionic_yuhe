@@ -38,12 +38,12 @@
 
   <div class="attenance-statistic">
     <div class="box-title-nav"><span class="left">全教幼儿出勤率</span><span class="right">
-        <ion-icon name="arrow-forward"></ion-icon>
+        <ion-icon name="arrow-forward" (click)="goToPage('app-home-childCheckChartDetail')"></ion-icon>
       </span></div>
     <div class="box-content chart-box">
         <month-switch (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
       <div class="chart-area">
-        <div [chart]="chart" class="chart-content" (click)="goToPage('app-home-childCheckChartDetail')"></div>
+        <div [chart]="chart" class="chart-content" ></div>
       </div>
     </div>
   </div>
