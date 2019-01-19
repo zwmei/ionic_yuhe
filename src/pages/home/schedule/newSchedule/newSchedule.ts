@@ -15,6 +15,15 @@ import { LoadingService } from '../../../../service/loading.service';
 export class NewSchedulePage {
 
   schedule: any;
+  isRemind: boolean = false;
+  isRemindFrequency: boolean = false;
+  
+  selectedRemindTime: string='-1';
+  inputRemindTime: string = '';
+  
+  selectedRemindFrequency: string='-1';
+  inputRemindFrequency: string = '';
+
   constructor(
     private navCtrl: NavController,
     private confirmService: ConfirmService,
@@ -29,7 +38,21 @@ export class NewSchedulePage {
       startTimeString: formatDate(now, 'HH:mm'),
       title: '',
       content: '',
-      remark: ''
+      remark: '',
+      
+      isRemindAdvanceObj: {
+        isRemind: false,
+        selectNumber: false,
+        inputNumber: false,
+        method: 'select',
+        minutes: 0
+      },
+      remindFrequency: {
+        isRemind: false,
+        minutes: 0,
+        selectMinutes: 0,
+        inputMinutes: 0
+      }
     };
   }
 
@@ -62,15 +85,31 @@ export class NewSchedulePage {
       return this.toastService.show('描述必填');
     }
 
+    if(this.schedule.remindTime && this.schedule.remindTime <= 0){
+      return this.toastService.show('提醒时间必须大于0分钟');
+    }
+
+    if(this.schedule.remindFrequency && this.schedule.remindFrequency <= 0){
+      return this.toastService.show('提醒频次必须大于0分钟');
+    }
     
     this.loading.show();
-    this.scheduleNetwork.saveSchedule({
+
+    let obj : any = {
       title: this.schedule.title,
       content: this.schedule.content,
       summary: this.schedule.remark,
       scheduleDate: this.schedule.startDateString,
       beginTime: this.schedule.startTimeString + ':00'
-    })
+    };
+    if(this.schedule.remindTime && this.schedule.remindTime > 0){
+      obj.remindTime = this.schedule.remindTime;
+    }
+    if(this.schedule.remindFrequency && this.schedule.remindFrequency > 0){
+      obj.remindFrequency = this.schedule.remindFrequency;
+    }
+
+    this.scheduleNetwork.saveSchedule(obj)
       .subscribe((result: { status: number }) => {
         this.loading.hide();
         if (result.status === 0) {
@@ -93,5 +132,35 @@ export class NewSchedulePage {
 
 
 
+  }
+
+  sureRemindTime(){
+    if(this.selectedRemindTime === '-1'){
+      delete this.schedule.remindTime;
+    }else if(this.selectedRemindTime === '0'){
+      if(!this.inputRemindTime){
+        this.toastService.show('请输入自定义分钟');
+        return;
+      }
+      this.schedule.remindTime = this.inputRemindTime;
+    }else{
+      this.schedule.remindTime = parseInt(this.selectedRemindTime);
+    }
+    this.isRemind = false;
+  }
+
+  sureRemindFrequency(){
+    if(this.selectedRemindFrequency === '-1'){
+      delete this.schedule.remindFrequency;
+    }else if(this.selectedRemindFrequency === '0'){
+      if(!this.inputRemindFrequency){
+        this.toastService.show('请输入自定义分钟');
+        return;
+      }
+      this.schedule.remindFrequency = this.inputRemindFrequency;
+    }else{
+      this.schedule.remindFrequency = parseInt(this.selectedRemindFrequency);
+    }
+    this.isRemindFrequency = false;
   }
 }

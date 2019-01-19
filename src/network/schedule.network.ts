@@ -40,4 +40,11 @@ export class ScheduleNetwork {
   deleteSchedule(data) {
     return this.http.postForm('/app/schedule/removeSchedule', data);
   }
+
+  //标记完成
+  //params:id,status(1：完成，0:未完成)
+  completeSchedule(data) {
+    return this.http.postForm('/app/schedule/updateCompleteStatus', data);
+  }
+
 }

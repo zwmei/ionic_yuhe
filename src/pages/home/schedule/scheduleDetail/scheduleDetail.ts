@@ -11,7 +11,7 @@ import { LoadingService } from '../../../../service/loading.service';
   templateUrl: 'scheduleDetail.html'
 })
 export class ScheduleDetailPage {
-  schedule = {};
+  schedule: any = {};
   scheduleId;
   constructor(params: NavParams, private navCtrl: NavController, private scheduleNetwork: ScheduleNetwork, private toastService: ToastService,
     private loading: LoadingService) {
@@ -35,13 +35,17 @@ export class ScheduleDetailPage {
     })
       .subscribe((result:any) => {
         this.loading.hide();
+        console.log(result);
         if(result){
           this.schedule = {
             title: result.title,
             content: result.content,
             startDateString: result.scheduleDate,
             startTimeString: result.beginTime,
-            remark: result.summary
+            remark: result.summary,
+            remindTime: result.remindTime,
+            remindFrequency: result.remindFrequency,
+            isComplete: result.isComplete
           }
         }
       }, err => {
@@ -49,5 +53,19 @@ export class ScheduleDetailPage {
         this.toastService.show('获取安排信息失败！');
       });
 
+  }
+
+  completeSchedule(){
+    if(this.schedule.isComplete === 0){
+      this.scheduleNetwork.completeSchedule({id:this.scheduleId, status: 1})
+      .subscribe(result=>{
+        console.log(result);
+      },err=>{
+        this.toastService.show('标记完成失败！');
+      });
+      
+    }else{
+      return;
+    }
   }
 }

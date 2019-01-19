@@ -11,21 +11,43 @@
     <p>{{schedule.startDateString}}</p>
     <div class="detail">
       <span>内容：</span>
-      <pre>{{schedule.content || '无内容'}}</pre></div>
-    <!-- <ion-item>
-      <ion-textarea [(ngModel)]="schedule.content"  readonly disabled>
-      </ion-textarea>
-    </ion-item> -->
+      <pre>{{schedule.content || '无内容'}}</pre>
+    </div>
+
+
     <div class="detail">
-        <span>备注：</span>
-        <pre>{{schedule.remark || '无内容'}}</pre>
+      <span>备注：</span>
+      <pre>{{schedule.remark || '无内容'}}</pre>
     </div>
   </div>
 
+
   <div class="schedule-setting-area">
-    <ion-item>
-      <ion-label>日程时间</ion-label>
-      <ion-datetime disabled [(ngModel)]="schedule.startTimeString" cancelText="取消" doneText="确定" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
-    </ion-item>
+    <div class="box-title-nav">
+      <span class="left">提醒时间</span>
+      <span class="right">
+        <span *ngIf="schedule.remindTime && schedule.remindTime>0">提前 {{schedule.remindTime}} 分钟 </span>
+        <span *ngIf="!schedule.remindTime || schedule.remindTime<=0">无</span>
+      </span>
+    </div>
+    <div class="box-title-nav">
+      <span class="left">提醒频次</span>
+      <span class="right">
+        <span *ngIf="schedule.remindFrequency && schedule.remindFrequency>0">每 {{schedule.remindFrequency}} 分钟 </span>
+        <span *ngIf="!schedule.remindFrequency || schedule.remindFrequency<=0">无</span>
+      </span>
+    </div>
+    <div class="box-title-nav">
+      <span class="left">日程时间</span>
+      <span class="right">
+        <span>{{schedule.startTimeString}}</span>
+      </span>
+    </div>
   </div>
+
+
+  <ion-row justify-content-center class="bottom-area">
+      <button ion-button color="primary" default block (click)="completeSchedule()">{{this.schedule.isComplete === 0 ? '标记完成': '已完成'}}</button>
+    </ion-row>
+
 </ion-content>

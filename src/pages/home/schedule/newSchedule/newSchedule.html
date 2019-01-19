@@ -36,29 +36,104 @@
       </ion-item>
     </div>
     <div class="schedule-setting-area">
-      <ion-item>
-        <ion-label>提前提醒</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>自定义</ion-label>
-        //分钟
-      </ion-item>
-      <ion-item>
-        <ion-label>选择时间</ion-label>
-        //提前15分钟，30分钟，1小时
-      </ion-item>
+      <div class="box-title-nav">
+        <span class="left">提醒时间</span>
+        <span class="right">
+          <span *ngIf="schedule.remindTime && schedule.remindTime>0">提前 {{schedule.remindTime}} 分钟 </span>
+          <ion-icon name="arrow-forward" (click)="isRemind=true;"></ion-icon>
+        </span>
+      </div>
     </div>
     <div class="schedule-setting-area">
-      <ion-item>
-        <ion-label>提醒次数</ion-label>
-        //每10分钟，30分钟，1小时
-      </ion-item>
+      <div class="box-title-nav">
+        <span class="left">提醒频次</span>
+        <span class="right">
+            <span *ngIf="schedule.remindFrequency && schedule.remindFrequency>0">每 {{schedule.remindFrequency}} 分钟 </span>
+          <ion-icon name="arrow-forward" (click)="isRemindFrequency = true;"></ion-icon>
+        </span>
+      </div>
     </div>
     <div class="schedule-setting-area">
       <ion-item>
         <ion-textarea [(ngModel)]="schedule.remark" placeholder="请输入日程备注" class="remark">
         </ion-textarea>
       </ion-item>
+    </div>
+  </div>
+  <div class="pop-panel" *ngIf="isRemind">
+    <div class="pop-content">
+      <ion-list radio-group [(ngModel)]="selectedRemindTime">
+        <ion-list-header>
+          提醒时间
+        </ion-list-header>
+        <ion-item>
+            <ion-label>无</ion-label>
+            <ion-radio value="-1"></ion-radio>
+          </ion-item>
+        <ion-item>
+          <ion-label>提前15分钟</ion-label>
+          <ion-radio value="15"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>提前30分钟</ion-label>
+          <ion-radio value="30"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>提前60分钟</ion-label>
+          <ion-radio value="60"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>自定义</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+      </ion-list>
+      
+      <ion-item class="custom" *ngIf="selectedRemindTime === '0'">
+          <ion-label>提前</ion-label>
+          <ion-input [(ngModel)]="inputRemindTime" type="number" placeholder="请输入分钟"></ion-input>
+      </ion-item>
+      <div class="buttons">
+        <a (click)="sureRemindTime()">确定</a>
+        <a (click)="isRemind = false;">取消</a>
+      </div>
+    </div>
+  </div>
+  <div class="pop-panel" *ngIf="isRemindFrequency">
+    <div class="pop-content">
+      <ion-list radio-group [(ngModel)]="selectedRemindFrequency">
+        <ion-list-header>
+          提醒时间
+        </ion-list-header>
+        <ion-item>
+            <ion-label>无</ion-label>
+            <ion-radio value="-1"></ion-radio>
+          </ion-item>
+        <ion-item>
+          <ion-label>每15分钟</ion-label>
+          <ion-radio value="15"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>每30分钟</ion-label>
+          <ion-radio value="30"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>每60分钟</ion-label>
+          <ion-radio value="60"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>自定义</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+      </ion-list>
+      
+      <ion-item class="custom" *ngIf="selectedRemindFrequency === '0'">
+          <ion-label>每</ion-label>
+          <ion-input [(ngModel)]="inputRemindFrequency" type="number" placeholder="请输入分钟"></ion-input>
+      </ion-item>
+      <div class="buttons">
+        <a (click)="sureRemindFrequency()">确定</a>
+        <a (click)="isRemindFrequency = false;">取消</a>
+      </div>
     </div>
   </div>
 </ion-content>

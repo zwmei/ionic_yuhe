@@ -39,5 +39,32 @@
         .detail{
             padding: 10px 16px;
         }
+
+
+        .box-title-nav{
+            padding: 0 16px;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            color: $color-text;
+            span{
+                display: inline-block;
+                font-size: 17px;
+                color: #999;
+                &.left{
+                    float: left;
+                }
+                &.right {
+                    float: right;
+                    
+                }
+            }
+        }
+    }
+
+    .bottom-area{
+        padding: 0 16px;
     }
 }
