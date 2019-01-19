@@ -4,45 +4,22 @@
 
 <ion-content class="salary-body">
   <div class="container-fluid">
-    <month-switch class="white-switch" (prevMonthChange)="prevMonth($event)" (nextMonthChange)="nextMonth($event)"></month-switch>
+    <month-switch
+      class="white-switch"
+      (prevMonthChange)="prevMonth($event)"
+      (nextMonthChange)="nextMonth($event)"
+    ></month-switch>
   </div>
-  <h2 class="salary-number">{{salaryData.sfgz}}</h2>
+  <h2 class="salary-number">{{ salaryData.sfgz }}</h2>
   <ion-card class="content-card">
     <ion-list>
-      <ion-item>
-        <img item-start class="icon" src="assets/image/home/salary/salary-jiben.png">
-        <p>基本工资</p>
-        <p item-end>{{salaryData.jbgz}}</p>
+      <ion-item *ngFor="let item of gzxmDetails">
+        <p>{{ item[0]}}</p>
+        <p item-end>{{ item[2] }}</p>
       </ion-item>
       <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-gongling.png">
-        <p>工龄工资</p>
-        <p item-end>{{salaryData.glgz}}</p>
-      </ion-item>
-      <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-zhiwu.png">
-        <p>职务工资</p>
-        <p item-end>{{salaryData.zwgz}}</p>
-      </ion-item>
-      <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-jixiao.png">
-        <p>绩效工资</p>
-        <p item-end>{{salaryData.jx}}</p>
-      </ion-item>
-      <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-gangwei.png">
-        <p>岗位津贴</p>
-        <p item-end>{{salaryData.gwjt}}</p>
-      </ion-item>
-      <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-wuxian.png">
-        <p>五险一金</p>
-        <p item-end>{{salaryData.wxyj}}</p>
-      </ion-item>
-      <ion-item>
-          <img item-start class="icon" src="assets/image/home/salary/salary-qita.png">
-        <p>其他</p>
-        <p item-end>{{salaryData.cf}}</p>
+        <p>实发工资</p>
+        <p item-end>{{ salaryData.sfgz }}</p>
       </ion-item>
     </ion-list>
   </ion-card>
