@@ -9,7 +9,7 @@ import {
   ActionSheetController,
   NavController
 } from "ionic-angular";
-import { HTTP_URL } from "../../../../network/http";
+import { HTTP_URL, formatDate } from "../../../../network/http";
 
 @IonicPage({
   name: "app-home-resign-apply"
@@ -34,7 +34,9 @@ export class ResignApply {
     public navCtrl: NavController,
     private datePipe: DatePipe,
     public toast: ToastService
-  ) {}
+  ) {
+    this.applyData.sqsj = formatDate(new Date(),"yyyy-MM-dd HH:mm:ss");
+  }
 
   /// 审批人
   getApprovalPerson() {
@@ -138,6 +140,12 @@ export class ResignApply {
       this.toast.show("请完善申请内容");
       return;
     }
+
+    if (this.applyData.lzyy.length > 15) {
+      this.toast.show("离职原因超长，请保持在15个字符以内");
+      return;
+    }
+
     if (this.spr.length < 1) {
       this.toast.show("请选择审批人");
       return;

@@ -2,49 +2,57 @@
   <ion-navbar>
     <ion-title> 佛山明珠幼儿园 </ion-title>
     <ion-buttons end>
-      <button (click)="attendanceRecord()" color="clear">考勤报表</button>
+      <button
+        (click)="attendanceRecord()"
+        style="background: none;"
+        color="clear"
+      >
+        考勤报表
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="checkIn-body">
-  <ion-item>
+  <ion-item no-lines>
     <ion-avatar item-start>
       <img
-      onerror="this.src='assets/imgs/image-default.png'"
-       src="{{user.image}}"
-        />
+        onerror="this.src='assets/imgs/image-default.png'"
+        src="{{ user.image }}"
+      />
     </ion-avatar>
     <h2>{{ user.name }}</h2>
     <p class="sub-Title-label">{{ user.team }}</p>
-    <p class="current-date">{{ today | date: 'yyyy-MM-dd'}}</p>
+    <p class="current-date">{{ today | date: "yyyy-MM-dd" }}</p>
   </ion-item>
   <div class="checkIn-time-line">
+      <div class="start-top"></div>
     <div class="left-margin-16">
       <p>上班时间：7：00</p>
       <div class="on-office">
-        <p class="blod-title">打卡时间: {{checkData.sbsj}}</p>
-        <p>{{checkData.checkInAddress}}</p>
+        <p class="blod-title">打卡时间: {{ checkData.sbsj }}</p>
+        <p>{{ checkData.checkInAddress }}</p>
       </div>
     </div>
 
     <div class="off-office" class="left-margin-16">
       <p>下班时间：18：00</p>
       <div class="off-office">
-        <p class="blod-title"> 打卡时间: {{checkData.xbsj}}</p>
-        <p>{{checkData.checkOutAddress}}</p>
+        <p class="blod-title">打卡时间: {{ checkData.xbsj }}</p>
+        <p>{{ checkData.checkOutAddress }}</p>
       </div>
     </div>
+    <div class="end-bottom"></div>
   </div>
   <div class="checkIn-area">
-      <button (click)="checkInClick()"  class="checkIn-button">
-          <p>{{isChenckIn ? '上班打卡' : '下班打卡'}}</p>
-          <p>{{ today | date: 'HH:mm:ss'}}</p>
-      </button>
-        <!-- <div class="checkIn-tip">
+    <button (click)="checkInClick()" class="checkIn-button">
+      <p>{{ isChenckIn ? "上班打卡" : "下班打卡" }}</p>
+      <p>{{ today | date: "HH:mm:ss" }}</p>
+    </button>
+    <!-- <div class="checkIn-tip">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
             <p class="check-status">已进入考勤范围 天安中心</p>
             <p class="reload-button" (click)="reloadLocation()">重新定位</p>
         </div> -->
-    </div>
+  </div>
 </ion-content>

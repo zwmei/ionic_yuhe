@@ -15,11 +15,13 @@
 
     .left-margin-16 {
         margin-left: 16px;
+        color: #999999;
     }
 
     .blod-title {
         font-size: 16px;
         font-weight: bold;
+        color: #333333;
     }
     .on-office {
         margin-bottom: 40px;
@@ -31,7 +33,6 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-
     }
     .checkIn-button {
         display: flex;
@@ -39,17 +40,18 @@
         justify-content: center;
         align-items: center;
         color: white;
-        background: $color-primary;
-        width: 100px;
-        height: 100px;
+        background: #1ddff5;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
+        font-size: 18px;
+        font-weight: bold;
     }
     .checkIn-tip {
         margin-top: 16px;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        font-size: 12px;
     }
     .check-status {
         margin: 0px 8px;
@@ -57,5 +59,22 @@
 
     .reload-button {
         color:  $color-primary;
+    }
+    .start-top  {
+      background: #666666;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      left: 11px;
+    }
+
+    .end-bottom  {
+      background: #1ddff5;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      left: 11px;
     }
 }

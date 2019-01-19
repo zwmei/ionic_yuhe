@@ -192,6 +192,11 @@ export class ProcurementApply {
       return;
     }
 
+    if (this.applyData.sqsy.length > 50) {
+      this.toast.show("事由超长，请保持在50个字符以内");
+      return;
+    }
+
     if (this.applyData.cgqds.length == 0) {
       this.toast.show("至少添加一条明细");
       return;
@@ -206,6 +211,11 @@ export class ProcurementApply {
 
       if (item.sl <= 0 || item.zj <= 0) {
         this.toast.show("数字大于0");
+        return;
+      }
+      let number = item.sl.toString().split(".")[1];
+      if (item.unit > 0 && number && number.length > item.unit) {
+        this.toast.show( item.name + "数量超出精度限制，小数点后最多" + item.unit + "位");
         return;
       }
     }
@@ -240,7 +250,8 @@ export class ProcurementApply {
       item.xmmx = item.name;
       item.dj = item.price;
       item.gg = item.model;
-      item.pp = item.pp;
+      item.pp = item.brand;
+
       item.goodsItem = {
         id: item.id,
         name: item.name,

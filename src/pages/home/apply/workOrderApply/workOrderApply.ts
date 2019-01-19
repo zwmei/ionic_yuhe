@@ -145,6 +145,21 @@ export class WorkOrderApply {
       return;
     }
 
+    if (this.applyData.bxlx.length > 15) {
+      this.toast.show("保修超长，请保持在15个字符以内");
+      return;
+    }
+
+    if (this.applyData.sqly.length > 50) {
+      this.toast.show("申请理由超长，请保持在50个字符以内");
+      return;
+    }
+
+    if (this.applyData.wxr.length > 10) {
+      this.toast.show("维修人名称超长，请保持在10个字符以内");
+      return;
+    }
+
     if (this.applyData.bxqds.length == 0) {
       this.toast.show("至少添加一条明细");
       return;
@@ -159,6 +174,32 @@ export class WorkOrderApply {
 
       if (item.yjje <= 0) {
         this.toast.show("数字大于0");
+        return;
+      }
+
+      if (item.xmmx.length > 50) {
+        this.toast.show("项目名称超长，请保持在50个字符以内");
+        return;
+      }
+
+      if (item.xxms.length > 50) {
+        this.toast.show("项目明细超长，请保持在50个字符以内");
+        return;
+      }
+
+      if (item.gys.length > 50) {
+        this.toast.show("供应商超长，请保持在50个字符以内");
+        return;
+      }
+
+      if (item.lxdh.length > 20) {
+        this.toast.show("联系电话超长，请保持在20个字符以内");
+        return;
+      }
+
+      let number = item.yjje.toString().split(".")[1];
+      if (number && number.length > 2) {
+        this.toast.show("金额超出精度限制，小数点后最多2位");
         return;
       }
     }
