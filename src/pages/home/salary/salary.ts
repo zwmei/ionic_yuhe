@@ -14,11 +14,12 @@ import { formatDate } from '../../../network/http';
 })
 
 export class Salary {
-    
+
   salaryDate: any;
   month = 0;
+  gzxmDetails: any = [];
   salaryData: any = {};
-  constructor( 
+  constructor(
     public userNetwork: UserNetwork,
     private datePipe: DatePipe,
   ) {
@@ -52,21 +53,13 @@ export class Salary {
     let dateString = formatDate(date, 'yyyy-MM');
     console.log('date:', dateString);
     this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
-      console.log(data)
       this.salaryData = data;
+      console.log('-----', data);
+      if (data.gzxmDetails) {
+        this.gzxmDetails = data.gzxmDetails;
+      }
     }, error => {
       console.log(error)
     })
   }
-
-  // getSalaryData() {
-  //   this.salaryDate = new Date().setMonth(new Date().getMonth() + this.month);
-  //   let dateString = this.datePipe.transform(this.salaryDate, 'yyyy-MM');
-  //   this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
-  //     console.log(data)
-  //     this.salaryData = data;
-  //   }, error => {
-  //     console.log(error)
-  //   })
-  // }
 }
