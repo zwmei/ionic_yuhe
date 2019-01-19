@@ -10,9 +10,12 @@
   .page-back {
     width: 100%;
     height: 250px;
-    background: #03ccc6 no-repeat 90% -45%;
+    background: #03ccc6 no-repeat 93% -42%;
     background-image: url(../assets/image/login/page_login_back.jpeg);
     img {
+      position: relative;
+      top: -20px;
+      width: 80px;
     }
   }
 
@@ -21,11 +24,16 @@
 
     ion-item {
       margin-bottom: 20px;
-      border: 1px solid $color-icon !important;
+      height: 50px;
+      border: 1px solid $color-grey !important;
       box-shadow: none !important;
       .item-inner {
         border:none !important;
         box-shadow: none !important;
+
+        ion-icon {
+          color: $color-primary;
+        }
       }
       &.input-has-focus {
         border-color: $color-primary !important;
@@ -37,6 +45,9 @@
     .bottom-login{
       margin-top: 60px;
       width: 100%;
+      .button-md {
+        height: 50px;
+      }
     }
   }
 }
