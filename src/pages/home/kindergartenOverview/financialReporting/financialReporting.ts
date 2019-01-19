@@ -15,8 +15,8 @@ export class FinancialReportingPage {
   startDate2: Date;
   chart1: Chart;
   chart2: Chart;
-  inComeTotal: number;
-  outputTotal: number;
+  inComeTotal: string;
+  outputTotal: string;
 
   constructor(
     public navCtrl: NavController,
@@ -28,8 +28,8 @@ export class FinancialReportingPage {
     this.startDate2 = new Date(formatDate(new Date(), 'yyyy/MM/dd'));
     this.startDate2.setDate(1);
 
-    this.inComeTotal = 0;
-    this.outputTotal = 0;
+    this.inComeTotal = '0.00';
+    this.outputTotal = '0.00';
     this.updateChart1();
     this.updateChart2();
   }
@@ -61,7 +61,7 @@ export class FinancialReportingPage {
         });
         total += item.chargeSum;
       })
-      this.inComeTotal = total;
+      this.inComeTotal = total.toFixed(2);
 
       let options = {
         chart: {
@@ -89,7 +89,7 @@ export class FinancialReportingPage {
           series: {
             dataLabels: {
               enabled: true,
-              format: '{point.y}'
+              format: '{point.y:.2f}'
             }
           }
         },
@@ -118,7 +118,7 @@ export class FinancialReportingPage {
         });
         total += item.payoutSum;
       })
-      this.outputTotal = total;
+      this.outputTotal = total.toFixed(2);
       let options = {
         chart: {
           type: 'column'
@@ -145,7 +145,7 @@ export class FinancialReportingPage {
           series: {
             dataLabels: {
               enabled: true,
-              format: '{point.y}'
+              format: '{point.y:.2f}'
             }
           }
         },

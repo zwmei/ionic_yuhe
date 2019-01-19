@@ -27,6 +27,7 @@ export class HomePage {
   ) {
 
     let user = this.storage.get(STORAGE_KEY.USER_INFO);
+    this.chartName = "";
     console.log(user);
   }
 
@@ -162,59 +163,75 @@ export class HomePage {
 
   }
   updateChart3 = (data: any) => {
-    this.kindergartenOverviewNetwork.getAllFinancialSourceInfo({
-      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
-      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
-    }).subscribe((data: any) => {
-      if (data.status) {
-        return;
-      }
 
-      let seriesData = []; let total = 0;
-      data.forEach(item => {
-        seriesData.push({
-          name: item.name,
-          y: item.chargeSum
-        });
-        total += item.chargeSum;
-      })
+    Promise.all([
+      this.kindergartenOverviewNetwork.getAllFinancialSourceSum({
+        startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+        endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      }).toPromise(),
+      this.kindergartenOverviewNetwork.getAllFinancialOutputSum({
+        startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+        endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      }).toPromise()
+    ]).then((data: any) => {
+      console.warn('promise.all', data);
+      if (data && Array.isArray(data) && data.length === 2) {
+        if (data[0].status || data[1].status) {
+          return;
+        }
 
-      let options = {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: ''
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          type: 'category'
-        },
-        yAxis: {
-          min: 0,
+        let seriesData = [
+          {
+            name: '收入',
+            y: (data[0].result || {}).sum || 0,
+            color:'#5ab204'
+          },
+          {
+            name: '支出',
+            y: (data[1].result || {}).sum || 0,
+            color:'#03ccc6'
+          }
+        ];
+
+
+        let options = {
+          chart: {
+            type: 'column'
+          },
           title: {
-            text: `总数：${total}`
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        plotOptions: {
-          series: {
-            dataLabels: {
-              enabled: true,
-              format: '{point.y}'
+            text: ''
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            type: 'category'
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: ''
             }
-          }
-        },
-        series: [{
-          name: '',
-          data: seriesData
-        }]
+          },
+          legend: {
+            enabled: false
+          },
+          plotOptions: {
+            series: {
+              dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+              }
+            }
+          },
+          series: [{
+            name: '',
+            data: seriesData
+          }]
+        }
+        this.chart3 = new Chart(options);
       }
-      this.chart3 = new Chart(options);
+
     });
   }
 

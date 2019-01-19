@@ -43,6 +43,10 @@ export class KindergartenOverviewNetwork {
   }
 
 
+  //获取财务收入来源情况汇总
+  getAllFinancialSourceSum(data: any) {
+    return this.http.get('/app/financialstatement/selectIncomeSum', data);
+  }
   //获取财务收入来源情况
   getAllFinancialSourceInfo(data: any) {
     return this.http.get('/app/financialstatement/selectIncomes', data);
@@ -53,7 +57,11 @@ export class KindergartenOverviewNetwork {
     return this.http.get('/app/financialstatement/selectIncomesRank', data);
   }
 
-  //获取财务支出情况 (排名)
+  //获取财务支出情况汇总
+  getAllFinancialOutputSum(data: any) {
+    return this.http.get('/app/financialstatement/selectPayoutSum', data);
+  }
+  //获取财务支出情况
   getAllFinancialOutputInfo(data: any) {
     return this.http.get('/app/financialstatement/selectPayouts', data);
   }
