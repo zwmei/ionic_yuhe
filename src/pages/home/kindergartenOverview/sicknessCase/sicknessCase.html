@@ -57,7 +57,7 @@
         <ion-item 
           *ngFor="let category of categoryList; index as i;"
         (click)="goToPage('app-home-sickness-case-list',category.bzm)" >
-          <label class="color-1">{{i+1}}</label><span>{{category.bzm}}</span><strong>{{category.rate}}%</strong>
+          <label class="color-1">{{i+1}}</label><span>{{category.bzm}}</span><strong>共{{category.bzs}}例；{{category.rate}}%</strong>
         </ion-item>
       </ion-list>
     </div>

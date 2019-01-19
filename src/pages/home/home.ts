@@ -147,7 +147,7 @@ export class HomePage {
           series: {
             dataLabels: {
               enabled: true,
-              format: '{point.y}'
+              format: '{point.y:.0f}'
             }
           }
         },
@@ -220,7 +220,7 @@ export class HomePage {
             series: {
               dataLabels: {
                 enabled: true,
-                format: '{point.y}'
+                format: '{point.y:.2f}'
               }
             }
           },
