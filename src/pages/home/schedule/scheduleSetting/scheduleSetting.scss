@@ -46,10 +46,19 @@
                     width: 70%;
                     line-height: 60px;
                 }
-                ion-icon{
+                .delete{
                     position: absolute;
                     right: 20px;
                     top: 40px;
+
+                    display: block;
+                    width:20px;
+                    height: 20px;
+                    // background: red;
+
+                    ion-icon{
+                        margin: 2px 5px;
+                    }
                 }
 
 

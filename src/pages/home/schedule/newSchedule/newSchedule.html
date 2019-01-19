@@ -4,10 +4,10 @@
       新建日程
     </ion-title>
     <ion-buttons end>
-        <button ion-button color="text" (click)="save()">
-          完成
-        </button>
-      </ion-buttons>
+      <button ion-button color="text" (click)="save()">
+        完成
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -16,11 +16,13 @@
     <div class="schedule-setting-area">
       <ion-item>
         <ion-label>日程日期</ion-label>
-        <ion-datetime [(ngModel)]="schedule.startDateString" cancelText="取消" doneText="确定" placeholder="YYYY-MM-DD" displayFormat="YYYY-MM-DD"></ion-datetime>
+        <ion-datetime [(ngModel)]="schedule.startDateString" cancelText="取消" doneText="确定" placeholder="YYYY-MM-DD"
+          displayFormat="YYYY-MM-DD"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>日程时间</ion-label>
-        <ion-datetime [(ngModel)]="schedule.startTimeString" cancelText="取消" doneText="确定" placeholder="HH:mm" displayFormat="HH:mm"></ion-datetime>
+        <ion-datetime [(ngModel)]="schedule.startTimeString" cancelText="取消" doneText="确定" placeholder="HH:mm"
+          displayFormat="HH:mm"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>标题</ion-label>
@@ -28,16 +30,35 @@
       </ion-item>
     </div>
     <div class="schedule-setting-area">
-        <ion-item>
-            <ion-textarea [(ngModel)]="schedule.content"  placeholder="请输入日程描述">
-            </ion-textarea>
-          </ion-item>
+      <ion-item>
+        <ion-textarea [(ngModel)]="schedule.content" placeholder="请输入日程描述">
+        </ion-textarea>
+      </ion-item>
     </div>
     <div class="schedule-setting-area">
-        <ion-item>
-            <ion-textarea [(ngModel)]="schedule.remark" placeholder="请输入日程备注" class="remark">
-            </ion-textarea>
-          </ion-item>
+      <ion-item>
+        <ion-label>提前提醒</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>自定义</ion-label>
+        //分钟
+      </ion-item>
+      <ion-item>
+        <ion-label>选择时间</ion-label>
+        //提前15分钟，30分钟，1小时
+      </ion-item>
+    </div>
+    <div class="schedule-setting-area">
+      <ion-item>
+        <ion-label>提醒次数</ion-label>
+        //每10分钟，30分钟，1小时
+      </ion-item>
+    </div>
+    <div class="schedule-setting-area">
+      <ion-item>
+        <ion-textarea [(ngModel)]="schedule.remark" placeholder="请输入日程备注" class="remark">
+        </ion-textarea>
+      </ion-item>
     </div>
   </div>
 </ion-content>
