@@ -42,7 +42,7 @@ export class SicknessCasePage {
           return a + b.bzs;
         }, 0);
         if (count > 0) {
-          data.forEach(a => { a.rate = (a.bzs / count) * 100 });
+          data.forEach(a => { a.rate = ((a.bzs / count) * 10 * 10).toFixed(1) });
         }
         this.categoryList = data;
 
@@ -81,7 +81,7 @@ export class SicknessCasePage {
             series: {
               dataLabels: {
                 enabled: true,
-                format: '{point.y}'
+                format: '{point.y:.0f}'
               }
             }
           },

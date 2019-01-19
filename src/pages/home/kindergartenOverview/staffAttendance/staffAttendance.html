@@ -11,22 +11,26 @@
     <!-- <div class="box-title-nav"><span class="left">全教职工出勤</span><span class="right" ><ion-icon name="arrow-forward"></ion-icon></span></div> -->
     <div class="box-content">
       <ion-grid>
-        <ion-row (click)="goToListPage()">
-          <ion-col>
+        <ion-row>
+          <ion-col (click)="goToListPage(1)">
             <span>应到</span>
             <strong class="secondary" color="secondary">{{infos.totalCount}}</strong>
           </ion-col>
-          <ion-col>
-            <span>实到</span>
+          <ion-col (click)="goToListPage(2)">
+            <span>出勤</span>
             <strong>{{infos.signCount}}</strong>
           </ion-col>
-          <ion-col>
-            <span>请假</span>
+          <ion-col (click)="goToListPage(4)">
+            <span>缺勤</span>
+            <strong>{{infos.absenceCount}}</strong>
+          </ion-col>
+          <ion-col (click)="goToListPage(5)">
+            <span>迟到</span>
             <strong>{{infos.leaveCount}}</strong>
           </ion-col>
-          <ion-col>
-            <span>未签到</span>
-            <strong>{{infos.absenceCount}}</strong>
+          <ion-col (click)="goToListPage(3)">
+            <span>请假</span>
+            <strong>{{infos.leaveCount}}</strong>
           </ion-col>
         </ion-row>
       </ion-grid>
