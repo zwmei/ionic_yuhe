@@ -56,6 +56,75 @@
     }
   }
 
+  .changing-title {
+    position: relative;
+    margin-left:10px;
+    height: 32px;
+    width: 100%;
+    font-size:12px;
+    overflow: hidden;
+    // transform: translate3d(0, 0, 0);
+    // -webkit-transform: translate3d(0, 0, 0);
+
+    h1 {
+      font-size: 12px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+    height: 32px;
+    line-height: 32px;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .letter {
+        position: relative;
+        top: 32px;
+      }
+
+      .letter.out {
+        top: 0;
+        -webkit-animation-name: letter-out;
+        animation-name: letter-out;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+
+      .letter.in {
+        -webkit-animation-name: letter-in;
+        animation-name: letter-in;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    @keyframes letter-out {
+      0% {
+        top:0;
+      }
+      100% {
+        top: -32px;
+      }
+    }
+    @keyframes letter-in {
+      0% {
+        top:32px;
+      }
+      100% {
+        top: 0;
+      }
+    }
+  }
+
   .detail-block {
     margin: 10px 0;
     padding: 10px;

@@ -2,25 +2,28 @@
 
   <div class="header-back">
     <div>
-      <ion-searchbar [(ngModel)]="searchText" 
-      placeholder="搜索"
-      [showCancelButton]="true"
-       (ionInput)="onSearch($event)"
+      <ion-searchbar [(ngModel)]="searchText" placeholder="搜索" [showCancelButton]="true" (ionInput)="onSearch($event)"
         (ionCancel)="onClearSearchText($event)">
       </ion-searchbar>
     </div>
   </div>
 
-  <ion-row *ngIf="hasPermission('home/note') && !!messageText"
-  (click)="goToPage('app-home-announcement')"
-  class="message-view" justify-content-start align-items-center>
+  <ion-row (click)="goToPage('app-home-announcement')" class="message-view"
+    justify-content-start align-items-center>
     <ion-col col-auto style="padding-right: 0">
       <img alt="花" style="width:22px;height:auto;margin-left:5px;padding-top:4px;" src="assets/image/home/index/notice.png" />
     </ion-col>
-    <ion-col style="overflow: hidden">
-      <p class="message" [ngStyle]="{width:messageText.length*365/34+50+'px', 'animation-duration':messageText.length*0.11+3+'s'}" >{{messageText}}</p>
+    <!-- <ion-col style="overflow: hidden">
+      <p class="message" [ngStyle]="{width:messageText.length*365/34+50+'px', 'animation-duration':messageText.length*0.11+3+'s'}">
+        {{messageText}}
+      </p>
+    </ion-col>
+     -->
+     <ion-col class="changing-title" style="position: relative">
+      <h1></h1>
     </ion-col>
   </ion-row>
+
   <!-- 园情总览 -->
   <div class="detail-block">
     <div class="block-title">园情总览</div>
@@ -66,8 +69,8 @@
   <div class="detail-block">
     <div class="block-title">园长管理</div>
 
-    <ion-row  align-items-center>
-        <!-- (click)="goToPage('app-home-principal-email')" -->
+    <ion-row align-items-center>
+      <!-- (click)="goToPage('app-home-principal-email')" -->
       <div class="block-item" *ngIf="hasPermission('home/leader/mailbox')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
@@ -75,14 +78,14 @@
         </ion-row>
         <div class="item-text">园长信箱</div>
       </div>
-      <div class="block-item" *ngIf="hasPermission('home/leader/note')"  (click)="goToPage('app-home-announcement')">
+      <div class="block-item" *ngIf="hasPermission('home/leader/note')" (click)="goToPage('app-home-announcement')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/announcement.png" />
         </ion-row>
         <div class="item-text">通知公告</div>
       </div>
-      <div class="block-item" *ngIf="hasPermission('home/leader/audit')"  (click)="goToPage('app-home-approval-page')">
+      <div class="block-item" *ngIf="hasPermission('home/leader/audit')" (click)="goToPage('app-home-approval-page')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/approval.png" />
@@ -97,21 +100,21 @@
     <div class="block-title">幼儿管理</div>
 
     <ion-row align-items-center>
-      <div class="block-item" *ngIf="hasPermission('home/child/class')"  (click)="goToPage('app-home-classManage')">
+      <div class="block-item" *ngIf="hasPermission('home/child/class')" (click)="goToPage('app-home-classManage')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/class_manage.png" />
         </ion-row>
         <div class="item-text">班级管理</div>
       </div>
-      <div class="block-item" *ngIf="hasPermission('home/child/check')"  (click)="goToPage('app-home-childCheckOnManage')">
+      <div class="block-item" *ngIf="hasPermission('home/child/check')" (click)="goToPage('app-home-childCheckOnManage')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/checkIn.png" />
         </ion-row>
         <div class="item-text">幼儿考勤</div>
       </div>
-      <div class="block-item" *ngIf="hasPermission('home/child/time')" >
+      <div class="block-item" *ngIf="hasPermission('home/child/time')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/timeline.png" />
@@ -126,21 +129,21 @@
     <div class="block-title">个人小助理</div>
 
     <ion-row align-items-center>
-      <div class="block-item" *ngIf="hasPermission('home/helper/salary')"  (click)="goToPage('app-home-salary')">
+      <div class="block-item" *ngIf="hasPermission('home/helper/salary')" (click)="goToPage('app-home-salary')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/salary.png" />
         </ion-row>
         <div class="item-text">工资查询</div>
       </div>
-      <div class="block-item"  *ngIf="hasPermission('home/helper/card')" (click)="goToPage('app-home-checkIn')">
+      <div class="block-item" *ngIf="hasPermission('home/helper/card')" (click)="goToPage('app-home-checkIn')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/checkIn.png" />
         </ion-row>
         <div class="item-text">考勤打卡</div>
       </div>
-      <div class="block-item"  *ngIf="hasPermission('home/helper/schedule')" (click)="goToPage('app-home-scheduleSetting')">
+      <div class="block-item" *ngIf="hasPermission('home/helper/schedule')" (click)="goToPage('app-home-scheduleSetting')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/schedule.png" />
