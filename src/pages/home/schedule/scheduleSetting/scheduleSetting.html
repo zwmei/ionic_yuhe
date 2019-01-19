@@ -25,7 +25,8 @@
         <time>{{item.time}}</time>
       </div>
       <div class="schedule-detail">
-        <span>{{item.scheduleTitle}}</span>
+        <p>{{item.scheduleTitle}}</p>
+        <span class="status" [ngClass]="{'completed':item.isComplete === 1}">{{item.status}}</span>
       </div>
       <div class="delete" (click)="removeSchedule($event, item)">
         <ion-icon name="trash" ></ion-icon>
@@ -46,6 +47,7 @@
       </div>
       <div class="schedule-detail">
         <p>{{item.scheduleTitle}}</p>
+        <span class="status" [ngClass]="{'completed':item.isComplete === 1}">{{item.status}}</span>
       </div>
       <div class="delete" (click)="removeSchedule($event, item)">
         <ion-icon name="trash" ></ion-icon>
@@ -68,6 +70,7 @@
         </div>
         <div class="schedule-detail">
           <p>{{item.scheduleTitle}}</p>
+          <span class="status" [ngClass]="{'completed':item.isComplete === 1}">{{item.status}}</span>
         </div>
         <div class="delete" (click)="removeSchedule($event, item)">
           <ion-icon name="trash" ></ion-icon>

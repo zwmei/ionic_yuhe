@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { MessageService } from '../../service/message.service';
-import { ConfirmService } from '../../service/confirm.service';
-import { ActionSheetService } from '../../service/actionSheet.service';
-import { Platform, NavController } from 'ionic-angular';
+// import { MessageService } from '../../service/message.service';
+// import { ConfirmService } from '../../service/confirm.service';
+// import { ActionSheetService } from '../../service/actionSheet.service';
+import { NavController } from 'ionic-angular';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
-import { AnyNaptrRecord } from 'dns';
 
 
 const _createClass = function () {
@@ -109,10 +108,9 @@ const ChangingTitle = function () {
 export class HomePage {
   constructor(
     private navCtrl: NavController,
-    private messageService: MessageService,
-    private confirmService: ConfirmService,
-    private actionSheetService: ActionSheetService,
-    private platform: Platform,
+    // private messageService: MessageService,
+    // private confirmService: ConfirmService,
+    // private actionSheetService: ActionSheetService,
     private storage: StorageService,
     private auth: AuthService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,

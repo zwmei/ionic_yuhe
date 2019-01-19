@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { UserNetwork } from './../../../network/user.network';
 import { Component } from "@angular/core";
 import { IonicPage } from "ionic-angular";
@@ -20,8 +19,7 @@ export class Salary {
   gzxmDetails: any = [];
   salaryData: any = {};
   constructor(
-    public userNetwork: UserNetwork,
-    private datePipe: DatePipe,
+    public userNetwork: UserNetwork
   ) {
     this.salaryDate = new Date();
     // this.getSalaryData();

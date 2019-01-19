@@ -1,5 +1,4 @@
 import { ToastService } from './../../../../service/toast.service';
-import { DatePipe } from '@angular/common';
 import { NoticeNetWork } from "./../../../../network/notice.network";
 import { Component } from "@angular/core";
 import { IonicPage, AlertController, NavController } from "ionic-angular";
@@ -23,7 +22,6 @@ export class EditAnnouncement {
     public navCtr: NavController,
     // private geolocation: Geolocation,
     private notiNetWork: NoticeNetWork,
-    private datePipe: DatePipe,
     public toast: ToastService,
   ) {
 

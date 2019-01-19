@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService, STORAGE_KEY } from './storage.service';
-import { isEmpty, isArray } from 'lodash';
+import { isEmpty } from 'lodash';
 
 @Injectable()
 export class AuthService {

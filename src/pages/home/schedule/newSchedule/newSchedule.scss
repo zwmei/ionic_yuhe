@@ -71,13 +71,15 @@
         
 
         .pop-content{
+            position: relative;
             
             display: block;
             background-color: #fff;
             
             width: 90%;
-            max-height: 400px;
-            margin: 20px auto;
+            max-height: 440px;
+            margin: 0 auto;
+            padding-bottom: 50px;
 
             ion-item.title{
                 border: 1px solid $color-light;;
@@ -99,7 +101,8 @@
 
 
             .buttons{
-                
+                position: absolute;
+                bottom: 0;
                 width: 100%;
                 height: 40px;
                 

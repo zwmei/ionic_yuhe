@@ -9,15 +9,15 @@ import { Component } from '@angular/core';
   templateUrl: 'message.html'
 })
 export class MessagePage {
-  private currentSelectDate;
-  private defaultSelectToday;
+  // private currentSelectDate = null;
+  // private defaultSelectToday = true;
   
   constructor(
     public navCtrl: NavController,
     // private imageChooser: Chooser
     ) {
-    this.currentSelectDate = null;
-    this.defaultSelectToday =true;
+    // this.currentSelectDate = null;
+    // this.defaultSelectToday =true;
   }
 
   getFile(){
@@ -59,7 +59,7 @@ export class MessagePage {
 
   
   selectDateChange(newDate){
-    this.currentSelectDate = newDate;
+    // this.currentSelectDate = newDate;
     console.log('change');
   }
 
