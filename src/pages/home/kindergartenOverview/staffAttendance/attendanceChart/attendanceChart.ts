@@ -76,7 +76,7 @@ export class AttendanceChartPage {
             enabled: false
           },
           legend: {
-            labelFormat: '{name}<br/>{percentage}%'
+            labelFormat: '{name}'
           },
           loading: {
             showDuration: 100,
@@ -88,7 +88,7 @@ export class AttendanceChartPage {
               cursor: 'pointer',
               dataLabels: {
                 enabled: true,
-                format: '{percentage:.1f}%',
+                format: '{percentage:.0f}%',
                 distance: -20
               },
               showInLegend: true,
@@ -110,12 +110,16 @@ export class AttendanceChartPage {
                   y: data.signRate
                 },
                 {
-                  name: '请假率',
-                  y: data.leaveRate
+                  name: '缺勤率',
+                  y: data.absenceRate
                 },
                 {
-                  name: '未签到率',
-                  y: data.absenceRate
+                  name: '迟到率',
+                  y: data.beingLateRate
+                },
+                {
+                  name: '请假率',
+                  y: data.leaveRate
                 }
               ]
             }

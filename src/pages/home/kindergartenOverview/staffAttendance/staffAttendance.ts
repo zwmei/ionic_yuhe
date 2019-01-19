@@ -29,13 +29,13 @@ export class StaffAttendancePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad=====',Date.now());
+    console.log('ionViewDidLoad=====', Date.now());
   }
   ionViewWillEnter() {
-    console.log('ionViewWillEnter=====',Date.now());
+    console.log('ionViewWillEnter=====', Date.now());
   }
   ionViewDidEnter() {
-    console.log('bbhhhhh=====',Date.now());
+    console.log('bbhhhhh=====', Date.now());
     this.refreshData();
   }
 
@@ -80,7 +80,7 @@ export class StaffAttendancePage {
             enabled: false
           },
           legend: {
-            labelFormat: '{name}<br/>{percentage}%'
+            labelFormat: '{name}'
           },
           loading: {
             showDuration: 100,
@@ -92,15 +92,10 @@ export class StaffAttendancePage {
               cursor: 'pointer',
               dataLabels: {
                 enabled: true,
-                format: '{percentage:.1f}%',
+                format: '{percentage:.0f}%',
                 distance: -20
               },
               showInLegend: true,
-              // events: {
-              //   click: (e) => {
-              //     this.navCtrl.push('app-home-attendance-chart');
-              //   }
-              // },
               tooltip: {
               }
             }
@@ -114,12 +109,16 @@ export class StaffAttendancePage {
                   y: data.signRate
                 },
                 {
-                  name: '请假率',
-                  y: data.leaveRate
+                  name: '缺勤率',
+                  y: data.absenceRate
                 },
                 {
-                  name: '未签到率',
-                  y: data.absenceRate
+                  name: '迟到率',
+                  y: data.beingLateRate
+                },
+                {
+                  name: '请假率',
+                  y: data.leaveRate
                 }
               ]
             }
@@ -136,17 +135,18 @@ export class StaffAttendancePage {
           this.attendanceList = data.map((item) => {
             return {
               name: item.teacherName,
-              rate: (item.signRate || 0) * 100
+              rate: (item.signRate || 0) * 10 * 10
             }
           })
         }
       })
   }
 
-  goToListPage() {
+  goToListPage(checkType: number) {
     this.navCtrl.push('app-home-attendance-list', {
       startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
-      endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd')
+      endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd'),
+      checkType
     })
   }
 

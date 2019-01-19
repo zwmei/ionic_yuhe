@@ -17,6 +17,12 @@ export class KindergartenOverviewNetwork {
   getStaffAttendanceList(data: any) {
     return this.http.get('/app/workattendance/getStaffAttendances', data);
   }
+  //根据类型获取所有职工的出勤list
+  getStaffAttendanceListByType(data: any) {
+    return this.http.get('/app/workattendance/getAttendancesByType', data);
+  }
+
+
   //获取所有职工的未签到记录
   getStaffAbsentList(data: any) {
     return this.http.get('/app/workattendance/getStaffAbsence', data);

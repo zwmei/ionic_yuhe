@@ -23,7 +23,7 @@ export class AttendanceListPage {
 
 
   getList(params: object) {
-    this.kindNetwork.getStaffAttendanceList(params)
+    this.kindNetwork.getStaffAttendanceListByType(params)
       .subscribe((data: any) => {
         if (data.status) {
           return;

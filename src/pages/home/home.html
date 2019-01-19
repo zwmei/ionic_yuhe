@@ -49,7 +49,7 @@
       </div>
     </ion-row>
   </div>
-  <div class="chart-view chart-view1" *ngIf="chartName==='chart1'">
+  <div class="chart-view chart-view1" *ngIf="chartName==='chart1'" (click)="goToPage('app-home-staffAttendance')">
     <div class="chart-item" [chart]="chart1"></div>
   </div>
 

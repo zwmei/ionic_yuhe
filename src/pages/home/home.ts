@@ -30,7 +30,7 @@ export class HomePage {
     console.log(user);
   }
 
-  messageText:string="";
+  messageText: string = "";
   searchText: string = '';
   chartName = '';
   chart1 = null;
@@ -56,7 +56,7 @@ export class HomePage {
           enabled: false
         },
         legend: {
-          labelFormat: '{name}<br/>{y}人'
+          labelFormat: '{name}'
         },
         loading: {
           showDuration: 100,
@@ -72,11 +72,6 @@ export class HomePage {
               distance: -20
             },
             showInLegend: true,
-            events: {
-              click: (e) => {
-                this.goToPage('app-home-staffAttendance');
-              }
-            },
             tooltip: {
             }
           }
@@ -86,20 +81,20 @@ export class HomePage {
             name: '出勤',
             data: [
               {
-                name: '应到',
-                y: data.totalCount
-              },
-              {
-                name: '实到',
+                name: '出勤',
                 y: data.signCount
               },
               {
                 name: '缺勤',
-                y: data.leaveCount
+                y: data.absenceCount
               },
               {
-                name: '其他',
-                y: data.absenceCount
+                name: '迟到',
+                y: data.beingLateCount
+              },
+              {
+                name: '请假',
+                y: data.leaveCount
               }
             ]
           }
@@ -241,72 +236,6 @@ export class HomePage {
   onClearSearchText(e): void {
     console.log('cancel', e, this.searchText);
   }
-  showAlert(): void {
-    this.messageService.show({
-      subTitle: '新年快乐!!!'
-    });
-  }
-  showConfirm(): void {
-    this.confirmService.show({
-      subTitle: '确认删除吗？',
-      buttons: [
-        {
-          handler: () => {
-            alert('取消了');
-          }
-        },
-        {
-          handler: () => {
-            alert('已删除');
-          }
-        }
-      ]
-    })
-  }
-  showActionSheet(): void {
-    this.actionSheetService.show({
-      title: 'Albums',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          icon: !this.platform.is('ios') ? 'trash' : null,
-          handler: () => {
-            console.log('Delete clicked');
-          }
-        },
-        {
-          text: 'Share',
-          // icon: !this.platform.is('ios') ? 'share' : null,
-          handler: () => {
-            console.log('Share clicked');
-          }
-        },
-        {
-          text: 'Play',
-          // icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
-          handler: () => {
-            console.log('Play clicked');
-          }
-        },
-        {
-          text: 'Favorite',
-          // icon: !this.platform.is('ios') ? 'heart-outline' : null,
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel', // will always sort to be on the bottom
-          // icon: !this.platform.is('ios') ? 'close' : null,
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    })
-  }
 
   hasPermission(key: string) {
     return this.auth.hasPermission(key);
@@ -322,11 +251,11 @@ export class HomePage {
     // this.messageText="";
     this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
       console.log(data);
-      data = data ||[];
-      if (data.status){
+      data = data || [];
+      if (data.status) {
         return;
       }
-      this.messageText = data.slice(0,8).map(item=> item.ggbt).join('  ');
+      this.messageText = data.slice(0, 8).map(item => item.ggbt).join('  ');
     });
     this.onSelectChart('chart1');
   }

@@ -1,6 +1,9 @@
 @import "../../../../../theme/variables.scss";
 
 .child-check-page .attenance-statistic .box-content{
+    .col {
+        padding:0;
+    }
     ion-item {
         padding-left: 20px;
         border-bottom: 1px solid $color-border;
