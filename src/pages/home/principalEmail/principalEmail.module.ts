@@ -1,3 +1,4 @@
+import { EmailNetwork } from './../../../network/email.network';
 import { PrincipalEmail } from "./principalEmail";
 import { NgModule } from "@angular/core";
 import { IonicPageModule } from "ionic-angular";
@@ -7,6 +8,7 @@ import { IonicPageModule } from "ionic-angular";
   imports: [
       IonicPageModule.forChild(PrincipalEmail),
     ],
-  entryComponents: [PrincipalEmail]
+  entryComponents: [PrincipalEmail],
+  providers: [EmailNetwork]
 })
 export class PrincipalEmailPageModule {}

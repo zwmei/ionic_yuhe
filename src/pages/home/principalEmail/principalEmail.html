@@ -22,20 +22,46 @@
   <ion-list>
     <ion-list-header>
       <ion-segment [(ngModel)]="isRead">
-        <ion-segment-button class="segment-button-one" [ngClass]="isRead" value="false"> 未查阅 </ion-segment-button>
-        <ion-segment-button class="segment-button-two" [ngClass]="isRead" value="true"> 已查阅 </ion-segment-button>
+        <ion-segment-button
+          class="segment-button-one"
+          [ngClass]="isRead"
+          value="false"
+        >
+          未查阅
+        </ion-segment-button>
+        <ion-segment-button
+          class="segment-button-two"
+          [ngClass]="isRead"
+          value="true"
+        >
+          已查阅
+        </ion-segment-button>
       </ion-segment>
     </ion-list-header>
-    <ion-item *ngFor="let item of items" (click)="clickItem(item)">
-      <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
-        item.badage
-      }}</ion-badge>
-      <ion-avatar item-start>
-        <img src="assets/imgs/image-default.png" />
-      </ion-avatar>
-      <h2>{{ item.title }}</h2>
-      <p>{{ item.subTitle }}</p>
-    </ion-item>
+    <div *ngIf="isRead === 'false'">
+      <ion-item *ngFor="let item of unReadList" (click)="clickItem(item)">
+        <ion-avatar item-start>
+          <img
+            src="{{ item.image }}"
+            onerror="this.src='assets/imgs/image-default.png'"
+          />
+        </ion-avatar>
+        <h2>{{ item.senderName }}</h2>
+        <p>{{ item.title }}</p>
+      </ion-item>
+    </div>
+    <div *ngIf="isRead === 'true'">
+      <ion-item *ngFor="let item of readList" (click)="clickItem(item)">
+        <ion-avatar item-start>
+          <img
+            src="{{ item.image }}"
+            onerror="this.src='assets/imgs/image-default.png'"
+          />
+        </ion-avatar>
+        <h2>{{ item.senderName }}</h2>
+        <p>{{ item.title }}</p>
+      </ion-item>
+    </div>
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

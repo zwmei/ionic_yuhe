@@ -70,8 +70,7 @@
     <div class="block-title">园长管理</div>
 
     <ion-row align-items-center>
-      <!-- (click)="goToPage('app-home-principal-email')" -->
-      <div class="block-item" *ngIf="hasPermission('home/leader/mailbox')">
+      <div class="block-item" *ngIf="hasPermission('home/leader/mailbox')" (click)="goToPage('app-home-principal-email')">
         <ion-row class="item-image primary" justify-content-center align-items-center>
           <!-- <ion-icon name="contact" color="white"></ion-icon> -->
           <img alt="花" style="width:100%;height:100%;" src="assets/image/home/index/mailbox.png" />
