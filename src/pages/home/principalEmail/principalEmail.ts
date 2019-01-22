@@ -22,28 +22,32 @@ export class PrincipalEmail {
     ) {
     this.props = params.data;
     this.emailNetwork.getAllEmailList({
-      isRead: 0
+      isRead: 0,
+      pageNo: 0,
+      size: 20
     }).subscribe((data: any) => {
       console.log('-----', data);
       if (data) {
-        // this.unReadList = data.map((item) => {
-        //   item.image = HTTP_URL.MAIN + '/images/' + item.photo;
-        //   return item;
-        // });
+        this.unReadList = data.map((item) => {
+          item.image = HTTP_URL.MAIN + '/images/' + item.photo;
+          return item;
+        });
       }
     }, error => {
       console.log(error)
     })
 
     this.emailNetwork.getAllEmailList({
-      isRead: 1
+      isRead: 1,
+      pageNo: 0,
+      size: 20
     }).subscribe((data: any) => {
       console.log('-----', data);
       if (data) {
-        // this.unReadList = data.map((item) => {
-        //   item.image = HTTP_URL.MAIN + '/images/' + item.photo;
-        //   return item;
-        // });
+        this.readList = data.map((item) => {
+          item.image = HTTP_URL.MAIN + '/images/' + item.photo;
+          return item;
+        });
       }
     }, error => {
       console.log(error)

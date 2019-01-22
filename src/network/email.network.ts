@@ -11,7 +11,7 @@ export class EmailNetwork {
   }
   // 查看
   getEmailDetails(data) {
-    return this.http.get('/app/leadermail/replyLeaderMail', data);
+    return this.http.get('/app/leadermail/readLeaderMail', data);
   }
 
   // 获取人员列表

@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title> 回复邮件 </ion-title>
     <ion-buttons end>
-      <button (click)="sendFeedback()" color="clear">发送</button>
+      <button style="background: none;" (click)="sendFeedback()" color="clear">发送</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -16,6 +16,6 @@
       </ion-item>
   <ion-item>
     <ion-label stacked>内容</ion-label>
-    <ion-textarea placeholder="请输入你的回复" rows="20"> </ion-textarea>
+    <ion-textarea [(ngModel)]="feedbackData.content" placeholder="请输入你的回复" rows="10"> </ion-textarea>
   </ion-item>
 </ion-content>
