@@ -1,21 +1,64 @@
 <ion-header>
   <ion-navbar>
-    <ion-title> 回复邮件 </ion-title>
-    <ion-buttons end>
-      <button style="background: none;" (click)="sendFeedback()" color="clear">发送</button>
+    <ion-title> 邮件详情 </ion-title>
+    <ion-buttons *ngIf="params.isLeader == 1" end>
+      <button style="background: none;" (click)="sendFeedback()" color="clear">
+        发送
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content class="body">
-    <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/imgs/image-default.png" />
-        </ion-avatar>
-        <h2>{{ emailData.title }}</h2>
-        <p class="sub-Title-label">{{ emailData.content }}</p>
-      </ion-item>
   <ion-item>
-    <ion-label stacked>内容</ion-label>
-    <ion-textarea [(ngModel)]="feedbackData.content" placeholder="请输入你的回复" rows="10"> </ion-textarea>
+    <ion-avatar item-start>
+      <img
+        src="{{ emailData.image }}"
+        onerror="this.src='assets/imgs/image-default.png'"
+      />
+    </ion-avatar>
+    <h2>{{ emailData.title }}</h2>
+    <p class="sub-Title-label">{{ emailData.content }}</p>
   </ion-item>
+
+  <div class="block-view" *ngIf="emailData.picture">
+    <div class="title-view">
+      <p class="left title">图片</p>
+      <ion-row>
+        <ion-col class="reason-img" *ngFor="let item of emailData.picture">
+          <img
+            src="{{ item }}"
+            onerror="this.src='assets/imgs/image-faild.png'"
+          />
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <div
+    class="block-view"
+    *ngIf="emailData.replyMails && emailData.replyMails.length > 0"
+  >
+    <ion-item *ngFor="let item of emailData.replyMails">
+      <ion-avatar item-start>
+        <img
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
+      </ion-avatar>
+      <h2>{{ item.title }}</h2>
+      <p class="sub-Title-label">{{ item.content }}</p>
+    </ion-item>
+  </div>
+  <div class="block-view" *ngIf="params.isLeader == 1">
+    <p class="left title">回复内容</p>
+    <ion-item>
+      <ion-label stacked>内容</ion-label>
+      <ion-textarea
+        [(ngModel)]="feedbackData.content"
+        placeholder="请输入你的回复"
+        rows="5"
+      >
+      </ion-textarea>
+    </ion-item>
+  </div>
 </ion-content>

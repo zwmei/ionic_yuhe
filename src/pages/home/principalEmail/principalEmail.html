@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="principal-email-body">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="下拉刷新"
@@ -18,40 +18,55 @@
       refreshingText="加载中......"
     >
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
   <ion-list>
-    <ion-list-header>
-      <ion-segment [(ngModel)]="isRead">
-        <ion-segment-button
-          class="segment-button-one"
-          [ngClass]="isRead"
-          value="false"
-        >
-          未查阅
-        </ion-segment-button>
-        <ion-segment-button
-          class="segment-button-two"
-          [ngClass]="isRead"
-          value="true"
-        >
-          已查阅
-        </ion-segment-button>
-      </ion-segment>
-    </ion-list-header>
-    <div *ngIf="isRead === 'false'">
-      <ion-item *ngFor="let item of unReadList" (click)="clickItem(item)">
-        <ion-avatar item-start>
-          <img
-            src="{{ item.image }}"
-            onerror="this.src='assets/imgs/image-default.png'"
-          />
-        </ion-avatar>
-        <h2>{{ item.senderName }}</h2>
-        <p>{{ item.title }}</p>
-      </ion-item>
+    <div *ngIf="isLeader == 1">
+      <ion-list-header>
+        <ion-segment [(ngModel)]="isRead">
+          <ion-segment-button
+            class="segment-button-one"
+            [ngClass]="isRead"
+            value="false"
+          >
+            未查阅
+          </ion-segment-button>
+          <ion-segment-button
+            class="segment-button-two"
+            [ngClass]="isRead"
+            value="true"
+          >
+            已查阅
+          </ion-segment-button>
+        </ion-segment>
+      </ion-list-header>
+      <div *ngIf="isRead === 'false'">
+        <ion-item *ngFor="let item of unReadList" (click)="clickItem(item)">
+          <ion-avatar item-start>
+            <img
+              src="{{ item.image }}"
+              onerror="this.src='assets/imgs/image-default.png'"
+            />
+          </ion-avatar>
+          <h2>{{ item.senderName }}</h2>
+          <p>{{ item.title }}</p>
+        </ion-item>
+      </div>
+      <div *ngIf="isRead === 'true'">
+        <ion-item *ngFor="let item of readList" (click)="clickItem(item)">
+          <ion-avatar item-start>
+            <img
+              src="{{ item.image }}"
+              onerror="this.src='assets/imgs/image-default.png'"
+            />
+          </ion-avatar>
+          <h2>{{ item.senderName }}</h2>
+          <p>{{ item.title }}</p>
+        </ion-item>
+      </div>
     </div>
-    <div *ngIf="isRead === 'true'">
-      <ion-item *ngFor="let item of readList" (click)="clickItem(item)">
+
+    <div *ngIf="isLeader == 0">
+      <ion-item *ngFor="let item of allList" (click)="clickItem(item)">
         <ion-avatar item-start>
           <img
             src="{{ item.image }}"
@@ -64,11 +79,11 @@
     </div>
   </ion-list>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="加载更多..."
     >
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
 </ion-content>
