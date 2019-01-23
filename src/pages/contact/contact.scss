@@ -1,0 +1,95 @@
+.contact-page {
+  background: $color-light;
+
+  .tab-switch {
+      overflow: hidden;
+    background: #fff;
+    padding: 0 16px;
+    height: 50px;
+    line-height: 50px;
+
+    .tab-item {
+      display: inline-block;
+      float: left;
+      width: 25%;
+
+      &.current {
+        color: $color-primary;
+      }
+
+      color: $color-text;
+      font-size: 20px;
+    }
+  }
+
+  .search-bar {
+    background: #fff;
+    margin-bottom: 20px;
+
+    ion-searchbar {
+      background: $color-light;
+    }
+
+    p {
+      line-height: 40px;
+      color: $color-text;
+      padding: 0 16px;
+    }
+
+    .searchbar.searchbar-md {
+      position: relative;
+      padding: 5px 10px;
+
+      .searchbar-input {
+        
+        padding: 0 0 0 55px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: none;
+      }
+
+      .searchbar-search-icon {
+        top: 8px;
+      }
+    }
+  }
+
+  .contacts {
+    background: #fff;
+    color: $color-text;
+
+    ion-item {
+      &:nth-child(1) {
+        border: none;
+      }
+
+      &:nth-last-child(1) {
+        border: none;
+
+        .item-inner {
+          border: none;
+        }
+      }
+
+      span {
+        display: inline-block;
+        float: left;
+        line-height: 30px;
+
+        &.right {
+          float: right;
+          text-align: right;
+        }
+      }
+
+      img {
+        display: inline-block;
+        float: left;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+      }
+    }
+
+  }
+}
