@@ -39,7 +39,7 @@ export class ContactPage {
             name: item.zgxm,
             image: HTTP_URL.MAIN + '/images/' + item.photo,
             id: item.id,
-            mobileNumber: item.lxdh
+            mobile: item.lxdh
           };
         });
       }
@@ -55,6 +55,11 @@ export class ContactPage {
   }
   onClearSearchText(e): void {
     console.log('cancel', e, this.searchText);
+  }
+
+  goToDetailPage(item): void{
+    
+    this.navCtrl.push('app-contact-contactDetail', { contact: item });
   }
   
 }

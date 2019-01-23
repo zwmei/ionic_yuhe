@@ -19,7 +19,7 @@
     </div>
     <div class="contacts">
       <ion-list>
-        <ion-item *ngFor="let contact of contacts;let number = index;">
+        <ion-item (click)="goToDetailPage(contact)" *ngFor="let contact of contacts;let number = index;">
             <img onerror="this.src='assets/imgs/image-default.png'"  src="{{contact.image}}" /> 
             <span>{{contact.name}}</span>
         </ion-item>

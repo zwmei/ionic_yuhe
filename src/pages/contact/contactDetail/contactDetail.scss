@@ -1,0 +1,68 @@
+@import "../../../theme/variables.scss";
+
+.contact-detail-page {
+  background: #fff;
+
+  .contact-info-area {
+    height: 100px;
+    overflow: hidden;
+    padding: 0 16px;
+
+    >div {
+      display: inline-block;
+      float: left;
+
+      &.photo {
+          width: 25%;
+
+        img {
+          margin-top: 10px;
+          height: 70px;
+          width: auto;
+          border-radius: 30px;
+        }
+
+      }
+
+      &.text-area {
+          width: 75%; 
+
+        strong,
+        span {
+          display: block;
+          width: 100%;
+          padding-left: 20px;
+
+        }
+
+        strong {
+          padding-top: 20px;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+
+  .mobile-area, .operation{
+      overflow: hidden;
+      label{
+          margin-left: 16px;
+      }
+      ion-item{
+          padding-left: 0;
+          ion-label{
+              margin-left: 16px;
+          }
+          ion-icon{
+              float: right;
+          }
+      }
+  }
+  .operation{
+      padding-top: 80px;
+      ion-item{
+          border-top: 1px solid $color-border;
+      }
+  }
+
+}
