@@ -1,5 +1,14 @@
+import { ToastService } from "./../../../../service/toast.service";
+import { EmailNetwork } from "./../../../../network/email.network";
 import { Component } from "@angular/core";
-import { NavParams, IonicPage, AlertController } from "ionic-angular";
+import { HTTP_URL } from "../../../../network/http";
+
+import {
+  IonicPage,
+  AlertController,
+  ActionSheetController,
+  NavController
+} from "ionic-angular";
 
 @IonicPage({
   name: "app-home-edit-email"
@@ -12,49 +21,98 @@ import { NavParams, IonicPage, AlertController } from "ionic-angular";
 // todo 复用
 export class EditEmail {
   // 0 通知， 1 邮件
-  type;
-  title;
-  content;
+  emailData: any = {};
   reciverList = [];
-  constructor(params: NavParams, public alert: AlertController) {
-    this.type = params.data.type;
-  }
+  emailsPersons: any = [];
+  selectedPerson: any = {};
+  images = [];
+  photos= [];
+  constructor(
+    public alert: AlertController,
+    public emailNetwork: EmailNetwork,
+    public actionSheet: ActionSheetController,
+    public toast: ToastService,
+    public navCtrl: NavController,
+  ) {}
 
   addNewReciver() {
-
-    const prompt = this.alert.create({
-      title: "收件人",
-      message: "",
-      inputs: [
-        {
-          name: "email",
-          type: "email",
-          placeholder: "请输入邮箱"
-        }
-      ],
-      buttons: [
-        {
-          text: "取消",
-          handler: data => {
-            console.log("Cancel clicked");
-          }
+    if (this.emailsPersons.length > 0) {
+      this.showSelectPersonAlert();
+    } else {
+      this.emailNetwork.getEmailPersonList().subscribe(
+        (data: any) => {
+          console.log(data);
+          this.emailsPersons = data;
+          this.showSelectPersonAlert();
         },
-        {
-          text: "确定",
-          handler: data => {
-            this.reciverList.push(data.email);
-          }
+        error => {
+          console.log(error);
         }
-      ]
-    });
-    prompt.present();
+      );
+    }
   }
 
-  addPicture() {
-
+  /// 审批人
+  showSelectPersonAlert() {
+    var buttons = this.emailsPersons.map(item => {
+      return {
+        text: item.zgxm,
+        handler: () => {
+          this.selectedPerson.zgxm = item.zgxm;
+          this.selectedPerson.id = item.id;
+        }
+      };
+    });
+    const actionSheet = this.actionSheet.create({
+      buttons: buttons
+    });
+    actionSheet.present();
   }
 
   sendAnnounceMent() {
+    if (!this.emailData.title || !this.emailData.content) {
+      this.toast.show("请完善标题和内容");
+      return;
+    }
+    if (this.emailData.title.length > 25) {
+      this.toast.show("主题超长，请保持在25个字符以内");
+      return;
+    }
 
+    if (this.emailData.content.length > 125) {
+      this.toast.show("内容超长，请保持在125个字符以内");
+      return;
+    }
+
+    if (!this.selectedPerson.id) {
+      this.toast.show("请选择通知人");
+      return;
+    }
+
+    this.emailData.readerId = this.selectedPerson.id;
+    this.emailData.fileNames = this.images.join(',');
+
+    this.emailNetwork.saveAndSendEmail(this.emailData).subscribe(
+      (data: any) => {
+        console.log("-----", data);
+        if (data) {
+          this.toast.show("发送成功");
+          this.navCtrl.pop();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  deletePhoto(index) {
+    this.photos.splice(index, 1);
+    this.images.splice(index, 1);
+  }
+  changeFileName(fileName) {
+    this.images.push(fileName);
+    this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
   }
 }

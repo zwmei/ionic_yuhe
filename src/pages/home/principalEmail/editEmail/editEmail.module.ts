@@ -1,3 +1,5 @@
+import { ComponentsModule } from './../../../../components/components.module';
+import { EmailNetwork } from './../../../../network/email.network';
 import { EditEmail } from "./editEmail";
 import { NgModule } from "@angular/core";
 import { IonicPageModule } from "ionic-angular";
@@ -6,7 +8,9 @@ import { IonicPageModule } from "ionic-angular";
   declarations: [EditEmail],
   imports: [
       IonicPageModule.forChild(EditEmail),
+      ComponentsModule
     ],
-  entryComponents: [EditEmail]
+  entryComponents: [EditEmail],
+  providers: [EmailNetwork]
 })
 export class EditEmailPageModule {}

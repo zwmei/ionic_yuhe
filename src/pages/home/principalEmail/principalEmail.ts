@@ -1,6 +1,7 @@
+import { EmailNetwork } from './../../../network/email.network';
 import { Component } from "@angular/core";
 import { NavParams, NavController, IonicPage } from "ionic-angular";
-
+import { HTTP_URL } from "../..../../../../network/http";
 @IonicPage({
   name: "app-home-principal-email"
 })
@@ -10,97 +11,47 @@ import { NavParams, NavController, IonicPage } from "ionic-angular";
 })
 export class PrincipalEmail {
   props;
-  items;
+  unReadList = [];
+  readList = [];
   isRead: string = "false";
 
-  constructor(public navCtrl: NavController, params: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    params: NavParams,
+    public emailNetwork: EmailNetwork,
+    ) {
     this.props = params.data;
-    this.items = [
-      {
-        picture: "assets/imgs/image-default.png",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-3.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/imgs/image-default.png",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-3.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/imgs/image-default.png",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-3.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
-      },
-      {
-        picture: "assets/icon/thumbnail-puppy-4.jpg",
-        title: "肥仔美",
-        subTitle:
-          "你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!你好院长我是肥仔美的妈妈!",
-        badage: 10
+    this.emailNetwork.getAllEmailList({
+      isRead: 0,
+      pageNo: 0,
+      size: 20
+    }).subscribe((data: any) => {
+      console.log('-----', data);
+      if (data) {
+        this.unReadList = data.map((item) => {
+          item.image = HTTP_URL.MAIN + '/images/' + item.photo;
+          return item;
+        });
       }
-    ];
+    }, error => {
+      console.log(error)
+    })
+
+    this.emailNetwork.getAllEmailList({
+      isRead: 1,
+      pageNo: 0,
+      size: 20
+    }).subscribe((data: any) => {
+      console.log('-----', data);
+      if (data) {
+        this.readList = data.map((item) => {
+          item.image = HTTP_URL.MAIN + '/images/' + item.photo;
+          return item;
+        });
+      }
+    }, error => {
+      console.log(error)
+    })
   }
 
   clickItem(item) {
