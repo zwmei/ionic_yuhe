@@ -3,6 +3,7 @@ import { isDate } from "lodash";
 import { EmailNetwork } from "./../../../../network/email.network";
 import { Component } from "@angular/core";
 import { NavParams, IonicPage, NavController } from "ionic-angular";
+import { HTTP_URL } from "../../../../network/http";
 
 @IonicPage({
   name: "app-home-feedbak-email"
@@ -12,7 +13,7 @@ import { NavParams, IonicPage, NavController } from "ionic-angular";
   selector: "feedbackEmail.ts"
 })
 export class FeedbackEmail {
-  item;
+  params: any = {};
   emailData: any = {};
   feedbackData: any = {};
   constructor(
@@ -21,15 +22,25 @@ export class FeedbackEmail {
     public toast: ToastService,
     public navCtrl: NavController
   ) {
-    this.item = params.data;
+    this.params = params.data;
     this.emailNetwork
       .getEmailDetails({
-        mailId: this.item.id
+        mailId: this.params.id
       })
       .subscribe(
         (data: any) => {
           console.log("-----", data);
           if (data) {
+            if (data.senderPicturePath) {
+              data.image = HTTP_URL.MAIN + "/images/" + data.senderPicturePath;
+            }
+            if (data.replyMails) {
+              data.replyMails = data.replyMails.map(item => {
+                item.image = HTTP_URL.MAIN + '/images/' + item.senderPicturePath;
+                return item;
+              })
+            }
+            console.log("-----", data);
             this.emailData = data;
           }
         },
@@ -38,6 +49,7 @@ export class FeedbackEmail {
         }
       );
   }
+
   sendFeedback() {
     if (!this.feedbackData.content) {
       this.toast.show("请完善申请内容");
@@ -51,10 +63,11 @@ export class FeedbackEmail {
 
     this.emailNetwork
       .feedbackEmail({
-        replyMailId: this.item.id,
-        title: '回复',
+        replyMailId: this.params.id,
+        title: "院长回复",
         content: this.feedbackData.content
-      }).subscribe(
+      })
+      .subscribe(
         (data: any) => {
           console.log("-----", data);
           if (data) {
