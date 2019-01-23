@@ -58,8 +58,15 @@ export class ScheduleDetailPage {
   completeSchedule(){
     if(this.schedule.isComplete === 0){
       this.scheduleNetwork.completeSchedule({id:this.scheduleId, status: 1})
-      .subscribe(result=>{
+      .subscribe((result:any)=>{
         console.log(result);
+        console.log(result.status);
+        if(result.status === 0){
+          this.toastService.show('标记成功！');
+          this.schedule.isComplete = 1;
+        }else{
+          this.toastService.show('标记失败！');
+        }
       },err=>{
         this.toastService.show('标记完成失败！');
       });
