@@ -1,5 +1,47 @@
-<ion-content>
-  <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
+<ion-content class="dynamic-page">
+  <!-- <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
     <p style="display:block;width:100%;">努力开发中......</p>
+  </div> -->
+  <div class="dynamic-header">
+      <img  src="assets/image/moment/header.jpg"/> 
+      <div class="user-info">
+        
+        <img onerror="this.src='assets/imgs/img-default.png'"  src="{{user.photo}}" /> 
+        <span>{{user.name}}</span>
+      </div>
   </div>
+  <div class="dynamic-body">
+    <div class="moment-item" *ngFor="let contact of list">
+      <div class="image-area">
+          <img onerror="this.src='assets/imgs/image-default.png'"  src="{{contact.image}}" /> 
+      </div>
+      <div class="moment-content">
+        <p>{{contact.name}}</p>
+        <span>{{contact.content}}</span>
+        <div class="photo-area">
+          <div class="photo" *ngFor="let picture of contact.pictures">
+              <img onerror="this.src='assets/imgs/img-default.png'"  src="{{picture}}" /> 
+          </div>
+        </div>
+        <div class="moment-footer">
+          <time>{{contact.timeString}}</time>
+          <div class="operators">
+              <ion-icon name="heart"></ion-icon>
+              <ion-icon name="chatboxes"></ion-icon>
+              <ion-icon name="trash"></ion-icon>
+          </div>
+        </div>
+        <div class="comment-area" *ngIf="contact.likes.length > 0 || contact.comments.length > 0">
+          <div class="great" *ngIf="contact.likes.length > 0">
+              <ion-icon name="heart"></ion-icon>
+              <span *ngFor="let item of contact.likes">{{item.name}}</span>
+          </div>
+          <div class="comment" *ngIf="contact.comments.length > 0">
+            <p *ngFor="let item of contact.comments"><span>{{item.name}}</span>{{item.content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </ion-content>
