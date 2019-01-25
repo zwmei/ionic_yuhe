@@ -9,11 +9,15 @@
     width: 100%;
     height: 250px;
 
-    img {
+    .header-image{
       display: block;
       width: 100%;
-      height: auto;
+      height: 250px;
+
+      background-image: url('../assets/image/moment/header.jpg');
+      background-size: contain;
     }
+
 
     .new-moment{
         position: absolute;
@@ -21,16 +25,19 @@
         right: 16px;
         width: 30px;
         height: 30px;
+        
         ion-icon{
+          float:right;
             color: #fff;
-            font-size: 30px;
+            font-size: 35px;
+            text-align: right;
         }
     }
 
     .user-info {
       position: absolute;
       bottom: -10px;
-      right: 20px;
+      right: 16px;
       width: 200px;
       overflow: hidden;
 
@@ -46,6 +53,7 @@
         line-height: 40px;
         margin-right: 10px;
         color: #fff;
+        font-size: 20px;
       }
 
       img {
@@ -70,14 +78,14 @@
       display: inline-block;
       float: left;
 
-      width: 15%;
+      width: 10%;
     }
 
     .moment-content {
       display: inline-block;
       float: left;
 
-      width: 85%;
+      width: 90%;
 
       >span,
       >p {
@@ -103,7 +111,7 @@
         .photo {
           display: inline-block;
           float: left;
-          width: 30%;
+          width: 32%;
           margin: 2px;
 
           //   background-color: #dbdbdb;
@@ -118,7 +126,7 @@
 
       .moment-footer {
         overflow: hidden;
-        padding: 0 20px;
+        padding-left:20px;
         line-height: 30px;
 
         time {
@@ -129,7 +137,7 @@
         .operators {
           display: inline-block;
           float: right;
-          margin-right: -8px;
+          margin-right: -5px;
 
           ion-icon {
             display: inline-block;

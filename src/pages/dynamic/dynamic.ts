@@ -21,8 +21,15 @@ export class DynamicPage {
     private storage: StorageService,
     private toastService: ToastService,
     private dynamicNetwork: DynamicNetwork) {
-      this.loadUserInfo();
-      this.loadMoments();
+      // this.loadUserInfo();
+      // this.loadMoments();
+  }
+
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.loadUserInfo();
+    this.loadMoments();
   }
 
 
