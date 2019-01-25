@@ -4,8 +4,10 @@
   </div> -->
   <div class="dynamic-header">
       <img  src="assets/image/moment/header.jpg"/> 
+      <div class="new-moment" (click)="goToNewMoment()">
+          <ion-icon name="camera"></ion-icon>
+      </div>
       <div class="user-info">
-        
         <img onerror="this.src='assets/imgs/img-default.png'"  src="{{user.photo}}" /> 
         <span>{{user.name}}</span>
       </div>
@@ -28,7 +30,7 @@
           <div class="operators">
               <ion-icon name="heart"></ion-icon>
               <ion-icon name="chatboxes"></ion-icon>
-              <ion-icon name="trash"></ion-icon>
+              <ion-icon *ngIf="contact.isSelf" name="trash"></ion-icon>
           </div>
         </div>
         <div class="comment-area" *ngIf="contact.likes.length > 0 || contact.comments.length > 0">

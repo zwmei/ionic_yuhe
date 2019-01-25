@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title center>
+      添加新时刻
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button color="text" (click)="save()">
+        完成
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<!-- <ion-content class="new-moment-page">
+
+</ion-content> -->
+
+<ion-content class="edit-email-body">
+    <ion-item>
+      <ion-label class="left-title" stacked>时刻内容</ion-label>
+      <ion-textarea
+        placeholder="这一刻的想法..."
+        rows="10"
+        [(ngModel)]="newMoment.content"
+      >
+      </ion-textarea>
+    </ion-item>
+  
+    <div class="block-view">
+      <ion-item no-lines>
+        <ion-label class="left-title">图片</ion-label>
+        <app-file-uploader
+          item-end
+          (onChange)="changeFileName($event)"
+        ></app-file-uploader>
+      </ion-item>
+      <ion-row>
+        <ion-col class="reason-img" *ngFor="let image of photos; let i = index">
+          <button class="delete-button" (click)="deletePhoto(i)">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <img
+            onerror="this.src='assets/imgs/image-faild.png'"
+            src="{{ image }}"
+          />
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-content>
