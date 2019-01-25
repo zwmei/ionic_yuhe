@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { ToastService } from '../../service/toast.service';
-import { HTTP_URL, formatDate } from '../../network/http';
+import { HTTP_URL, getDateDesc } from '../../network/http';
 import { DynamicNetwork } from '../../network/dynamic.network';
 
 @Component({
@@ -32,7 +32,6 @@ export class DynamicPage {
     this.loadMoments();
   }
 
-
   loadUserInfo() {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
     if (userInfo && typeof userInfo === "object") {
@@ -60,7 +59,7 @@ export class DynamicPage {
               pictures: ['','',''],
               likes: [{id: 1, name: '小明'},{id: 2, name: 'wangmeili'}],
               comments: [{id: 1, name: '莎士比亚', content: '一马当先，吉祥如意'}],
-            timeString: formatDate(item.sendTime, 'HH:mm')
+              timeString: getDateDesc(new Date(item.sendTime.replace(/-/g,'\/')).getTime())
           };
         });
       }
@@ -103,4 +102,6 @@ export class DynamicPage {
   goToNewMoment(){
     this.nav.push('app-contact-newMoment');
   }
+
+  
 }

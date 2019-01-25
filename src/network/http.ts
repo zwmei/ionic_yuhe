@@ -20,7 +20,7 @@ export class HttpNetwork {
 
   waitDebounceLogout = () => {
     console.log('logout to login page');
-    this.storage.set(STORAGE_KEY.USER_INFO,null);
+    this.storage.set(STORAGE_KEY.USER_INFO, null);
     this.app.getRootNav().push(LoginPage);
   }
   debouncedFnc = debounce(this.waitDebounceLogout, 250);
@@ -219,4 +219,42 @@ export function getServerAddress() {
 export const HTTP_URL = {
   // MAIN: ''
   MAIN: getServerAddress()
+}
+
+//
+export function getDateDesc(dateTimeStamp: number) {
+  let result = '';
+  if (!dateTimeStamp || isNaN(dateTimeStamp)) {
+    return result;
+  }
+
+  let minute = 1000 * 60;
+  let hour = minute * 60;
+  let day = hour * 24;
+  let month = day * 30;
+  let diffValue = new Date().getTime() - dateTimeStamp;
+  if (diffValue < 0) { return '';}
+  let monthC: any = diffValue / month;
+  let weekC: any = diffValue / (7 * day);
+  let dayC: any = diffValue / day;
+  let hourC: any = diffValue / hour;
+  let minC: any = diffValue / minute;
+  if (monthC >= 1) {
+    result = "" + parseInt(monthC) + "月前";
+  }
+  else if (weekC >= 1) {
+    result = "" + parseInt(weekC) + "周前";
+  }
+  else if (dayC >= 1) {
+    result = "" + parseInt(dayC) + "天前";
+  }
+  else if (hourC >= 1) {
+    result = "" + parseInt(hourC) + "小时前";
+  }
+  else if (minC >= 1) {
+    result = "" + parseInt(minC) + "分钟前";
+  } else{
+    result = "刚刚";
+  }
+  return result;
 }
