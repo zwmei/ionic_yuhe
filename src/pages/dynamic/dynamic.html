@@ -22,7 +22,7 @@
     </ion-refresher>
 
   <div class="dynamic-body">
-    <div class="moment-item" *ngFor="let contact of list">
+    <div class="moment-item" *ngFor="let contact of list;let momentIndex = index">
       <div class="image-area">
           <img onerror="this.src='assets/imgs/image-default.png'"  src="{{contact.photo}}" /> 
       </div>
@@ -30,7 +30,7 @@
         <p>{{contact.name}}</p>
         <span>{{contact.content}}</span>
         <div class="photo-area">
-          <div class="photo" *ngFor="let picture of contact.pictures">
+          <div class="photo" *ngFor="let picture of contact.pictures;">
               <img onerror="this.src='assets/imgs/img-default.png'"  src="{{picture}}" /> 
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="operators">
               <ion-icon (click)="toggleLike(contact);" name="heart"></ion-icon>
               <ion-icon (click)="openComment(contact, $event)" name="chatboxes"></ion-icon>
-              <ion-icon *ngIf="contact.isSelf" name="trash"></ion-icon>
+              <ion-icon (click)="removeMoment(contact, momentIndex)" *ngIf="contact.isSelf" name="trash"></ion-icon>
           </div>
         </div>
         <div class="comment-area" *ngIf="contact.likes.length > 0 || contact.comments.length > 0">

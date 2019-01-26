@@ -22,7 +22,7 @@ export class DynamicNetwork {
   }
 
   removeMoment(data){
-    return this.http.postForm('/app/share/removeShareContent', data);
+    return this.http.get('/app/share/removeShareContent', data);
   }
 
   removeMomentComment(data){

@@ -5,6 +5,7 @@ import { ToastService } from '../../service/toast.service';
 import { HTTP_URL, getDateDesc } from '../../network/http';
 import { DynamicNetwork } from '../../network/dynamic.network';
 import { ActionSheetService } from '../../service/actionSheet.service';
+import { ConfirmService } from '../../service/confirm.service';
 
 @Component({
   templateUrl: 'dynamic.html'
@@ -24,7 +25,8 @@ export class DynamicPage {
   constructor(private nav: NavController,
     private storage: StorageService,
     private toastService: ToastService,
-    private actionSheetService: ActionSheetService, 
+    private actionSheetService: ActionSheetService,
+    private confirmService: ConfirmService, 
     private dynamicNetwork: DynamicNetwork) {
     // this.loadUserInfo();
     // this.loadMoments();
@@ -264,4 +266,34 @@ return;
   }
 
 
+  removeMoment(moment, index){
+    console.log(index);
+    if(!moment.isSelf){
+      return;
+    }
+    this.confirmService.show({
+      title: '删除动态',
+      subTitle: '您确认删除此刻的动态吗？',
+      buttons: [
+        {
+          handler: () => {
+          }
+        },
+        {
+          handler: () => {
+            
+            this.dynamicNetwork.removeMoment({ contentId: moment.id })
+              .subscribe((result: any) => {
+                if (result.status === 0) {
+                  this.list.splice(index, 1);
+                  this.toastService.show('删除成功！');
+                }
+              }, err => {
+                this.toastService.show('删除失败！');
+              });
+          }
+        }
+      ]
+    });
+  }
 }
