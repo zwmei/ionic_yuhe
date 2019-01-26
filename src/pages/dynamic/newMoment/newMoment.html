@@ -36,13 +36,13 @@
         ></app-file-uploader>
       </ion-item>
       <ion-row>
-        <ion-col class="reason-img" *ngFor="let image of photos; let i = index">
+        <ion-col class="reason-img" *ngFor="let picture of photos; let i = index">
           <button class="delete-button" (click)="deletePhoto(i)">
             <ion-icon name="close"></ion-icon>
           </button>
           <img
             onerror="this.src='assets/imgs/image-faild.png'"
-            src="{{ image }}"
+            src="{{ picture }}"
           />
         </ion-col>
       </ion-row>

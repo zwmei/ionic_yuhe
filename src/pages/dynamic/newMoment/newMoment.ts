@@ -34,6 +34,10 @@ export class NewMomentPage {
   changeFileName(fileName) {
     this.images.push(fileName);
     this.photos.push(HTTP_URL.MAIN + "/images/" + fileName);
+    console.log('fileName: ', fileName);
+    console.log(this.photos[this.photos.length - 1]);
+    console.log(this.photos);
+    console.log(this.images);
   }
 
   deletePhoto(index) {
