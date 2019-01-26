@@ -26,7 +26,7 @@ export class DynamicPage {
     private storage: StorageService,
     private toastService: ToastService,
     private actionSheetService: ActionSheetService,
-    private confirmService: ConfirmService, 
+    private confirmService: ConfirmService,
     private dynamicNetwork: DynamicNetwork) {
     // this.loadUserInfo();
     // this.loadMoments();
@@ -75,8 +75,8 @@ export class DynamicPage {
   }
 
   showActionSheet(moment, comment, commentIndex): void {
-    if(comment.ownerId !== this.user.id){
-return;
+    if (comment.ownerId !== this.user.id) {
+      return;
     }
     console.log(commentIndex);
     this.actionSheetService.show({
@@ -98,26 +98,27 @@ return;
     })
   }
 
-  removeComment(moment, commentId, commentIndex){
-    this.dynamicNetwork.removeMomentComment({commentId: commentId})
-    .subscribe((result:any)=>{
-      if(result.status === 0){
-        moment.comments.splice(commentIndex, 1);
-        this.toastService.show('删除评论成功！');
-      }
-    }, err=>{
-      this.toastService.show('删除评论失败');
-    });
+  removeComment(moment, commentId, commentIndex) {
+    this.dynamicNetwork.removeMomentComment({ commentId: commentId })
+      .subscribe((result: any) => {
+        if (result.status === 0) {
+          moment.comments.splice(commentIndex, 1);
+          this.toastService.show('删除评论成功！');
+        }
+      }, err => {
+        this.toastService.show('删除评论失败');
+      });
   }
 
   toggleLike(moment) {
+    console.log(moment.isLike);
 
-    if (moment.like) {
+    if (moment.isLike) {
       //取消
       this.dynamicNetwork.cancelLikeMoment({ contentId: moment.id })
         .subscribe((result: any) => {
           if (result.status === 0) {
-            moment.like = false;
+            moment.isLike = false;
             let likeIndex = -1;
             for (var i = 0; i < moment.likes.length; i++) {
               if (moment.likes[i].id === moment.id) {
@@ -136,7 +137,7 @@ return;
       this.dynamicNetwork.likeMoment({ contentId: moment.id })
         .subscribe((result: any) => {
           if (result.status === 0) {
-            moment.like = true;
+            moment.isLike = true;
             moment.likes.push({ id: this.user.id, name: this.user.name });
           }
         }, err => {
@@ -144,9 +145,6 @@ return;
           this.toastService.show('点赞失败！');
         });
     }
-
-
-    moment.like = !moment.like;
     console.log('toggle like');
   }
 
@@ -181,7 +179,8 @@ return;
         console.log('dynamic:', data);
         if (Array.isArray(data) && data.length > 0) {
           this.list = this.list.concat(data.map(item => {
-            return {
+            let isLike = false;
+            let obj: any = {
               id: item.id,
               name: item.senderName,
               photo: HTTP_URL.MAIN + '/images/' + item.photoPath,
@@ -189,12 +188,13 @@ return;
               isSelf: item.senderId === this.user.id,
               senderId: item.senderId,
               userId: this.user.id,
-              isLike: false,
               pictures: (item.sharePictures || []).map(e => HTTP_URL.MAIN + '/images/' + e.picturePath),
-              likes: (item.likeList || []).map(e => { return { id: e.id, name: e.zgxm } }),
+              likes: (item.likeList || []).map(e => { isLike = e.id === this.user.id; return { id: e.id, name: e.zgxm } }),
               comments: (item.shareComments || []).map(e => { return { id: e.id, name: e.commentatorName, content: e.comment, ownerId: e.commentatorId } }),
               timeString: getDateDesc(new Date(item.sendTime.replace(/-/g, '\/')).getTime())
             };
+            obj.isLike = isLike;
+            return obj;
           }));
 
         }
@@ -266,9 +266,9 @@ return;
   }
 
 
-  removeMoment(moment, index){
+  removeMoment(moment, index) {
     console.log(index);
-    if(!moment.isSelf){
+    if (!moment.isSelf) {
       return;
     }
     this.confirmService.show({
@@ -281,7 +281,7 @@ return;
         },
         {
           handler: () => {
-            
+
             this.dynamicNetwork.removeMoment({ contentId: moment.id })
               .subscribe((result: any) => {
                 if (result.status === 0) {
