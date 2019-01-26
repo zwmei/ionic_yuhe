@@ -14,6 +14,13 @@
         <span>{{user.name}}</span>
       </div>
   </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
   <div class="dynamic-body">
     <div class="moment-item" *ngFor="let contact of list">
       <div class="image-area">
@@ -46,6 +53,13 @@
         </div>
       </div>
     </div>
+
+    
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   </div>
 
 

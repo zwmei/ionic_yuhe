@@ -56,14 +56,14 @@ export class DynamicPage {
         contentId: this.currentMomentComment.momentId,
         comment: this.currentMomentComment.content
       })
-      .subscribe((result:any) => {
-        if(result.status === 0){
+      .subscribe((result: any) => {
+        if (result.status === 0) {
           this.toastService.show('评论成功!');
-          this.currentMomentComment.current.comments.push({name:this.user.name,content:this.currentMomentComment.content});
+          this.currentMomentComment.current.comments.push({ name: this.user.name, content: this.currentMomentComment.content });
           this.currentMomentComment = {};
           this.closeCommentArea();
-        }else{
-          this.toastService.show('评论失败！');  
+        } else {
+          this.toastService.show('评论失败！');
         }
       }, err => {
         this.toastService.show('评论失败！');
@@ -111,10 +111,17 @@ export class DynamicPage {
   }
 
 
+  resetPagination() {
+
+    this.pagination.pageNo = 1;
+    this.list = [];
+    this.pagination.completed = false;
+  }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
     this.loadUserInfo();
+    this.resetPagination();
     this.loadMoments();
   }
 
@@ -127,12 +134,13 @@ export class DynamicPage {
     }
   }
 
-  loadMoments() {
-    this.dynamicNetwork.getMoments({ pageNo: 1, size: 100 })
+  pagination: { pageNo: number, size: number, completed: boolean } = { pageNo: 1, size: 10, completed: false };
+  loadMoments(callback?: any) {
+    this.dynamicNetwork.getMoments({ pageNo: this.pagination.pageNo, size: this.pagination.size })
       .subscribe(data => {
         console.log('dynamic:', data);
         if (Array.isArray(data) && data.length > 0) {
-          this.list = data.map(item => {
+          this.list = this.list.concat(data.map(item => {
             return {
               id: item.id,
               name: item.senderName,
@@ -142,12 +150,18 @@ export class DynamicPage {
               senderId: item.senderId,
               userId: this.user.id,
               isLike: false,
-              pictures: item.sharePictures.map(e => HTTP_URL.MAIN + '/images/' + e.picturePath),
+              pictures: (item.sharePictures || []).map(e => HTTP_URL.MAIN + '/images/' + e.picturePath),
               likes: (item.likeList || []).map(e => { return { id: e.id, name: e.zgxm } }),
-              comments: [{ id: 1, name: '莎士比亚', content: '一马当先，吉祥如意' }],
+              comments: (item.shareComments || []).map(e => { return { id: e.id, name: e.commentatorName, content: e.comment } }),
               timeString: getDateDesc(new Date(item.sendTime.replace(/-/g, '\/')).getTime())
             };
-          });
+          }));
+
+        }
+
+
+        if (callback) {
+          return callback(Array.isArray(data) && data.length || 0);
         }
       }, err => {
         this.toastService.show('获取动态失败！');
@@ -183,6 +197,28 @@ export class DynamicPage {
     //   comments: [],
     //   timeString: '1小时前'
     // }];
+  }
+
+  loadMore(event) {
+    if (this.pagination.completed) {
+      event.complete();
+      return;
+    }
+    this.pagination.pageNo = this.pagination.pageNo + 1;
+    this.loadMoments((count) => {
+      if (count === 0) {
+        this.pagination.completed = true;
+
+      }
+      event.complete();
+    });
+  }
+
+  doRefresh(event) {
+    this.resetPagination();
+    this.loadMoments(() => {
+      event.complete();
+    });
   }
 
   goToNewMoment() {
