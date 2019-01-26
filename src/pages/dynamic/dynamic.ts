@@ -4,6 +4,7 @@ import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { ToastService } from '../../service/toast.service';
 import { HTTP_URL, getDateDesc } from '../../network/http';
 import { DynamicNetwork } from '../../network/dynamic.network';
+import { ActionSheetService } from '../../service/actionSheet.service';
 
 @Component({
   templateUrl: 'dynamic.html'
@@ -23,6 +24,7 @@ export class DynamicPage {
   constructor(private nav: NavController,
     private storage: StorageService,
     private toastService: ToastService,
+    private actionSheetService: ActionSheetService, 
     private dynamicNetwork: DynamicNetwork) {
     // this.loadUserInfo();
     // this.loadMoments();
@@ -56,10 +58,10 @@ export class DynamicPage {
         contentId: this.currentMomentComment.momentId,
         comment: this.currentMomentComment.content
       })
-      .subscribe((result: any) => {
-        if (result.status === 0) {
+      .subscribe((commentResult: any) => {
+        if (commentResult.status === 0 && commentResult.result && commentResult.result.commentId) {
           this.toastService.show('评论成功!');
-          this.currentMomentComment.current.comments.push({ name: this.user.name, content: this.currentMomentComment.content });
+          this.currentMomentComment.current.comments.push({ id: commentResult.result.commentId, name: this.user.name, content: this.currentMomentComment.content });
           this.currentMomentComment = {};
           this.closeCommentArea();
         } else {
@@ -68,6 +70,42 @@ export class DynamicPage {
       }, err => {
         this.toastService.show('评论失败！');
       });
+  }
+
+  showActionSheet(moment, comment, commentIndex): void {
+    if(comment.ownerId !== this.user.id){
+return;
+    }
+    console.log(commentIndex);
+    this.actionSheetService.show({
+      title: '您确定要删除此评论吗？',
+      buttons: [{
+        text: '删除评论',
+        role: 'destructive',
+        handler: () => {
+          this.removeComment(moment, comment.id, commentIndex);
+        },
+      }, {
+        text: '取消',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+      ]
+    })
+  }
+
+  removeComment(moment, commentId, commentIndex){
+    this.dynamicNetwork.removeMomentComment({commentId: commentId})
+    .subscribe((result:any)=>{
+      if(result.status === 0){
+        moment.comments.splice(commentIndex, 1);
+        this.toastService.show('删除评论成功！');
+      }
+    }, err=>{
+      this.toastService.show('删除评论失败');
+    });
   }
 
   toggleLike(moment) {
@@ -152,7 +190,7 @@ export class DynamicPage {
               isLike: false,
               pictures: (item.sharePictures || []).map(e => HTTP_URL.MAIN + '/images/' + e.picturePath),
               likes: (item.likeList || []).map(e => { return { id: e.id, name: e.zgxm } }),
-              comments: (item.shareComments || []).map(e => { return { id: e.id, name: e.commentatorName, content: e.comment } }),
+              comments: (item.shareComments || []).map(e => { return { id: e.id, name: e.commentatorName, content: e.comment, ownerId: e.commentatorId } }),
               timeString: getDateDesc(new Date(item.sendTime.replace(/-/g, '\/')).getTime())
             };
           }));

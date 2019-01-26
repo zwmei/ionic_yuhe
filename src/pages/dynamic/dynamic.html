@@ -48,7 +48,7 @@
               <span *ngFor="let item of contact.likes">{{item.name}}</span>
           </div>
           <div class="comment" *ngIf="contact.comments.length > 0">
-            <p *ngFor="let item of contact.comments"><span>{{item.name}}</span>{{item.content}}</p>
+            <p *ngFor="let item of contact.comments; let i = index;" (click)="showActionSheet(contact, item, i)"><span>{{item.name}}</span>{{item.content}}</p>
           </div>
         </div>
       </div>
