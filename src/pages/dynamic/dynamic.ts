@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { ToastService } from '../../service/toast.service';
@@ -8,22 +8,108 @@ import { DynamicNetwork } from '../../network/dynamic.network';
 @Component({
   templateUrl: 'dynamic.html'
 })
-export class DynamicPage { 
 
+export class DynamicPage {
+  @ViewChild('input') myInput;
   user: any = {
-    
+
   };
 
   contact: any = {};
 
   list: any = [];
+  currentMomentComment: any = {};
+  showCommentArea = false;
   constructor(private nav: NavController,
     private storage: StorageService,
     private toastService: ToastService,
     private dynamicNetwork: DynamicNetwork) {
-      // this.loadUserInfo();
-      // this.loadMoments();
+    // this.loadUserInfo();
+    // this.loadMoments();
   }
+
+  closeCommentArea() {
+    this.showCommentArea = false;
+  }
+
+  openComment(moment, e) {
+    this.showCommentArea = true;
+    // this.myInput.setFocus();
+    if (moment.id === this.currentMomentComment.momentId) {
+      e.stopPropagation();
+      return;
+    }
+
+    this.currentMomentComment.momentId = moment.id;
+    this.currentMomentComment.content = '';
+    this.currentMomentComment.current = moment;
+    e.stopPropagation();
+  }
+
+  saveComment() {
+    console.log('this.currentMomentComment.content', this.currentMomentComment.content);
+    if (!this.currentMomentComment.content) {
+      this.toastService.show('请填写评论！');
+    }
+    this.dynamicNetwork.sendComment(
+      {
+        contentId: this.currentMomentComment.momentId,
+        comment: this.currentMomentComment.content
+      })
+      .subscribe((result:any) => {
+        if(result.status === 0){
+          this.toastService.show('评论成功!');
+          this.currentMomentComment.current.comments.push({name:this.user.name,content:this.currentMomentComment.content});
+          this.currentMomentComment = {};
+          this.closeCommentArea();
+        }else{
+          this.toastService.show('评论失败！');  
+        }
+      }, err => {
+        this.toastService.show('评论失败！');
+      });
+  }
+
+  toggleLike(moment) {
+
+    if (moment.like) {
+      //取消
+      this.dynamicNetwork.cancelLikeMoment({ contentId: moment.id })
+        .subscribe((result: any) => {
+          if (result.status === 0) {
+            moment.like = false;
+            let likeIndex = -1;
+            for (var i = 0; i < moment.likes.length; i++) {
+              if (moment.likes[i].id === moment.id) {
+                likeIndex = i;
+                break;
+              }
+            }
+            moment.likes.splice(likeIndex, 1);
+          }
+        }, err => {
+          console.log(err);
+          this.toastService.show('点赞失败！');
+        });
+    } else {
+      //点赞
+      this.dynamicNetwork.likeMoment({ contentId: moment.id })
+        .subscribe((result: any) => {
+          if (result.status === 0) {
+            moment.like = true;
+            moment.likes.push({ id: this.user.id, name: this.user.name });
+          }
+        }, err => {
+          console.log(err);
+          this.toastService.show('点赞失败！');
+        });
+    }
+
+
+    moment.like = !moment.like;
+    console.log('toggle like');
+  }
+
 
 
   ionViewWillEnter() {
@@ -38,34 +124,34 @@ export class DynamicPage {
       this.user.name = userInfo.zgxm;
       this.user.id = userInfo.id;
       this.user.photo = HTTP_URL.MAIN + '/images/' + userInfo.photo;
-      console.log(userInfo);
     }
   }
 
-  loadMoments(){
-    this.dynamicNetwork.getMoments({pageNo: 1, size: 100})
-    .subscribe(data=>{
-      console.log('dynamic:', data);
-      if(Array.isArray(data) && data.length > 0){
-        this.list = data.map(item=>{
-          return {
-              name: '刘嘉玲',
-              photo: '',
+  loadMoments() {
+    this.dynamicNetwork.getMoments({ pageNo: 1, size: 100 })
+      .subscribe(data => {
+        console.log('dynamic:', data);
+        if (Array.isArray(data) && data.length > 0) {
+          this.list = data.map(item => {
+            return {
+              id: item.id,
+              name: item.senderName,
+              photo: HTTP_URL.MAIN + '/images/' + item.photoPath,
               content: item.content,
               isSelf: item.senderId === this.user.id,
               senderId: item.senderId,
               userId: this.user.id,
               isLike: false,
-              pictures: ['','',''],
-              likes: [{id: 1, name: '小明'},{id: 2, name: 'wangmeili'}],
-              comments: [{id: 1, name: '莎士比亚', content: '一马当先，吉祥如意'}],
-              timeString: getDateDesc(new Date(item.sendTime.replace(/-/g,'\/')).getTime())
-          };
-        });
-      }
-    },err=>{
-      this.toastService.show('获取动态失败！');
-    });
+              pictures: item.sharePictures.map(e => HTTP_URL.MAIN + '/images/' + e.picturePath),
+              likes: (item.likeList || []).map(e => { return { id: e.id, name: e.zgxm } }),
+              comments: [{ id: 1, name: '莎士比亚', content: '一马当先，吉祥如意' }],
+              timeString: getDateDesc(new Date(item.sendTime.replace(/-/g, '\/')).getTime())
+            };
+          });
+        }
+      }, err => {
+        this.toastService.show('获取动态失败！');
+      });
     // this.list = [{
     //   name: '刘嘉玲',
     //   photo: '',
@@ -99,9 +185,9 @@ export class DynamicPage {
     // }];
   }
 
-  goToNewMoment(){
+  goToNewMoment() {
     this.nav.push('app-contact-newMoment');
   }
 
-  
+
 }

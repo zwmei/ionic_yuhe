@@ -2,14 +2,14 @@
 
 .dynamic-page {
 
-    $color-third: #5c6c91;
+  $color-third: #5c6c91;
 
   .dynamic-header {
     position: relative;
     width: 100%;
     height: 250px;
 
-    .header-image{
+    .header-image {
       display: block;
       width: 100%;
       height: 250px;
@@ -19,19 +19,19 @@
     }
 
 
-    .new-moment{
-        position: absolute;
-        top: 20px;
-        right: 16px;
-        width: 30px;
-        height: 30px;
-        
-        ion-icon{
-          float:right;
-            color: #fff;
-            font-size: 35px;
-            text-align: right;
-        }
+    .new-moment {
+      position: absolute;
+      top: 20px;
+      right: 16px;
+      width: 30px;
+      height: 30px;
+
+      ion-icon {
+        float: right;
+        color: #fff;
+        font-size: 35px;
+        text-align: right;
+      }
     }
 
     .user-info {
@@ -126,7 +126,7 @@
 
       .moment-footer {
         overflow: hidden;
-        padding-left:20px;
+        padding-left: 20px;
         line-height: 30px;
 
         time {
@@ -188,13 +188,15 @@
           p {
             display: block;
 
-            span{
-                color: $color-third;
-                font-weight: bold;
-                &:after{
-                    content: ':';
-                }
-                margin-right: 2px;
+            span {
+              color: $color-third;
+              font-weight: bold;
+
+              &:after {
+                content: ':';
+              }
+
+              margin-right: 2px;
             }
           }
 
@@ -203,5 +205,50 @@
     }
   }
 
+}
 
+.comment-fixed-area {
+  position: fixed;
+  bottom: 54px;
+  width: 100%;
+  height: 40px;
+  
+  background: #fff;
+
+  >ion-buttons{
+    display: inline-block;
+    float: left;
+    
+    margin: 0;
+    width: 20%;
+    height: 40px;
+    border: none;
+
+    button{
+      margin: 0;
+      border: 1px solid $color-border;
+      border-left: none;
+      width: 100%;
+      height: 40px;
+      border-radius: 0;
+      color: $color-text;
+    }
+
+  }
+  >ion-input {
+    display: inline-block;
+    float: left;
+    width: 80%;
+    height: 40px;
+    border: 1px solid $color-border;
+
+    line-height: 40px;
+
+    input {
+      width: 100%;
+      line-height: 40px;
+      padding: 0 16px;
+      margin: 0;
+    }
+  }
 }
