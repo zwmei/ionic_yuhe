@@ -123,6 +123,17 @@ export class HttpNetwork {
     return this.wrapHttp(aa);
   }
 
+  uploadEmailFile(file) {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    let aa = this.http.post(HTTP_URL.MAIN + '/app/leadermail/postFile',
+      formData,
+      {
+        withCredentials: true
+      });
+    return this.wrapHttp(aa);
+  }
 
 }
 
@@ -148,14 +159,14 @@ export function formatDate(dateTime: Date | string | number, format: string) {
   dateTime = dateTime as Date;
 
   let o: any = {
-    "M+": dateTime.getMonth() + 1,                 //月份   
-    "d+": dateTime.getDate(),                    //日   
-    "h+": dateTime.getHours(),                   //小时   
-    "H+": dateTime.getHours(),                   //小时   
-    "m+": dateTime.getMinutes(),                 //分   
-    "s+": dateTime.getSeconds(),                 //秒   
-    "q+": Math.floor((dateTime.getMonth() + 3) / 3), //季度   
-    "S": dateTime.getMilliseconds()             //毫秒   
+    "M+": dateTime.getMonth() + 1,                 //月份
+    "d+": dateTime.getDate(),                    //日
+    "h+": dateTime.getHours(),                   //小时
+    "H+": dateTime.getHours(),                   //小时
+    "m+": dateTime.getMinutes(),                 //分
+    "s+": dateTime.getSeconds(),                 //秒
+    "q+": Math.floor((dateTime.getMonth() + 3) / 3), //季度
+    "S": dateTime.getMilliseconds()             //毫秒
   };
   if (/(y+)/.test(format))
     format = format.replace(RegExp.$1, (dateTime.getFullYear() + "").substr(4 - RegExp.$1.length));

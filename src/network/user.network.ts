@@ -29,6 +29,9 @@ export class UserNetwork {
     return this.http.uploadFile(file);
   }
 
+  uploadEmailFile(file) {
+    return this.http.uploadEmailFile(file);
+  }
 
   postData() {
     return this.http.postForm('/app/approval/application/postResignation', {

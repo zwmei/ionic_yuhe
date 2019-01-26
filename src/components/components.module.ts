@@ -1,3 +1,4 @@
+import { EmailFileUploaderComponent } from './file-uploader/email-file-uploader';
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { CalendarComponent } from './calendar/calendar';
@@ -15,7 +16,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader';
     MonthSwitchComponent,
     SeasonSwitchComponent,
     WeekSwitchComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    EmailFileUploaderComponent
 	],
 	imports: [IonicModule],
 	exports: [
@@ -24,7 +26,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader';
     MonthSwitchComponent,
     SeasonSwitchComponent,
     WeekSwitchComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    EmailFileUploaderComponent
   ]
 })
 export class ComponentsModule { }

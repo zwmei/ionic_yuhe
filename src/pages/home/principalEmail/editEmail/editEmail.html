@@ -47,10 +47,10 @@
   <div class="block-view">
     <ion-item no-lines>
       <ion-label class="left-title">图片</ion-label>
-      <app-file-uploader
+      <email-file-uploader
         item-end
         (onChange)="changeFileName($event)"
-      ></app-file-uploader>
+      ></email-file-uploader>
     </ion-item>
     <ion-row>
       <ion-col class="reason-img" *ngFor="let image of photos; let i = index">

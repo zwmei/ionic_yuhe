@@ -90,7 +90,7 @@ export class EditEmail {
     }
 
     this.emailData.readerId = this.selectedPerson.id;
-    this.emailData.fileNames = this.images.join(',');
+    this.emailData.filePaths = this.images.join(',');
 
     this.emailNetwork.saveAndSendEmail(this.emailData).subscribe(
       (data: any) => {

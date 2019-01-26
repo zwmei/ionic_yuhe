@@ -40,6 +40,11 @@ export class FeedbackEmail {
                 return item;
               })
             }
+            if (data.leaderMailFiles) {
+              data.images = data.leaderMailFiles.map(item => {
+                return HTTP_URL.MAIN + '/images/' + item.filePath
+              })
+            }
             console.log("-----", data);
             this.emailData = data;
           }
