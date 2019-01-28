@@ -64,11 +64,14 @@
 
 
 </ion-content>
-<div class="comment-fixed-area" *ngIf="showCommentArea">
-    <ion-input #input clearInput [(ngModel)]="currentMomentComment.content" placeholder="评论点什么吧..." ></ion-input>
-    <ion-buttons end>
-        <button ion-button (click)="saveComment()" color="background" >
-          发送
-        </button>
+
+<div class="comment-pop-area" *ngIf="showCommentArea">
+  <div class="comment-area">
+      <ion-textarea placeholder="评论点什么吧..." [(ngModel)]="currentMomentComment.content" ></ion-textarea>
+      <ion-buttons end>
+          <button ion-button (click)="saveComment()" color="background" >
+            发送
+          </button>
       </ion-buttons>
+  </div>
 </div>
