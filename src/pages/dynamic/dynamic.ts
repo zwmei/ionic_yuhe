@@ -54,6 +54,7 @@ export class DynamicPage {
     console.log('this.currentMomentComment.content', this.currentMomentComment.content);
     if (!this.currentMomentComment.content) {
       this.toastService.show('请填写评论！');
+      return;
     }
     this.dynamicNetwork.sendComment(
       {
