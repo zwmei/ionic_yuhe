@@ -15,6 +15,7 @@ import { formatDate } from '../../../network/http';
 export class Salary {
 
   salaryDate: any;
+  amount: number = 0;
   month = 0;
   gzxmDetails: any = [];
   salaryData: any = {};
@@ -51,10 +52,16 @@ export class Salary {
     let dateString = formatDate(date, 'yyyy-MM');
     console.log('date:', dateString);
     this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
-      this.salaryData = data;
+      // this.salaryData = data;
+      this.amount = data.sfgz.toFixed(2);
       console.log('-----', data);
       if (data.gzxmDetails) {
-        this.gzxmDetails = data.gzxmDetails;
+        console.log(data.gzxmDetails);
+        this.gzxmDetails = data.gzxmDetails.map(item=>{
+          return {key: item[0], value: item[2].toFixed(2)};
+        });
+        console.log(this.gzxmDetails);
+        // this.gzxmDetails = data.gzxmDetails;
       }
     }, error => {
       console.log(error)

@@ -10,17 +10,17 @@
       (nextMonthChange)="nextMonth($event)"
     ></month-switch>
   </div>
-  <h2 class="salary-number">{{ salaryData.sfgz }}</h2>
+  <h2 class="salary-number">{{ amount }}</h2>
   <ion-card class="content-card">
     <ion-list>
       <ion-item *ngFor="let item of gzxmDetails">
-        <p>{{ item[0]}}</p>
-        <p item-end>{{ item[2] }}</p>
+        <p>{{ item.key}}</p>
+        <p item-end>{{ item.value }}</p>
       </ion-item>
-      <ion-item>
+      <!-- <ion-item>
         <p>实发工资</p>
-        <p item-end>{{ salaryData.sfgz }}</p>
-      </ion-item>
+        <p item-end>{{ amount }}</p>
+      </ion-item> -->
     </ion-list>
   </ion-card>
 </ion-content>

@@ -53,9 +53,16 @@
           ion-label{
               margin-left: 16px;
           }
-          ion-icon{
-              float: right;
+          a{
+            float: right;
+            width: 15px;
+            height: 15px;
+            background: url('../assets/image/contact/phone.png');
+            background-size: contain;
           }
+          // ion-icon{
+          //     float: right;
+          // }
       }
   }
   .operation{
