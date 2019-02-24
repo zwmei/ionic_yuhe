@@ -37,6 +37,7 @@ export class FeedbackEmail {
             if (data.replyMails) {
               data.replyMails = data.replyMails.map(item => {
                 item.image = HTTP_URL.MAIN + '/images/' + item.senderPicturePath;
+                data.replyTime = item.sendTime;
                 return item;
               })
             }
