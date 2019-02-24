@@ -235,18 +235,8 @@ export class StationeryApply {
       wpyt: this.applyData.wpyt
     };
     var items = this.applyData.lymxs.map(item => {
-      item.lyid = item.id;
-      item.wpmc = item.name;
-      item.gg = item.model;
       item.goodsItem = {
         id: item.id,
-        name: item.name,
-        wpmc: item.name,
-        model: item.model,
-        brand: item.brand,
-        inventoryBookId: item.inventoryBookId,
-        repertoryId: item.repertoryId,
-        defaultRepertoryId: item.repertoryId
       };
       return item;
     });

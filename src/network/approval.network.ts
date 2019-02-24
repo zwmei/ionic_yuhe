@@ -4,19 +4,19 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class ApprovalNetwork {
   constructor(private http: HttpNetwork) {
-    
+
   }
   // 获取发起列表
   getApplayApprovalList() {
-    return this.http.get('/app/approval/myApplication/getApplicationList'); 
+    return this.http.get('/app/approval/myApplication/getApplicationList');
   }
   // 获取已审批列表
   getApprovalList() {
-    return this.http.get('/app/approval/myApprovals/getApprovedList');  
+    return this.http.get('/app/approval/myApprovals/getApprovedList');
   }
   // 获取未审批列表
   getUnApprovalList() {
-    return this.http.get('/app/approval/myApprovals/getWaitingList');  
+    return this.http.get('/app/approval/myApprovals/getWaitingList');
   }
   // 获取违阅读列表 抄送
   getReadCopyList() {
@@ -85,11 +85,11 @@ export class ApprovalNetwork {
   getRestResginType() {
     return this.http.get('/app/approval/application/getResignationType');
   }
-  // 领用类型
+  // 领用物资
   getReciveGoodType() {
     return this.http.get('/app/approval/application/getRecieveGoodItems');
   }
-  // 采购类型
+  // 采购物资
   getPurchaseGoodType() {
     return this.http.get('/app/approval/application/getPurchaseGoodItems');
   }

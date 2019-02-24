@@ -246,18 +246,8 @@ export class ProcurementApply {
       // cglx: this.applyData.cglx
     };
     var items = this.applyData.cgqds.map(item => {
-      item.lyid = item.id;
-      item.xmmx = item.name;
-      item.dj = item.price;
-      item.gg = item.model;
-      item.pp = item.brand;
-
       item.goodsItem = {
         id: item.id,
-        name: item.name,
-        model: item.model,
-        brand: item.brand,
-        defaultRepertoryId: item.repertoryId
       };
       return item;
     });
