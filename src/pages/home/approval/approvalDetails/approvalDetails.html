@@ -103,16 +103,22 @@
 
   <div *ngIf="params.billType == 2">
     <div class="block-view">
-      <!-- <ion-item>
+      <ion-item>
         <ion-label class="left">领用类型</ion-label>
         <ion-label item-end class="right">{{
-          goodDetail.lysqb.billTypeName
+          goodDetail.lysqb.lylxName
         }}</ion-label>
-      </ion-item> -->
+      </ion-item>
       <ion-item>
         <ion-label class="left">领用时间</ion-label>
         <ion-label item-end class="right">{{
           goodDetail.lysqb.lysj
+        }}</ion-label>
+      </ion-item>
+      <ion-item [hidden]="!goodDetail.lysqb.returnDate">
+        <ion-label class="left">归还时间</ion-label>
+        <ion-label item-end class="right">{{
+          goodDetail.lysqb.returnDate
         }}</ion-label>
       </ion-item>
       <ion-item>
@@ -126,7 +132,7 @@
     <div class="block-view" *ngFor="let item of goodDetail.lymxs">
       <ion-item>
         <ion-label class="left">物资</ion-label>
-        <ion-label item-end class="right">{{ item.wpmc }}</ion-label>
+        <ion-label item-end class="right">{{ item.name }}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label class="left">品牌</ion-label>

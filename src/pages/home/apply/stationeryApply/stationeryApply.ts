@@ -26,6 +26,7 @@ export class StationeryApply {
   csr: any = [];
   images = [];
   photos= [];
+  applyTypes: any = [];
   constructor(
     public alertCtrl: AlertController,
     params: NavParams,
@@ -35,6 +36,8 @@ export class StationeryApply {
     private datePipe: DatePipe,
     public toast: ToastService
   ) {
+    this.applyData.lylx_name = "领用";
+    this.applyData.lylx = 1;
     this.applyData.lymxs.push({ name: "请选择" });
   }
 
@@ -42,7 +45,46 @@ export class StationeryApply {
     this.applyData.lymxs.push({ name: "请选择" });
   }
 
+
   /// 领用类型
+  selectReveiveType() {
+    /// 请假类型没有定义
+    if (this.applyTypes.length > 0) {
+      this.showSelectTypeAlert();
+    } else {
+      this.approvalNetWork.getReciveApplayType().subscribe(
+        (data: any) => {
+          console.log(data);
+          this.applyTypes = data;
+          this.showSelectTypeAlert();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  /// 领用类型
+  showSelectTypeAlert() {
+    var buttons = this.applyTypes.map(item => {
+      return {
+        text: item.name,
+        handler: () => {
+          this.applyData.lylx_name = item.name;
+          this.applyData.lylx = item.value;
+        }
+      };
+    });
+    const actionSheet = this.actionSheet.create({
+      buttons: buttons
+    });
+    actionSheet.present();
+  }
+
+
+
+  /// 领用物品
   selectGood(i) {
     console.log(i);
     /// 请假类型没有定义
@@ -181,6 +223,11 @@ export class StationeryApply {
       return;
     }
 
+    if (this.applyData.lylx == 2 && !this.applyData.ghsj) {
+      this.toast.show("请完善申请内容");
+      return;
+    }
+
     if (this.applyData.wpyt.length > 100) {
       this.toast.show("用途超长，请保持在100个字符以内");
       return;
@@ -229,10 +276,17 @@ export class StationeryApply {
       this.applyData.lysj,
       "yyyy-MM-dd HH:mm:ss"
     );
+    var end = this.datePipe.transform(
+      this.applyData.ghsj,
+      "yyyy-MM-dd HH:mm:ss"
+    );
     var apply = {
       billType: 2,
+      receiveDate: start,
       lysj: start,
-      wpyt: this.applyData.wpyt
+      returnDate: end,
+      wpyt: this.applyData.wpyt,
+      lylx: this.applyData.lylx,
     };
     var items = this.applyData.lymxs.map(item => {
       item.goodsItem = {
@@ -248,6 +302,9 @@ export class StationeryApply {
       items: JSON.stringify(items),
       fileNames: this.images.join(","),
     };
+
+    console.log(params);
+
     this.approvalNetWork.applyForGood(params).subscribe(
       (data: any) => {
         console.log(data);

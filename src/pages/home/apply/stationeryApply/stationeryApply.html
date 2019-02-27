@@ -4,10 +4,17 @@
 
 <ion-content class="stationery-apply-body">
   <div class="block-view">
-    <!-- <ion-item>
+    <ion-item>
       <ion-label class="left">领用类型</ion-label>
-      <button item-end class="right">请选择</button>
-    </ion-item> -->
+      <button
+        style="background: none;"
+        item-end
+        class="right"
+        (click)="selectReveiveType()"
+      >
+        {{ applyData.lylx_name }}
+      </button>
+    </ion-item>
     <ion-item>
       <ion-label class="left">领用时间</ion-label>
       <ion-datetime
@@ -18,6 +25,18 @@
         cancelText="取消"
         doneText="确定"
         >{{ applyData.lysj }}</ion-datetime
+      >
+    </ion-item>
+    <ion-item [hidden]="applyData.lylx == 1">
+      <ion-label class="left">归还时间</ion-label>
+      <ion-datetime
+        class="right"
+        placeholder="请选择"
+        displayFormat="YYYY-MM-DD HH:mm"
+        [(ngModel)]="applyData.ghsj"
+        cancelText="取消"
+        doneText="确定"
+        >{{ applyData.ghsj }}</ion-datetime
       >
     </ion-item>
     <ion-item>
