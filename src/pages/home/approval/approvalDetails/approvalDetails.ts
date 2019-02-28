@@ -84,6 +84,7 @@ export class ApprovalDetails {
               this.goodDetail = data;
               this.goodDetail.lymxs = this.goodDetail.lymxs.map(item => {
                 if (item.goodsItem) {
+                  item.name = item.goodsItem.name;
                   item.model = item.goodsItem.model;
                   item.brand = item.goodsItem.brand;
                 }

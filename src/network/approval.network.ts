@@ -78,8 +78,13 @@ export class ApprovalNetwork {
   applyForLeave(data) {
     return this.http.postForm('/app/approval/application/postResignation', data);
   }
+  // 请假类型
   getRestApplayType() {
     return this.http.get('/app/approval/application/getLeaveType');
+  }
+  // 领用类型
+  getReciveApplayType() {
+    return this.http.get('/app/approval/application/getRecieveType');
   }
   // 离职类型
   getRestResginType() {
@@ -96,6 +101,4 @@ export class ApprovalNetwork {
   getStaffList() {
     return this.http.get('/app/approval/application/getStaffList');
   }
-
-
 }
