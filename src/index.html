@@ -36,6 +36,16 @@
   <ion-app></ion-app>
   <ion-login></ion-login>
 
+
+  <script src="assets/webim.config.js"></script>
+  <script>
+    if (WebIM.config.isDebug) {
+        document.write("<script src='assets/strophe-1.2.8.js'><\/script>");
+    } else {
+        document.write("<script src='assets/strophe-1.2.8.min.js'><\/script>");
+    }
+  </script>
+
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 
