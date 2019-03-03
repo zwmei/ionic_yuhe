@@ -28,7 +28,7 @@
   <div class="checkIn-time-line">
       <div class="start-top"></div>
     <div class="left-margin-16">
-      <p>上班时间：7：00</p>
+      <p>上班时间：{{startTime}}</p>
       <div class="on-office">
         <p class="blod-title">打卡时间: {{ checkData.sbsj }}</p>
         <p>{{ checkData.checkInAddress }}</p>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="off-office" class="left-margin-16">
-      <p>下班时间：18：00</p>
+      <p>下班时间：{{endTime}}</p>
       <div class="off-office">
         <p class="blod-title">打卡时间: {{ checkData.xbsj }}</p>
         <p>{{ checkData.checkOutAddress }}</p>

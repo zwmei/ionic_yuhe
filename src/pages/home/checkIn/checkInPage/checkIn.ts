@@ -30,6 +30,8 @@ export class CheckInPage {
   isChenckIn: boolean = true;
   checkData: any = {};
   timeData: any = {};
+  startTime: any = "07:30:00";
+  endTime: any = "17:30:00";
 
   constructor(
     params: NavParams,
@@ -39,7 +41,7 @@ export class CheckInPage {
     // public datePipe: DatePipe
     public toast: ToastService,
     public loading: LoadingService,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
   ) {
     console.warn(
       "hshdfhashdfhsa======",
@@ -66,6 +68,19 @@ export class CheckInPage {
     this.timer = setInterval(() => {
       this.today = Date.now(); // 或者this.today = new Date();
     }, 1000);
+
+    this.checkNetWork.getWorkShiftList().subscribe(
+      (data: any) => {
+        console.log(data);
+        if (data && data.length > 1) {
+          this.startTime = data[0].sbsj.split(" ")[1];
+          this.endTime = data[1].xbsj.split(" ")[1];
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ionViewDidEnter() {
