@@ -25,7 +25,7 @@ export class MessagePage {
       WebIM.config.appkey = data.result.AppKey;
 
 
-      var conn:any = {};
+      var conn: any = {};
       conn = new WebIM.connection({
         isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
         https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
@@ -65,7 +65,7 @@ export class MessagePage {
         onPictureMessage: function (message) {
           console.log('Picture');
 
-          var options:any = { url: message.url };
+          var options: any = { url: message.url };
           options.onFileDownloadComplete = function () {
             // 图片下载成功
             console.log('Image download complete!');
@@ -90,7 +90,7 @@ export class MessagePage {
           console.log("File");
         },    //收到文件消息
         onVideoMessage: function (message) {
-          var node:any = document.getElementById('privateVideo');
+          var node: any = document.getElementById('privateVideo');
           var option = {
             url: message.url,
             headers: {
@@ -117,7 +117,7 @@ export class MessagePage {
                 });
               };
               // 拒绝对方添加好友
-              document.getElementById('rejectFriends').onclick = function (message:any) {
+              document.getElementById('rejectFriends').onclick = function (message: any) {
                 conn.unsubscribed({
                   to: message.from,
                   message: "rejectAddFriend"                  // 拒绝添加好友回复信息
@@ -181,7 +181,14 @@ export class MessagePage {
         apiUrl: WebIM.config.apiURL,
         user: loginInfo.username,
         pwd: loginInfo.password,
-        appKey: WebIM.config.appkey
+        appKey: WebIM.config.appkey,
+        success: function (token) {
+          console.log('open, token', token);
+          WebIM.config.token = token;
+        },
+        error: function (err) {
+          console.log('open, err', err);
+        }
       };
       conn.open(options);
     });

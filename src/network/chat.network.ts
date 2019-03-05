@@ -13,7 +13,7 @@ export class ChatNetwork {
   getChatKey() { //获取huanxin Appkey
     return this.http.get('/app/chat/getAppKey');
   }
-  getSalaryDetails(data) {
-    return this.http.postForm('/app/salary/getSalaryDetail', data);
+  sendTextMessage(data: object) {
+    return this.http.postForm('/app/chat/sendTextMsg', data); //targetType聊天对象类型（1：单人，2：群组）,targetId,msg
   }
 }

@@ -5,6 +5,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": false,
+    "strictNullChecks":false,
+    "allowJs":true,
+    "skipLibCheck":true,
     "lib": [
       "dom",
       "es2015"
