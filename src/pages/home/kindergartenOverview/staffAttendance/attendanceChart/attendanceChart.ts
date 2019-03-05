@@ -106,19 +106,19 @@ export class AttendanceChartPage {
               name: '出勤',
               data: [
                 {
-                  name: '出勤率',
+                  name: '出勤',
                   y: data.signRate
                 },
                 {
-                  name: '缺勤率',
+                  name: '缺勤',
                   y: data.absenceRate
                 },
                 {
-                  name: '迟到率',
+                  name: '迟到',
                   y: data.beingLateRate
                 },
                 {
-                  name: '请假率',
+                  name: '请假',
                   y: data.leaveRate
                 }
               ]

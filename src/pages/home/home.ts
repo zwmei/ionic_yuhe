@@ -9,6 +9,8 @@ import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
+import { UtilsService } from '../../service/utils.service';
+
 
 
 const _createClass = function () {
@@ -27,6 +29,7 @@ function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); }
 };
 
+//消息滚动具体实现
 const ChangingTitle = function () {
   function ChangingTitle(a: any) {
     var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -55,9 +58,9 @@ const ChangingTitle = function () {
       {
         key: 'changeText',
         value: function changeText(newText) {
-          newText=newText||'';
-          if (newText.length>20) {
-            newText = newText.slice(0,20)+'...';
+          newText = newText || '';
+          if (newText.length > 20) {
+            newText = newText.slice(0, 20) + '...';
           }
 
           var oldTitle = this.node.querySelector('.current');
@@ -111,6 +114,7 @@ export class HomePage {
     // private messageService: MessageService,
     // private confirmService: ConfirmService,
     // private actionSheetService: ActionSheetService,
+    private utils: UtilsService,
     private storage: StorageService,
     private auth: AuthService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
@@ -128,12 +132,12 @@ export class HomePage {
   chart1 = null;
   chart2 = null;
   chart3: Chart = new Chart();
-  messageTimer:any;
+  messageTimer: any;
 
   updateChart1 = (data: any) => {
     this.kindergartenOverviewNetwork.getAllAttendanceInfo({
-      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
-      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      startDate: formatDate(this.utils.getBeginOfMonth(), 'yyyy-MM-dd'),
+      endDate: formatDate(this.utils.getEndOfMonth(), 'yyyy-MM-dd'),
     }).subscribe((data: any) => {
       if (data.status) {
         return;
@@ -198,8 +202,8 @@ export class HomePage {
   }
   updateChart2 = (data: any) => {
     this.kindergartenOverviewNetwork.getAllSicknessCaseInfo({
-      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
-      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      startDate: formatDate(this.utils.getBeginOfMonth(), 'yyyy-MM-dd'),
+      endDate: formatDate(this.utils.getEndOfMonth(), 'yyyy-MM-dd'),
     }).subscribe((data: any) => {
       if (data.status) {
         return;
@@ -258,12 +262,12 @@ export class HomePage {
 
     Promise.all([
       this.kindergartenOverviewNetwork.getAllFinancialSourceSum({
-        startDate: formatDate(new Date(), 'yyyy-MM-dd'),
-        endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+        startDate: formatDate(this.utils.getBeginOfYear(), 'yyyy-MM-dd'),
+        endDate: formatDate(this.utils.getEndOfYear(), 'yyyy-MM-dd'),
       }).toPromise(),
       this.kindergartenOverviewNetwork.getAllFinancialOutputSum({
-        startDate: formatDate(new Date(), 'yyyy-MM-dd'),
-        endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+        startDate: formatDate(this.utils.getBeginOfYear(), 'yyyy-MM-dd'),
+        endDate: formatDate(this.utils.getEndOfYear(), 'yyyy-MM-dd'),
       }).toPromise()
     ]).then((data: any) => {
       console.warn('promise.all', data);
@@ -350,7 +354,6 @@ export class HomePage {
     return this.auth.hasPermission(key);
   }
 
-
   goToPage(pageName): void {
     pageName = pageName || 'app-home-classManage';
     this.navCtrl.push(pageName);
@@ -367,13 +370,13 @@ export class HomePage {
       }
 
       let texts = data.slice(0, 8).map(item => item.ggbt);
-      if (texts.length>0) {
+      if (texts.length > 0) {
         var ct = new ChangingTitle(document.querySelector('.changing-title'));
-  
+
         var count = 0;
         ct.changeText(texts[count++ % texts.length]);
         this.messageTimer = setInterval(function () {
-          console.log('interval',count,texts);
+          console.log('interval', count, texts);
           ct.changeText(texts[count++ % texts.length]);
         }, 7000);
       }
@@ -389,7 +392,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    
+
   }
 
 }

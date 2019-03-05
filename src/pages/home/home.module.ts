@@ -32,6 +32,7 @@ import { HttpNetwork } from '../../network/http';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { FinancialReportingPageModule } from './kindergartenOverview/financialReporting/financialReporting.module';
 import { AuthService } from '../../service/auth.service';
+import { UtilsService } from '../../service/utils.service';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { AuthService } from '../../service/auth.service';
     ConfirmService,
     ActionSheetService,
     AuthService,
+    UtilsService,
     HttpNetwork,
     KindergartenOverviewNetwork,
   ],
