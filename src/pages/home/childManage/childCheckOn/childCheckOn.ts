@@ -72,11 +72,13 @@ export class ChildCheckOn {
         sliced: true,
         selected: true,
         color: '#df56ff'
-      }, {
-        name: '应到',
-        y: 0,
-        color: '#08f8f5'
-      }, {
+      }, 
+      // {
+      //   name: '应到',
+      //   y: 0,
+      //   color: '#08f8f5'
+      // }, 
+      {
         name: '请假',
         y: 0,
         color: '#71b9fd'
@@ -141,21 +143,23 @@ export class ChildCheckOn {
         this.chart.addSerie({
             name: 'Brands',
             data: [{
-              name: '实到',
+              name: '出勤',
               y: result.signCount,
               sliced: true,
               selected: true,
               color: '#df56ff',
-            }, {
-              name: '应到',
-              y: result.totalCount,
-              color: '#08f8f5'
-            }, {
+            }, 
+            // {
+            //   name: '应到',
+            //   y: result.totalCount,
+            //   color: '#08f8f5'
+            // }, 
+            {
               name: '请假',
               y: result.leaveCount,
               color: '#71b9fd'
             }, {
-              name: '未签到',
+              name: '缺勤',
               y: result.absenceCount,
               color: '#7d81ff'
             }]

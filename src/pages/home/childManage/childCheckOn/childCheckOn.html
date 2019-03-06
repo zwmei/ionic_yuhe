@@ -14,6 +14,10 @@
     <div class="box-content">
       <ion-grid>
         <ion-row>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','应到')">
+            <span>应到</span>
+            <strong>{{summary.totalCount}}</strong>
+          </ion-col>
           <ion-col (click)="goToPage('app-home-StatusDetailList','出勤')">
             <span>出勤</span>
             <strong>{{summary.signCount}}</strong>

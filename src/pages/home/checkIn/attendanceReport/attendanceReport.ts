@@ -18,7 +18,7 @@ export class AttendanceReportPage {
   }
 
   currentReport;
-  now = formatDate(new Date(), 'yyyy-MM-dd');
+  now = formatDate(new Date(), 'yyyy/MM/dd');
 
   goToRankPage(): void {
     this.navCtrl.push('app-home-attendance-rank');
@@ -105,7 +105,7 @@ export class AttendanceReportPage {
 
   monthObj = {
     name: '小肉丸',
-    time: formatDate(new Date(), 'yyyy-MM'),
+    time: formatDate(new Date(), 'yyyy/MM'),
     lateTime: 0,
     leaveEarlyTime: 0,
     absentTime: 0,
@@ -137,5 +137,8 @@ export class AttendanceReportPage {
       }, err => {
         this.toastService.show('获取月报失败');
       });
+  }
+  monthChange(month){
+    this.loadMonthReport(new Date(month))
   }
 }

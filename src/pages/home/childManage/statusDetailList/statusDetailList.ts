@@ -23,7 +23,7 @@ export class StatusDetailList {
     '出勤': 1,
     '请假': 2,
     '缺勤': 3,
-    // '应到': 4,
+    '应到': 4,
   };
   constructor(params: NavParams, private childAttendanceNetwork: ChildAttendanceNetwork, private toastService: ToastService) {
     this.title = '缺勤';

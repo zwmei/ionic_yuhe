@@ -14,9 +14,9 @@
         <ion-list-header>
           <ion-label>班级</ion-label>
           <ion-label>应到</ion-label>
-          <ion-label>实到</ion-label>
+          <ion-label>出勤</ion-label>
           <ion-label>请假</ion-label>
-          <ion-label>未签到</ion-label>
+          <ion-label>缺勤</ion-label>
         </ion-list-header>
         <ion-item *ngFor="let item of list" (click)="goToPage('app-home-childCheckListItem', item)">
           <ion-label class="class-name">{{item.name}}</ion-label>
