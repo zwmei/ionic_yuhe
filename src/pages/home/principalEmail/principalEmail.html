@@ -49,6 +49,8 @@
           </ion-avatar>
           <h2>{{ item.senderName }}</h2>
           <p>{{ item.title }}</p>
+          <p [hidden]="!item.replyTime">最近回复时间：{{item.replyTime}}</p>
+          <p class="sendTime" [hidden]="!item.sendDate">{{item.sendDate}}</p>
         </ion-item>
       </div>
       <div *ngIf="isRead === 'true'">
@@ -61,6 +63,8 @@
           </ion-avatar>
           <h2>{{ item.senderName }}</h2>
           <p>{{ item.title }}</p>
+          <p [hidden]="!item.replyTime">最近回复时间：{{item.replyTime}}</p>
+          <p class="sendTime" [hidden]="!item.sendDate">{{item.sendDate}}</p>
         </ion-item>
       </div>
     </div>
@@ -75,6 +79,8 @@
         </ion-avatar>
         <h2>{{ item.senderName }}</h2>
         <p>{{ item.title }}</p>
+        <p [hidden]="!item.replyTime">最近回复时间：{{item.replyTime}}</p>
+        <p class="sendTime" [hidden]="!item.sendDate">{{item.sendDate}}</p>
       </ion-item>
     </div>
   </ion-list>

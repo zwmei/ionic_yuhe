@@ -18,7 +18,7 @@
     </ion-avatar>
     <h2>{{ emailData.title }}</h2>
     <p class="sub-Title-label">{{ emailData.content }}</p>
-    <p [hidden]="!emailData.replyTime">最近回复时间：{{emailData.replyTime}}</p>
+    <!-- <p [hidden]="!emailData.replyTime">最近回复时间：{{emailData.replyTime}}</p> -->
   </ion-item>
 
   <div class="block-view" *ngIf="emailData.images">
