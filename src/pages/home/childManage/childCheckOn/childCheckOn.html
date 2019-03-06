@@ -14,22 +14,17 @@
     <div class="box-content">
       <ion-grid>
         <ion-row>
-          <ion-col (click)="goToPage('app-home-StatusDetailList','应到')">
-            <span>应到</span>
-            <strong class="secondary" color="secondary">{{summary.totalCount}}</strong>
-          </ion-col>
-          <ion-col (click)="goToPage('app-home-StatusDetailList','实到')">
-            <span>实到</span>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','出勤')">
+            <span>出勤</span>
             <strong>{{summary.signCount}}</strong>
+          </ion-col>
+          <ion-col (click)="goToPage('app-home-StatusDetailList','缺勤')">
+            <span>缺勤</span>
+            <strong class="secondary" color="secondary">{{summary.absenceCount}}</strong>
           </ion-col>
           <ion-col (click)="goToPage('app-home-StatusDetailList','请假')">
             <span>请假</span>
             <strong>{{summary.leaveCount}}</strong>
-
-          </ion-col>
-          <ion-col (click)="goToPage('app-home-StatusDetailList','未签到')">
-            <span>未签到</span>
-            <strong>{{summary.absenceCount}}</strong>
           </ion-col>
         </ion-row>
       </ion-grid>

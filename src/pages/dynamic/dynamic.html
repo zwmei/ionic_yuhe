@@ -65,8 +65,8 @@
 
 </ion-content>
 
-<div class="comment-pop-area" *ngIf="showCommentArea">
-  <div class="comment-area">
+<div class="comment-pop-area" *ngIf="showCommentArea" (click)="closeCommentArea()">
+  <div class="comment-area" (click)="stopProp($event)">
       <ion-textarea placeholder="评论点什么吧..." [(ngModel)]="currentMomentComment.content" ></ion-textarea>
       <ion-buttons end>
           <button ion-button (click)="saveComment()" color="background" >

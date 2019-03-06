@@ -67,7 +67,7 @@ export class ChildCheckOn {
     series: [{
       name: 'Brands',
       data: [{
-        name: '实到',
+        name: '出勤',
         y: 0,
         sliced: true,
         selected: true,
@@ -81,7 +81,7 @@ export class ChildCheckOn {
         y: 0,
         color: '#71b9fd'
       }, {
-        name: '未签到',
+        name: '缺勤',
         y: 0,
         color: '#7d81ff'
       }]

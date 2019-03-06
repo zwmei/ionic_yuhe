@@ -32,6 +32,9 @@ export class DynamicPage {
     // this.loadMoments();
   }
 
+  stopProp($event) {
+    $event.stopPropagation();
+  }
   closeCommentArea() {
     this.showCommentArea = false;
   }
