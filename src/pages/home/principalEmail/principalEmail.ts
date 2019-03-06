@@ -73,6 +73,9 @@ export class PrincipalEmail {
         if (data) {
           this.allList = data.map((item) => {
             item.image = HTTP_URL.MAIN + '/images/' + item.senderPicturePath;
+            if (item.sendTime && item.sendTime.split(" ").length > 0) {
+              item.sendDate = item.sendTime.split(" ")[0];
+            }
             return item;
           });
         }
@@ -91,6 +94,9 @@ export class PrincipalEmail {
       if (data) {
         this.readList = data.map((item) => {
           item.image = HTTP_URL.MAIN + '/images/' + item.senderPicturePath;
+          if (item.sendTime && item.sendTime.split(" ").length > 0) {
+            item.sendDate = item.sendTime.split(" ")[0];
+          }
           return item;
         });
       }
@@ -107,6 +113,9 @@ export class PrincipalEmail {
       if (data) {
         this.unReadList = data.map((item) => {
           item.image = HTTP_URL.MAIN + '/images/' + item.senderPicturePath;
+          if (item.sendTime && item.sendTime.split(" ").length > 0) {
+            item.sendDate = item.sendTime.split(" ")[0];
+          }
           return item;
         });
       }
