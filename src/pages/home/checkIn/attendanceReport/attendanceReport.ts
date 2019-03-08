@@ -1,8 +1,10 @@
 import { IonicPage, NavController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CheckNetwork } from '../../../../network/check.network';
 import { ToastService } from '../../../../service/toast.service';
 import { formatDate } from '../../../../network/http';
+import { CalendarComponent } from '../../../../components/calendar/calendar';
+
 
 @IonicPage({
   name: 'app-home-attendanceReport'
@@ -10,11 +12,25 @@ import { formatDate } from '../../../../network/http';
 @Component({
   templateUrl: 'attendanceReport.html'
 })
-export class AttendanceReportPage {
+export class AttendanceReportPage implements AfterViewInit {
+  @ViewChild(CalendarComponent) calendar1;
+
   constructor(private navCtrl: NavController, private checkNetwork: CheckNetwork, private toastService: ToastService) {
+    console.log('cons')
+  }
+
+  ngOnInit(){
     this.currentReport = 'day';
     this.loadWorkShiftList();
     this.loadDailyReport(new Date());
+    console.log('init')
+  }
+
+  ngAfterViewInit(){
+    if(this.calendar1){
+      this.loadDayReportStatus(new Date);
+    }
+    console.log('after')
   }
 
   currentReport;
@@ -98,9 +114,86 @@ export class AttendanceReportPage {
       });
   }
 
+    //判断是否是闰年
+  private isLeapYear(year) {
+    if (year % 100 == 0 && year % 400 == 0) {
+      return true;
+    } else if (year % 100 != 0 && year % 4 == 0) {
+      return true;
+    }
+    return false;
+  }
+  //得到某月多少天
+  private getDaysOfMonth(isLeapYear, month) {
+    let days = 0;
+    switch (month) {
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        days = 31;
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        days = 30;
+        break;
+      case 2:
+        if (isLeapYear) {
+          days = 29;
+        } else {
+          days = 28;
+        }
+    }
+    return days;
+  }
+  //获取某日期当月总共多少天
+  private getDayCount(theDate) {
+    let isLeapYear = this.isLeapYear(theDate.getFullYear());
+    let month = theDate.getMonth() + 1;
+    return this.getDaysOfMonth(isLeapYear, month);
+  }
+
+  loadDayReportStatus(checkDate){
+    let count = this.getDayCount(checkDate);
+    let startDate = formatDate(checkDate, 'yyyy-MM') + '-01';
+    let endDate;
+    if(count>9){
+      endDate = formatDate(checkDate, 'yyyy-MM' + '-' + count);
+    }else{
+      endDate = formatDate(checkDate, 'yyyy-MM' + '-0' + count);
+    }
+    if(new Date(endDate.replace('-', '/')) > new Date()){
+      endDate = formatDate(new Date(), 'yyyy-MM-dd');
+    }
+    this.checkNetwork.getDayReportStatus({startDate: startDate, endDate: endDate, staffId: ''})
+    .subscribe( result => {
+      console.log('statuses:', result);
+      if(result && Array.isArray(result) && result.length > 0){
+        this.calendar1.loadCalendarFlags(result);
+      }
+    }, err => {
+      this.toastService.show('获取每日状态失败！');
+    });
+  }
+
   selectDateChange(date) {
     console.log('change date:', formatDate(date, 'yyyy-MM-dd'));
     this.loadDailyReport(date);
+  }
+
+  prevChange(date) {
+    console.log('change date:', formatDate(date, 'yyyy-MM-dd'));
+    this.loadDailyReport(date);
+    this.loadDayReportStatus(date);
+  }
+  nextChange(date) {
+    this.loadDailyReport(date);
+    this.loadDayReportStatus(date);
   }
 
   monthObj = {

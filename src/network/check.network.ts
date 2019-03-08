@@ -20,6 +20,12 @@ export class CheckNetwork {
   getDayReport(data) {
     return this.http.get('/app/attendanceManagement/getDailyReport', data);
   }
+  // 日报
+  //params:startDate:'2019-01-01',endDate: '2019-01-05', staffId: 1
+  //return:   [1,0,0,1,0]
+  getDayReportStatus(data) {
+    return this.http.get('/app/attendanceManagement/getAttendanceResult', data);
+  }
   // 月报
   //params:checkMonth
   //return: {"absenceCount":3,"beingAbsenceTime":22.5,"beingLateTime":0,"leaveCount":0,"leaveEarlyTime":7.21,"outsideTime":0.0,"overTime":0,"rest":2,"signCount":1,"staffName":"系统管理员","workFrequency":2,"zgid":1}

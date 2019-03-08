@@ -1,5 +1,4 @@
 import { Component, Input, Output,EventEmitter } from '@angular/core';
-
 /**
  * Generated class for the CalendarComponent component.
  *
@@ -17,6 +16,8 @@ export class CalendarComponent {
 
   @Input() defaultSelectToday: boolean;
   @Output() selectDateChange: EventEmitter<Date> = new EventEmitter();
+  @Output() prevChange: EventEmitter<Date> = new EventEmitter();
+  @Output() nextChange: EventEmitter<Date> = new EventEmitter();
 
   constructor() { /*构造函数*/
     let now = new Date();
@@ -42,11 +43,13 @@ export class CalendarComponent {
     this.calendar.currentMonthFirstDay.setMonth(this.calendar.currentMonthFirstDay.getMonth() + 1);
     this.loadCalendarBoard(this.calendar.currentMonthFirstDay);
     this.calendar.currentMonthFirstDay = new Date(this.calendar.currentMonthFirstDay);//重新赋值，界面才会发生变化
+    this.nextChange.emit(this.calendar.currentMonthFirstDay);
   }
   prevMonth() {
     this.calendar.currentMonthFirstDay.setMonth(this.calendar.currentMonthFirstDay.getMonth() - 1);
     this.loadCalendarBoard(this.calendar.currentMonthFirstDay);
     this.calendar.currentMonthFirstDay = new Date(this.calendar.currentMonthFirstDay);//重新赋值，界面才会发生变化
+    this.prevChange.emit(this.calendar.currentMonthFirstDay);
   }
   changeCurrentActive(dateObj){
     if (!dateObj || !dateObj.number) {
@@ -61,6 +64,29 @@ export class CalendarComponent {
     this.selectDateChange.emit(dateObj.date);
 
     console.log('select date2:', dateObj.date);
+  }
+  loadCalendarFlags(flags){
+    if(!flags || !Array.isArray(flags) || flags.length === 0){
+      return;
+    }
+    console.log('canlendar');
+    let flagIndex = -1;
+    this.calendar.dates.forEach((dateItem, index) => {
+      if(!dateItem.number){
+        return;
+      }
+
+      if(flagIndex === -1){
+        flagIndex = 0;//flag在面板中的开始index
+      }
+
+      if(flags[flagIndex] >= 0){//flag存在值
+        dateItem.flag = flags[flagIndex];
+      }
+
+      flagIndex++;
+    });
+    console.log('canlendar2');
   }
   //面板数据更新
   private loadCalendarBoard(theDate) {
