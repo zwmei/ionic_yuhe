@@ -31,7 +31,8 @@ export class ContactPage {
   }
 
   loadContacts(){
-    this.contactNetwork.getAllContacts({})
+    
+    this.contactNetwork.getAllContacts({searchName: this.searchText || ''})
     .subscribe((list: {xgxm: string, photo: string, lxdh: string, id: string})=>{
       if(Array.isArray(list) && list.length > 0){
         this.contacts = list.map(item=>{
@@ -42,6 +43,8 @@ export class ContactPage {
             mobile: item.lxdh
           };
         });
+      }else{
+        this.contacts = [];
       }
 
     }, err=>{
@@ -51,7 +54,9 @@ export class ContactPage {
   }
  
   onSearch(e): void {
+    console.log('search');
     console.log(e, this.searchText);
+    this.loadContacts();
   }
   onClearSearchText(e): void {
     console.log('cancel', e, this.searchText);

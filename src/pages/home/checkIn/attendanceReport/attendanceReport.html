@@ -19,7 +19,7 @@
     </ion-row>
   </div>
   <div class="day-report-area" *ngIf="currentReport === 'day'">
-    <calendar (selectDateChange)="selectDateChange($event)"></calendar>
+    <calendar #calendar1 (selectDateChange)="selectDateChange($event)" (prevChange)="prevChange($event)" (nextChange)="nextChange($event)"></calendar>
     <div class="check-in-info">
       <p>班次 {{workSchedule.startTime}}-{{workSchedule.endTime}} 考勤组：技术部</p>
     </div>

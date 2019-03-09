@@ -25,7 +25,7 @@
     <div class="title-view">
       <p class="left title">图片</p>
       <ion-row>
-        <ion-col class="reason-img" *ngFor="let item of emailData.images">
+        <ion-col class="reason-img" *ngFor="let item of emailData.images" (click)="goToBigPicture(item)">
           <img
             src="{{ item }}"
             onerror="this.src='assets/imgs/image-faild.png'"

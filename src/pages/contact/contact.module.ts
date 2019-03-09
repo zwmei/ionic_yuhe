@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { ContactPage } from "./contact";
 import { IonicPageModule } from "ionic-angular";
 import { ContactNetwork } from "../../network/contact.network";
-import { ToastService } from "../../service/toast.service";
 import { ContactDetailPageModule } from "./contactDetail/contactDetail.module";
 
 

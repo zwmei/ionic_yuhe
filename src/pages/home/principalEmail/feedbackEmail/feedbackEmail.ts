@@ -86,4 +86,9 @@ export class FeedbackEmail {
         }
       );
   }
+
+  goToBigPicture(url) {
+    this.navCtrl.push('app-home-big-picture', url);
+    return;
+  }
 }
