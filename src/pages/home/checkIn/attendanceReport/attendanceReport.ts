@@ -46,6 +46,7 @@ export class AttendanceReportPage implements AfterViewInit {
     this.currentReport = reportType;
     if (reportType === 'day') {
       this.loadDailyReport(new Date());
+      this.loadDayReportStatus(new Date());
     } else {
       this.loadMonthReport(new Date());
     }
@@ -167,7 +168,12 @@ export class AttendanceReportPage implements AfterViewInit {
     }else{
       endDate = formatDate(checkDate, 'yyyy-MM' + '-0' + count);
     }
-    if(new Date(endDate.replace('-', '/')) > new Date()){
+
+    if(new Date(startDate.replace('-', '/')) > new Date()){//如果开始时间大于今天，直接返回
+      return;
+    }
+
+    if(new Date(endDate.replace('-', '/')) > new Date()){//如果结束时间大于今天，结束时间直接返回今天
       endDate = formatDate(new Date(), 'yyyy-MM-dd');
     }
     this.checkNetwork.getDayReportStatus({startDate: startDate, endDate: endDate, staffId: ''})
