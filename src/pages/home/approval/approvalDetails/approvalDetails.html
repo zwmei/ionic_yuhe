@@ -205,7 +205,7 @@
     <div class="title-view">
       <p class="left title">图片</p>
       <ion-row>
-        <ion-col class="reason-img" *ngFor="let item of picture">
+        <ion-col class="reason-img" *ngFor="let item of picture" (click)="goToBigPicture(item)">
           <img
             src="{{ item }}"
             onerror="this.src='assets/imgs/image-faild.png'"

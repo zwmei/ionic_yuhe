@@ -256,4 +256,9 @@ export class ApprovalDetails {
         }
       );
   }
+
+  goToBigPicture(url) {
+    this.navCtrl.push('app-home-big-picture', url);
+    return;
+  }
 }

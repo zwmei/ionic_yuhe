@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-navbar> <ion-title> 查看大图 </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content class="big-picture">
+  <div class="image-content">
+      <img
+      src="{{ url }}"
+      onerror="this.src='assets/imgs/image-faild.png'"
+    />
+  </div>
+</ion-content>
