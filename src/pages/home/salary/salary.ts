@@ -53,15 +53,18 @@ export class Salary {
     console.log('date:', dateString);
     this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
       // this.salaryData = data;
-      this.amount = data.sfgz.toFixed(2);
-      console.log('-----', data);
-      if (data.gzxmDetails) {
-        console.log(data.gzxmDetails);
-        this.gzxmDetails = data.gzxmDetails.map(item=>{
-          return {key: item[0], value: item[2].toFixed(2)};
-        });
-        console.log(this.gzxmDetails);
-        // this.gzxmDetails = data.gzxmDetails;
+      if(data.sfgz){
+        console.log(data)
+        this.amount = data.sfgz.toFixed(2);
+        console.log('-----', data);
+        if (data.gzxmDetails) {
+          console.log(data.gzxmDetails);
+          this.gzxmDetails = data.gzxmDetails.map(item=>{
+            return {key: item[0], value: item[2].toFixed(2)};
+          });
+          console.log(this.gzxmDetails);
+          // this.gzxmDetails = data.gzxmDetails;
+        }
       }
     }, error => {
       console.log(error)
