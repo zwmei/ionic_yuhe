@@ -111,9 +111,6 @@ const ChangingTitle = function () {
 export class HomePage {
   constructor(
     private navCtrl: NavController,
-    // private messageService: MessageService,
-    // private confirmService: ConfirmService,
-    // private actionSheetService: ActionSheetService,
     private utils: UtilsService,
     private storage: StorageService,
     private auth: AuthService,
@@ -392,7 +389,11 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-
+    (WebIMObserve).subscribe({
+      next: (data) => {
+        console.log('home.ts on get xiaoxi==', data);
+      }
+    })
   }
 
 }
