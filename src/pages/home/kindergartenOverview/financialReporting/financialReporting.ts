@@ -33,11 +33,11 @@ export class FinancialReportingPage {
     this.updateChart1();
     this.updateChart2();
   }
-  getEndDate(startDate:Date) {
+  getEndDate(startDate: Date) {
     return new Date(new Date(startDate).setMonth(startDate.getMonth() + 1) - 1000);
   }
 
-  changeMonth(timeProp: string, num: number, updateProp:string) {
+  changeMonth(timeProp: string, num: number, updateProp: string) {
     this[timeProp] = new Date(this[timeProp].setMonth(this[timeProp].getMonth() + num));
     // this[updateProp]();
     this.updateChart1();
@@ -95,6 +95,7 @@ export class FinancialReportingPage {
         },
         series: [{
           name: '',
+          colorByPoint:true,
           data: seriesData
         }]
       }
@@ -111,7 +112,7 @@ export class FinancialReportingPage {
       }
 
       let seriesData = []; let total = 0;
-      data.forEach(item => {
+      data.forEach((item, index) => {
         seriesData.push({
           name: item.name,
           y: item.payoutSum
@@ -151,6 +152,7 @@ export class FinancialReportingPage {
         },
         series: [{
           name: '',
+          colorByPoint:true,
           data: seriesData
         }]
       }

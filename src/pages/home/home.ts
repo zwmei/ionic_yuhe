@@ -154,7 +154,7 @@ export class HomePage {
             cursor: 'pointer',
             dataLabels: {
               enabled: true,
-              format: '{percentage:.1f}%',
+              format: '{percentage:.0f}%',
               distance: -20
             },
             showInLegend: true,

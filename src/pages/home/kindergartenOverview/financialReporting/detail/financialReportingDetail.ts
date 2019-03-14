@@ -85,6 +85,7 @@ export class FinancialReportingDetailPage {
         },
         series: [{
           name: '',
+          colorByPoint: true,
           data: seriesData
         }]
       }

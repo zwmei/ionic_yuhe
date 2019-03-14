@@ -33,6 +33,7 @@ export class AttendanceListPage {
             name:item.teacherName,
             signCount:item.signCount,
             noSignedCount:item.absenceCount,
+            lateCount:item.beingLateCount,
             leaveCount:item.leaveCount,
             statusString:item.statusValue
           }
