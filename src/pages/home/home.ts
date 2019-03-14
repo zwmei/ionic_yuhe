@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-// import { MessageService } from '../../service/message.service';
-// import { ConfirmService } from '../../service/confirm.service';
-// import { ActionSheetService } from '../../service/actionSheet.service';
 import { NavController } from 'ionic-angular';
-import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
@@ -112,15 +108,11 @@ export class HomePage {
   constructor(
     private navCtrl: NavController,
     private utils: UtilsService,
-    private storage: StorageService,
     private auth: AuthService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
     private notiNetWork: NoticeNetWork
   ) {
-
-    let user = this.storage.get(STORAGE_KEY.USER_INFO);
     this.chartName = "";
-    console.log(user);
   }
 
   messageText: string = "";
@@ -267,7 +259,6 @@ export class HomePage {
         endDate: formatDate(this.utils.getEndOfYear(), 'yyyy-MM-dd'),
       }).toPromise()
     ]).then((data: any) => {
-      console.warn('promise.all', data);
       if (data && Array.isArray(data) && data.length === 2) {
         if (data[0].status || data[1].status) {
           return;
@@ -330,7 +321,6 @@ export class HomePage {
 
   onSelectChart(chartName) {
     if (chartName === this.chartName) return;
-    console.log('onclick', chartName);
     let info = {
       chart1: this.updateChart1,
       chart2: this.updateChart2,
@@ -360,7 +350,6 @@ export class HomePage {
   ionViewDidEnter() {
     // this.messageText="";
     this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
-      console.log(data);
       data = data || [];
       if (data.status) {
         return;
@@ -373,7 +362,6 @@ export class HomePage {
         var count = 0;
         ct.changeText(texts[count++ % texts.length]);
         this.messageTimer = setInterval(function () {
-          console.log('interval', count, texts);
           ct.changeText(texts[count++ % texts.length]);
         }, 7000);
       }
@@ -382,7 +370,6 @@ export class HomePage {
     this.onSelectChart('chart1');
   }
   ionViewDidLeave() {
-    console.warn('clear timer');
     if (this.messageTimer) {
       clearInterval(this.messageTimer);
     }

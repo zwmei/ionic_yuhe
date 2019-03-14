@@ -1,5 +1,4 @@
 import { ToastService } from "./../../../../service/toast.service";
-import { isDate } from "lodash";
 import { EmailNetwork } from "./../../../../network/email.network";
 import { Component } from "@angular/core";
 import { NavParams, IonicPage, NavController } from "ionic-angular";

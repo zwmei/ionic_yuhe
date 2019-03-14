@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // "outDir": "./www/",
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -9,13 +10,13 @@
     "allowJs":true,
     "skipLibCheck":true,
     "lib": [
-      "dom",
-      "es2015"
+      "es2015",
+      "dom"
     ],
-    "module": "es2015",
+    "module": "ESNext",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5"
+    "target": "es2015"
   },
   "include": [
     "src/**/*.ts",

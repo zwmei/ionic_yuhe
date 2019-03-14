@@ -25,7 +25,7 @@ interface IWin extends Window {
   templateUrl: 'tab.html'
 })
 export class TabPage {
-  tabIndex = -1;
+  tabIndex = 2;
   tab1 = MessagePage;
   tab2 = DynamicPage;
   tab3 = HomePage;
@@ -39,17 +39,13 @@ export class TabPage {
     public chatNetwork: ChatNetwork,
     public storageService: StorageService
   ) {
-    console.log('tab.ts WebIMObserve', WebIMObserve);
     (<IWin>window).WebIMObserve = new Observable(this.multicastSequenceSubscriber());
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad', this.navParams);
     let tabIndex = parseInt(this.navParams.data.id);
     if (tabIndex !== this.tabIndex) {
       this.tabRef.select(tabIndex);
     }
-
-    console.warn('dsfsdfdf======');
   }
 
   nextMore(observers: any[], data) {
@@ -59,12 +55,13 @@ export class TabPage {
     const observers = [];
     return (observe) => {
       observers.push(observe);
+      console.warn('%%%%%%observe length', observers.length);
+
       // When this is the first subscription, start the sequence
       let that = this;
 
       if (observers.length === 1) {
         this.chatNetwork.getChatKey().subscribe((data: any) => {
-          console.log('app key', data);
           WebIM.config.appkey = data.result.AppKey;
 
           var conn: any = {};
@@ -92,7 +89,7 @@ export class TabPage {
               //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
               // 手动上线指的是调用conn.setPresence(); 在本例中，conn初始化时已将isAutoLogin设置为true
               // 所以无需调用conn.setPresence();
-              console.log("%c [opened] 连接已成功建立", "color: green");
+              console.log("%c [opened] 连接已断开", "color: red");
               that.nextMore(observers, '连接已断开!!!')
             },
             onTextMessage: function (message) {
@@ -221,6 +218,21 @@ export class TabPage {
             onBlacklistUpdate: function (list) {
               // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
               console.log(list);
+            },
+            onReceivedMessage: function (message) {
+              console.log('onReceivedMessage', message);
+            },
+            onDeliveredMessage: function (message) {
+              console.log('onDeliveredMessage', message);
+            },
+            onReadMessage: function (message) {
+              console.log('onReadMessage', message);
+            },
+            onCreateGroup: function (message) {
+              console.log('onCreateGroup', message);
+            },
+            onMutedMessage: function (message) {
+              console.log('onMutedMessage', message);              
             }
           });
 
@@ -242,13 +254,7 @@ export class TabPage {
 
           WebIMConn = conn;
         });
-
-        WebIMObserve.subscribe({
-          next: () => {
-          }
-        })
       }
-
       return {
         unsubscribe() {
           // Remove from the observers array so it's no longer notified

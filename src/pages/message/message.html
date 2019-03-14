@@ -1,12 +1,17 @@
 <ion-content>
   <!-- 消息 -->
-
-  <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
+  <!-- <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
     <p style="display:block;width:100%;">努力开发中......</p>
-  </div>
+  </div> -->
 
 
-  
+  <ion-list>
+    <ion-item (click)="goToDetailPage(contact)" *ngFor="let contact of contacts;let number = index;">
+      <img onerror="this.src='assets/imgs/image-default.png'" src="{{contact.image}}" />
+      <span>{{contact.name}}</span>
+    </ion-item>
+  </ion-list>
+
 
 
 </ion-content>

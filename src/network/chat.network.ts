@@ -5,6 +5,20 @@ import { Injectable } from "@angular/core";
  *  
  * */
 
+interface Pagination {
+  currPageNo: number;
+  pageSize: number;
+  targetType?: number;
+  targetId?: number;
+}
+interface Content {
+  targetType: number;
+  targetId: number;
+  msg: string | File;
+}
+
+
+
 @Injectable()
 export class ChatNetwork {
 
@@ -13,17 +27,17 @@ export class ChatNetwork {
   getChatKey() { //获取huanxin Appkey
     return this.http.get('/app/chat/getAppKey');
   }
-  sendText(data: object) {
+  sendText(data: Content) {
     return this.http.postForm('/app/chat/sendTextMsg', data); //targetType聊天对象类型（1：单人，2：群组）,targetId,msg:string
   }
-  sendImage(data: object) {
+  sendImage(data: Content) {
     return this.http.postForm('/app/chat/sendPictureMsg', data); //targetType聊天对象类型（1：单人，2：群组）,targetId,msg:file
   }
-  getChatList(data:object) { //获取聊天列表 {currPageNo,pageSize}
-    return this.http.get('/app/chat/loadChatSessionListData',data);
+  getChatList(data: Pagination) { //获取聊天列表 {currPageNo,pageSize}
+    return this.http.get('/app/chat/loadChatSessionListData', data);
   }
-  getSingleChatHistory(data:object) { //获取某个聊天历史记录 {currPageNo,pageSize,targetType,targetId}
-    return this.http.get('/app/chat/loadChatHistory',data);
+  getSingleChatHistory(data: Pagination) { //获取某个聊天历史记录 {currPageNo,pageSize,targetType,targetId}
+    return this.http.get('/app/chat/loadChatHistory', data);
   }
   createGroup(data: object) {
     return this.http.postForm('/app/chat/createGroup', data); //{groupName,desc,memberIds:int[]}
