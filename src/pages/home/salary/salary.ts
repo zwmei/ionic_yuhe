@@ -53,7 +53,7 @@ export class Salary {
     console.log('date:', dateString);
     this.userNetwork.getSalaryDetails({checkMonth: dateString}).subscribe((data: any) => {
       // this.salaryData = data;
-      if(data.sfgz){
+      if(data){
         console.log(data)
         this.amount = data.sfgz.toFixed(2);
         console.log('-----', data);

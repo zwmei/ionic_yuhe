@@ -62,8 +62,8 @@ export class FeedbackEmail {
       return;
     }
 
-    if (this.feedbackData.content.length > 100) {
-      this.toast.show("事由超长，请保持在100个字符以内");
+    if (this.feedbackData.content.length > 900) {
+      this.toast.show("事由超长，请保持在900个字符以内");
       return;
     }
 
