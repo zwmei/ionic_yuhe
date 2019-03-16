@@ -82,6 +82,13 @@ export class LoginPage {
 
       if (this.navCtrl.canGoBack()) {
         this.navCtrl.pop();
+        setTimeout(()=>{
+          WebIMObserve && WebIMObserve.subscribe({
+            next: (data) => {
+              console.log('login===');
+            }
+          },2000);
+        });
       }
       else {
         this.navCtrl.push('app-tab', { id: 2 });

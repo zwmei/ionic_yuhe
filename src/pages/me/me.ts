@@ -61,8 +61,8 @@ export class MePage {
       if(data.status === 0){
         this.storage.set(STORAGE_KEY.USER_INFO,null);
         this.navCtrl.setRoot(LoginPage);
+        WebIMConn && WebIMConn.close(); //退出WebIM
       }
-
     }, err => {
       this.toastService.show(err.message || '登出失败');
     })

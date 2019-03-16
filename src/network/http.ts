@@ -35,6 +35,7 @@ export class HttpNetwork {
           else if (data.status) {
             if (data.status == 7001) {
               this.debouncedFnc();
+              WebIMConn && WebIMConn.close(); //退出WebIM
             }
             this.toast.show(data.message || '获取数据错误');
           }
@@ -44,6 +45,7 @@ export class HttpNetwork {
           this.toast.show(err.message || '请求异常');
           if (err.status == 7001) {
             this.app.getRootNav().push(LoginPage);
+            WebIMConn && WebIMConn.close(); //退出WebIM
           }
           observe.error(err);
         },

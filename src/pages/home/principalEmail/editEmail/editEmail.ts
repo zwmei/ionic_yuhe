@@ -74,13 +74,13 @@ export class EditEmail {
       this.toast.show("请完善标题和内容");
       return;
     }
-    if (this.emailData.title.length > 25) {
-      this.toast.show("主题超长，请保持在25个字符以内");
+    if (this.emailData.title.length > 80) {
+      this.toast.show("主题超长，请保持在80个字符以内");
       return;
     }
 
-    if (this.emailData.content.length > 125) {
-      this.toast.show("内容超长，请保持在125个字符以内");
+    if (this.emailData.content.length > 900) {
+      this.toast.show("内容超长，请保持在900个字符以内");
       return;
     }
 

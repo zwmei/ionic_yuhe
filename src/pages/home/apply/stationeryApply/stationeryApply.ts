@@ -228,8 +228,8 @@ export class StationeryApply {
       return;
     }
 
-    if (this.applyData.wpyt.length > 100) {
-      this.toast.show("用途超长，请保持在100个字符以内");
+    if (this.applyData.wpyt.length > 300) {
+      this.toast.show("用途超长，请保持在300个字符以内");
       return;
     }
 
@@ -246,9 +246,15 @@ export class StationeryApply {
       }
 
       if (item.sl <= 0) {
-        this.toast.show("数字大于0");
+        this.toast.show("数量大于0");
         return;
       }
+
+      if (item.sl > 99999999.99) {
+        this.toast.show("数量应小于99999999.99");
+        return;
+      }
+
 
       let number = item.sl.toString().split(".")[1];
       if (item.unit > 0 && number && number.length > item.unit) {
@@ -274,11 +280,11 @@ export class StationeryApply {
     });
     var start = this.datePipe.transform(
       this.applyData.lysj,
-      "yyyy-MM-dd HH:mm:ss"
+      "yyyy-MM-dd"
     );
     var end = this.datePipe.transform(
       this.applyData.ghsj,
-      "yyyy-MM-dd HH:mm:ss"
+      "yyyy-MM-dd"
     );
     var apply = {
       billType: 2,
