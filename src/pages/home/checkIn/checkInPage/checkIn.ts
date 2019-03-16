@@ -53,6 +53,7 @@ export class CheckInPage {
       name: loginInfo.zgxm,
       team: "考勤组：技术部",
       image: HTTP_URL.MAIN + '/images/' + loginInfo.photo,
+      schoolName: loginInfo.yeyName || '佛山幼儿园'
     };
 
     let middleString = formatDate(new Date(), "yyyy/MM/dd 12:00:00");
