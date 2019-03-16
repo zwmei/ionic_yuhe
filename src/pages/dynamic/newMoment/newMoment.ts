@@ -47,7 +47,11 @@ export class NewMomentPage {
 
   save(){
     if(!this.newMoment.content){
-      this.toastService.show('说说你此刻的想法...');
+      return this.toastService.show('说说你此刻的想法...');
+    }
+
+    if(this.newMoment.content.length > 800){
+      return this.toastService.show('限制在800个字符以内');
     }
     
     this.newMoment.filePaths = this.images.join(',');
