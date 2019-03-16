@@ -14,10 +14,13 @@ import { UserNetwork } from '../network/user.network';
 import { ClassNetwork } from '../network/class.network';
 import { HttpNetwork } from '../network/http';
 import { ToastService } from '../service/toast.service';
+import * as ionicGalleryModal from 'ionic-gallery-modal';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 // import { Chooser } from '@ionic-native/chooser/ngx';
 
 import { StorageService } from '../service/storage.service';
+import { GallaryService } from '../service/gallary.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { StorageService } from '../service/storage.service';
     TabPageModule,
     ForgetPasswordPageModule,
     ComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    ionicGalleryModal.GalleryModalModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +53,12 @@ import { StorageService } from '../service/storage.service';
     ClassNetwork,
     ToastService,
     StorageService,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    GallaryService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: ionicGalleryModal.GalleryModalHammerConfig,
+    }
   ]
 })
 export class AppModule { }

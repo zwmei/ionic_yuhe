@@ -3,6 +3,7 @@ import { IonicPageModule } from "ionic-angular";
 import { DynamicPage } from "./dynamic";
 import { NewMomentPageModule } from "./newMoment/newMoment.module";
 
+
 @NgModule({
   declarations:[
     DynamicPage
