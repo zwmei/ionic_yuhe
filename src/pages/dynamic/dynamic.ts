@@ -304,7 +304,7 @@ export class DynamicPage {
   }
 
   showPhotos(photoData){
-    photoData = photoData;
+    photoData = photoData || 'assets/imgs/img-default.png';
     this.gallaryService.photoViews(photoData,'');
   }
 }
