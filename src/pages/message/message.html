@@ -1,17 +1,20 @@
-<ion-content>
-  <!-- 消息 -->
-  <!-- <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
-    <p style="display:block;width:100%;">努力开发中......</p>
-  </div> -->
-
-
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      消息
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-message-view">
   <ion-list>
-    <ion-item (click)="goToDetailPage(contact)" *ngFor="let contact of contacts;let number = index;">
-      <img onerror="this.src='assets/imgs/image-default.png'" src="{{contact.image}}" />
-      <span>{{contact.name}}</span>
+    <ion-item class="chat-list-item" (click)="goToChat(chatItem)" *ngFor="let chatItem of chatList;let number = index;">
+      <img onerror="this.src='assets/imgs/image-default.png'" src="{{chatItem.photoItem}}"/>
+      <div class="item-content">
+        <p class="content-top">
+          <span>{{chatItem.targetName}}</span>
+          <span>{{chatItem.lastTimeStr}}</span>
+        </p>
+      </div>
     </ion-item>
   </ion-list>
-
-
-
 </ion-content>

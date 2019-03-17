@@ -6,6 +6,7 @@ import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
 import { UtilsService } from '../../service/utils.service';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -105,6 +106,8 @@ const ChangingTitle = function () {
   templateUrl: 'home.html'
 })
 export class HomePage {
+  subscription: Subscription;
+
   constructor(
     private navCtrl: NavController,
     private utils: UtilsService,
@@ -113,6 +116,7 @@ export class HomePage {
     private notiNetWork: NoticeNetWork
   ) {
     this.chartName = "";
+    this.subscription = null;
   }
 
   messageText: string = "";
@@ -376,11 +380,15 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    (WebIMObserve).subscribe({
+    this.subscription = (WebIMObserve).subscribe({
       next: (data) => {
         console.log('home.ts on get xiaoxi==', data);
       }
-    })
+    });
   }
 
+  ionViewWillUnload() {
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = null;
+  }
 }

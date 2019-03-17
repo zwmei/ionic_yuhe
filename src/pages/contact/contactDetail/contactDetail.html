@@ -8,24 +8,24 @@
 <ion-content class="contact-detail-page">
   <div class="contact-info-area">
     <div class="photo">
-        <img onerror="this.src='assets/imgs/image-default.png'"  src="{{contact.image}}" /> 
+      <img onerror="this.src='assets/imgs/image-default.png'" src="{{contact.image}}" />
     </div>
-      <div class="text-area">
-        <strong>{{contact.name}}</strong>
-        <span>园长</span>
-      </div>
+    <div class="text-area">
+      <strong>{{contact.name}}</strong>
+      <span>园长</span>
+    </div>
   </div>
   <div class="mobile-area">
     <label>手机</label>
     <ion-item>{{contact.mobile}}
-        <a href="tel:{{contact.mobile}}"></a>
+      <a href="tel:{{contact.mobile}}"></a>
     </ion-item>
   </div>
 
   <div class="operation">
-      <ion-item>
-        发送消息
-      </ion-item>
+    <ion-item (click)="sendMessage()">
+      发送消息
+    </ion-item>
   </div>
-  
+
 </ion-content>

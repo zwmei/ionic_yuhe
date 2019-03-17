@@ -3,6 +3,7 @@ import { IonicPageModule } from "ionic-angular";
 import { MessagePage } from "./message";
 import { ComponentsModule } from "../../components/components.module";
 import { ChatNetwork } from "../../network/chat.network";
+import { ChatPageModule } from "./chat/chat.module";
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ChatNetwork } from "../../network/chat.network";
   ],
   imports: [
     IonicPageModule.forChild(MessagePage),
-    ComponentsModule
+    ComponentsModule,
+    ChatPageModule
   ],
   providers: [
     ChatNetwork

@@ -12,16 +12,16 @@ import { ToastService } from '../../service/toast.service';
 export class ContactPage {
 
   contacts = [];
-  user : any = {};
+  user: any = {};
   searchText: string = '';
   constructor(
     private navCtrl: NavController,
     private storage: StorageService,
     private toastService: ToastService,
     private contactNetwork: ContactNetwork) {
-      this.loadUserInfo();
-      this.loadContacts();
-    }
+    this.loadUserInfo();
+    this.loadContacts();
+  }
 
   loadUserInfo() {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
@@ -30,29 +30,32 @@ export class ContactPage {
     }
   }
 
-  loadContacts(){
-    
-    this.contactNetwork.getAllContacts({searchName: this.searchText || ''})
-    .subscribe((list: {xgxm: string, photo: string, lxdh: string, id: string})=>{
-      if(Array.isArray(list) && list.length > 0){
-        this.contacts = list.map(item=>{
-          return {
-            name: item.zgxm,
-            image: HTTP_URL.MAIN + '/images/' + item.photo,
-            id: item.id,
-            mobile: item.lxdh
-          };
-        });
-      }else{
-        this.contacts = [];
-      }
+  loadContacts() {
 
-    }, err=>{
-      console.error(err);
-      this.toastService.show('获取联系人失败！');
-    });
+    this.contactNetwork.getAllContacts({ searchName: this.searchText || '' })
+      .subscribe((list: { xgxm: string, photo: string, lxdh: string, id: string }) => {
+        if (Array.isArray(list) && list.length > 0) {
+          this.contacts = list.map(item => {
+            return {
+              name: item.zgxm,
+              image: HTTP_URL.MAIN + '/images/' + item.photo,
+              id: item.id,
+              mobile: item.lxdh,
+              zggh: item.zggh,
+              zgxm: item.zgxm,
+              photo: item.photo,
+            };
+          });
+        } else {
+          this.contacts = [];
+        }
+
+      }, err => {
+        console.error(err);
+        this.toastService.show('获取联系人失败！');
+      });
   }
- 
+
   onSearch(e): void {
     console.log('search');
     console.log(e, this.searchText);
@@ -62,9 +65,9 @@ export class ContactPage {
     console.log('cancel', e, this.searchText);
   }
 
-  goToDetailPage(item): void{
-    
+  goToDetailPage(item): void {
+
     this.navCtrl.push('app-contact-contactDetail', { contact: item });
   }
-  
+
 }

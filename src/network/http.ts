@@ -22,6 +22,7 @@ export class HttpNetwork {
     console.log('logout to login page');
     this.storage.set(STORAGE_KEY.USER_INFO, null);
     this.app.getRootNav().push(LoginPage);
+    WebIMConn && WebIMConn.close(); //退出WebIM
   }
   debouncedFnc = debounce(this.waitDebounceLogout, 250);
 
@@ -35,7 +36,6 @@ export class HttpNetwork {
           else if (data.status) {
             if (data.status == 7001) {
               this.debouncedFnc();
-              WebIMConn && WebIMConn.close(); //退出WebIM
             }
             this.toast.show(data.message || '获取数据错误');
           }
@@ -124,7 +124,6 @@ export class HttpNetwork {
       });
     return this.wrapHttp(aa);
   }
-
   uploadEmailFile(file) {
     let formData = new FormData();
     formData.append('file', file);
@@ -136,12 +135,19 @@ export class HttpNetwork {
       });
     return this.wrapHttp(aa);
   }
-
+  uploadNormalFile(url, params: object = {}) {
+    let formData = new FormData();
+    Object.keys(params).forEach((key: string) => {
+      formData.append(key, params[key]);
+    });
+    let aa = this.http.post(HTTP_URL.MAIN + url,
+      formData,
+      {
+        withCredentials: true
+      });
+    return this.wrapHttp(aa);
+  }
 }
-
-// export function formatDate(date: number | Date | string, format: string) {
-//   return new DatePipe('en-US').transform(date, format);
-// }
 
 export function formatDate(dateTime: Date | string | number, format: string) {
   if (!dateTime || !format) {
@@ -178,7 +184,6 @@ export function formatDate(dateTime: Date | string | number, format: string) {
 
   return format;
 }
-
 
 export function json2form(a) {
   var s = [],
@@ -231,10 +236,10 @@ export function getServerAddress() {
 
 export const HTTP_URL = {
   // MAIN: ''
-  MAIN: getServerAddress()
+  MAIN: getServerAddress(),
+  IMAGE: getServerAddress() + '/images'
 }
 
-//
 export function getDateDesc(dateTimeStamp: number) {
   let result = '';
   if (!dateTimeStamp || isNaN(dateTimeStamp)) {

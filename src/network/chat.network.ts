@@ -51,4 +51,8 @@ export class ChatNetwork {
   deleteGroupMembers(data: object) {
     return this.http.postForm('/app/chat/deleteGroupMembers', data); //{groupId,delMemberIds:int[]}
   }
+  uploadImage(data: object) {
+    return this.http.uploadNormalFile('/app/chat/sendPictureMsg', data); //{targetType,targetId, file}
+  }
+
 }

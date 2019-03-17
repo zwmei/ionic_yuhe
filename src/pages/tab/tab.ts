@@ -9,13 +9,42 @@ import { Observable } from 'rxjs/Observable';
 import { ChatNetwork } from '../../network/chat.network';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 
+export const MessageType = {
+  Text: '11',
+  Image: '12',
+  PendingApproval: '21', //等待审批的消息
+  CCApproval: '31', //抄送审批的消息
+  ScheduleReminder: '41', //日程提醒的消息
+  NewMail: '51', //新邮件的消息
+  ReplyMail: '52', //邮件回复的消息
+  NewDynamic: '61', //新动态的消息
+}
+export const MessageContentType = {
+  Text: '1', //文字
+  Image: '2' //图片
+}
+
+export const ChatType = {
+  Chat: 'chat',
+  ChatRoom: 'chatroom'
+}
+
+export interface MessageContent {
+  targetCode: string;
+  userCode: string;
+  msg: string; //消息内容
+  msgContentType: string; //消息内容类型
+  msgType: string;//消息类型
+  chatType: string;
+  timeStr: string;
+}
 
 interface IWin extends Window {
   WebIMObserve: any;
   WebIMConn: any;
 }
 (<IWin>window).WebIMObserve = {};
-(<IWin>window).WebIMConn = {};
+(<IWin>window).WebIMConn = { close: () => { } };
 @IonicPage({
   name: 'app-tab',
   segment: 'tab/:id',
@@ -62,6 +91,8 @@ export class TabPage {
 
       if (observers.length === 1) {
         this.chatNetwork.getChatKey().subscribe((data: any) => {
+          if (!data || data.status) return;
+
           WebIM.config.appkey = data.result.AppKey;
 
           var conn: any = {};
@@ -97,6 +128,21 @@ export class TabPage {
               console.log(message);
               console.log(message.type);
               console.log('Text');
+
+              message.sourceMsg = message.sourceMsg || '';
+              if (!message.sourceMsg) {
+                return;
+              }
+              let msgType = message.sourceMsg.slice(0, 2);
+              that.nextMore(observers, {
+                targetCode: message.to,
+                userCode: message.from,
+                msg: message.sourceMsg.slice(2),
+                msgContentType: (msgType == MessageType.Image ? MessageContentType.Image : MessageContentType.Text),
+                msgType: msgType,
+                chatType: message.type,
+                timeStr: new Date().toISOString()
+              } as MessageContent);
             },  //收到文本消息
             onEmojiMessage: function (message) {
               // 当为WebIM添加了Emoji属性后，若发送的消息含WebIM.Emoji里特定的字符串，connection就会自动将
@@ -232,7 +278,7 @@ export class TabPage {
               console.log('onCreateGroup', message);
             },
             onMutedMessage: function (message) {
-              console.log('onMutedMessage', message);              
+              console.log('onMutedMessage', message);
             }
           });
 
