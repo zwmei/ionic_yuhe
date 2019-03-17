@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{params.targetName}}
+    </ion-title>
+  </ion-navbar>
+  <!-- <ion-toolbar (click)="goToParent()">
+    <ion-title>
+      <ion-icon name="arrow-back"></ion-icon>
+      {{params.targetName}}
+    </ion-title>
+  </ion-toolbar> -->
+</ion-header>
+<ion-content class="chat-content-page">
+  <div class="content-wrapper">
+    <div class="chat-list" id="chatContentListId">
+      <div class="list-item" [innerHTML]="content | html" *ngFor="let content of contentList;"
+        (click)="showImage($event)">
+      </div>
+    </div>
+    <div class="chat-opt">
+      <div class="opt-view">
+        <span (click)="clickImage()">
+          <ion-icon name="images"></ion-icon>
+        </span>
+        <input id="chat-image-input"
+        accept="image/*"
+        style="display: none" (change)="onChangeImage($event)" type="file" />
+      </div>
+      <textarea [(ngModel)]="inputText" id="chat-textarea-input"></textarea>
+      <div class="bt-send-row">
+        <span class="bt-send" (click)="sendText()">发送</span>
+      </div>
+    </div>
+  </div>
+</ion-content>
