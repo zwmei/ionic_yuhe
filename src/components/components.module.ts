@@ -7,7 +7,6 @@ import { MonthSwitchComponent } from './month-switch/month-switch';
 import { SeasonSwitchComponent } from './season-switch/season-switch';
 import { WeekSwitchComponent } from './week-switch/week-switch';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
-import { ImageBrowserComponent } from './image-browser/image-browser';
 
 
 @NgModule({
@@ -18,8 +17,7 @@ import { ImageBrowserComponent } from './image-browser/image-browser';
     SeasonSwitchComponent,
     WeekSwitchComponent,
     FileUploaderComponent,
-    EmailFileUploaderComponent,
-    ImageBrowserComponent
+    EmailFileUploaderComponent
 	],
 	imports: [IonicModule],
 	exports: [
@@ -29,8 +27,7 @@ import { ImageBrowserComponent } from './image-browser/image-browser';
     SeasonSwitchComponent,
     WeekSwitchComponent,
     FileUploaderComponent,
-    EmailFileUploaderComponent,
-    ImageBrowserComponent
+    EmailFileUploaderComponent
   ]
 })
 export class ComponentsModule { }
