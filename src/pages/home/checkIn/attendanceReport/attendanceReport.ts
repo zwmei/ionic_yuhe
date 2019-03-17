@@ -2,8 +2,10 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CheckNetwork } from '../../../../network/check.network';
 import { ToastService } from '../../../../service/toast.service';
+import { StorageService, STORAGE_KEY } from '../../../../service/storage.service';
 import { formatDate } from '../../../../network/http';
 import { CalendarComponent } from '../../../../components/calendar/calendar';
+import { HTTP_URL } from "../../../../network/http";
 
 
 @IonicPage({
@@ -15,11 +17,12 @@ import { CalendarComponent } from '../../../../components/calendar/calendar';
 export class AttendanceReportPage implements AfterViewInit {
   @ViewChild(CalendarComponent) calendar1;
 
-  constructor(private navCtrl: NavController, private checkNetwork: CheckNetwork, private toastService: ToastService) {
+  constructor(private navCtrl: NavController, private checkNetwork: CheckNetwork, private toastService: ToastService, private storage: StorageService) {
     console.log('cons')
   }
 
   ngOnInit(){
+    this.loadUserInfo();
     this.currentReport = 'day';
     this.loadWorkShiftList();
     this.loadDailyReport(new Date());
@@ -239,5 +242,16 @@ export class AttendanceReportPage implements AfterViewInit {
   }
   monthChange(month){
     this.loadMonthReport(new Date(month))
+  }
+
+  user: any = {};
+  loadUserInfo() {
+    let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
+    if (userInfo && typeof userInfo === "object") {
+      console.log(userInfo);
+      this.user.number = userInfo.zggh;
+      this.user.name = userInfo.zgxm;
+      this.user.photo = HTTP_URL.MAIN + '/images/' + userInfo.photo;
+    }
   }
 }

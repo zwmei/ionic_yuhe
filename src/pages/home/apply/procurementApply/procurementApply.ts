@@ -192,8 +192,8 @@ export class ProcurementApply {
       return;
     }
 
-    if (this.applyData.sqsy.length > 50) {
-      this.toast.show("事由超长，请保持在50个字符以内");
+    if (this.applyData.sqsy.length > 300) {
+      this.toast.show("事由超长，请保持在300个字符以内");
       return;
     }
 
@@ -204,7 +204,7 @@ export class ProcurementApply {
 
     for (var i = 0; i < this.applyData.cgqds.length; i++) {
       let item = this.applyData.cgqds[i];
-      if (item.name === "请选择" || !item.sl || !item.zj) {
+      if (item.name === "请选择" || !item.sl) {
         this.toast.show("请完善物资明细");
         return;
       }
@@ -213,11 +213,24 @@ export class ProcurementApply {
         this.toast.show("数字大于0");
         return;
       }
+
+      if (item.sl > 99999999.99) {
+        this.toast.show("数量应小于99999999.99");
+        return;
+      }
+
+      if (item.price > 99999999.99) {
+        this.toast.show("单价应小于99999999.99");
+        return;
+      }
+
       let number = item.sl.toString().split(".")[1];
       if (item.unit > 0 && number && number.length > item.unit) {
         this.toast.show( item.name + "数量超出精度限制，小数点后最多" + item.unit + "位");
         return;
       }
+
+      item.zj = item.price * item.sl;
     }
     if (this.spr.length < 1) {
       this.toast.show("请选择审批人");

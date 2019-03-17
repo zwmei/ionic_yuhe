@@ -6,6 +6,7 @@ import { HTTP_URL, getDateDesc } from '../../network/http';
 import { DynamicNetwork } from '../../network/dynamic.network';
 import { ActionSheetService } from '../../service/actionSheet.service';
 import { ConfirmService } from '../../service/confirm.service';
+import { GallaryService } from '../../service/gallary.service';
 
 @Component({
   templateUrl: 'dynamic.html'
@@ -27,7 +28,8 @@ export class DynamicPage {
     private toastService: ToastService,
     private actionSheetService: ActionSheetService,
     private confirmService: ConfirmService,
-    private dynamicNetwork: DynamicNetwork) {
+    private dynamicNetwork: DynamicNetwork,
+    private gallaryService: GallaryService) {
     // this.loadUserInfo();
     // this.loadMoments();
   }
@@ -299,5 +301,10 @@ export class DynamicPage {
         }
       ]
     });
+  }
+
+  showPhotos(photoData){
+    photoData = photoData || 'assets/imgs/img-default.png';
+    this.gallaryService.photoViews(photoData,'');
   }
 }

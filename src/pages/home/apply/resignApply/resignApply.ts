@@ -35,7 +35,7 @@ export class ResignApply {
     private datePipe: DatePipe,
     public toast: ToastService
   ) {
-    this.applyData.sqsj = formatDate(new Date(),"yyyy-MM-dd HH:mm:ss");
+    this.applyData.sqsj = formatDate(new Date(),"yyyy-MM-dd");
   }
 
   /// 审批人
@@ -141,8 +141,8 @@ export class ResignApply {
       return;
     }
 
-    if (this.applyData.lzyy.length > 15) {
-      this.toast.show("离职原因超长，请保持在15个字符以内");
+    if (this.applyData.lzyy.length > 300) {
+      this.toast.show("离职原因超长，请保持在300个字符以内");
       return;
     }
 

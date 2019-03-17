@@ -57,6 +57,35 @@ export class NewSchedulePage {
   }
 
   save(): void {
+    if (!this.schedule.title) {
+      return this.toastService.show('标题必填');
+    }
+
+    if(this.schedule.title.length > 50){
+      return this.toastService.show('标题限制在50个字符以内');
+    }
+
+    if (!this.schedule.content) {
+      return this.toastService.show('描述必填');
+    }
+
+    if(this.schedule.content.length > 400){
+      return this.toastService.show('内容限制在400个字符以内');
+    }
+
+    if(this.schedule.remindTime && this.schedule.remindTime <= 0){
+      return this.toastService.show('提醒时间必须大于0分钟');
+    }
+
+    if(this.schedule.remindFrequency && this.schedule.remindFrequency <= 0){
+      return this.toastService.show('提醒频次必须大于0分钟');
+    }
+
+    if(this.schedule.remark && this.schedule.remark.length > 150){
+      return this.toastService.show('备注限制在150个字符以内');
+    }
+    
+
     this.confirmService.show({
       title: '新建日程',
       subTitle: '确认要保存新日程吗？',
@@ -77,22 +106,6 @@ export class NewSchedulePage {
 
 
   saveSchedule() {
-    if (!this.schedule.title) {
-      return this.toastService.show('标题必填');
-    }
-
-    if (!this.schedule.content) {
-      return this.toastService.show('描述必填');
-    }
-
-    if(this.schedule.remindTime && this.schedule.remindTime <= 0){
-      return this.toastService.show('提醒时间必须大于0分钟');
-    }
-
-    if(this.schedule.remindFrequency && this.schedule.remindFrequency <= 0){
-      return this.toastService.show('提醒频次必须大于0分钟');
-    }
-    
     this.loading.show();
 
     let obj : any = {
