@@ -1,3 +1,4 @@
+import { GallaryService } from './../../../../service/gallary.service';
 import { ToastService } from "./../../../../service/toast.service";
 import { Component } from "@angular/core";
 import {
@@ -8,6 +9,7 @@ import {
 } from "ionic-angular";
 import { ApprovalNetwork } from "./../../../../network/approval.network";
 import { HTTP_URL } from "../../../../network/http";
+
 
 @IonicPage({
   name: "app-home-approval-details"
@@ -33,7 +35,8 @@ export class ApprovalDetails {
     public alertCtrl: AlertController,
     params: NavParams,
     public approvalNetWork: ApprovalNetwork,
-    public toast: ToastService
+    public toast: ToastService,
+    public gallaryService: GallaryService,
   ) {
     this.params = params.data.params;
     this.type = params.data.type;
@@ -256,9 +259,8 @@ export class ApprovalDetails {
         }
       );
   }
-
-  goToBigPicture(url) {
-    this.navCtrl.push('app-home-big-picture', url);
-    return;
+  showPhotos(photoData){
+    photoData = photoData || 'assets/imgs/img-default.png';
+    this.gallaryService.photoViews(photoData,'');
   }
 }

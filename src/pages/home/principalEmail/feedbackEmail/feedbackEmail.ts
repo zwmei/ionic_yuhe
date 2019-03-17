@@ -1,3 +1,4 @@
+import { GallaryService } from './../../../../service/gallary.service';
 import { ToastService } from "./../../../../service/toast.service";
 import { EmailNetwork } from "./../../../../network/email.network";
 import { Component } from "@angular/core";
@@ -19,7 +20,8 @@ export class FeedbackEmail {
     params: NavParams,
     public emailNetwork: EmailNetwork,
     public toast: ToastService,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public gallaryService: GallaryService,
   ) {
     this.params = params.data;
     this.emailNetwork
@@ -89,5 +91,9 @@ export class FeedbackEmail {
   goToBigPicture(url) {
     this.navCtrl.push('app-home-big-picture', url);
     return;
+  }
+  showPhotos(photoData){
+    photoData = photoData || 'assets/imgs/img-default.png';
+    this.gallaryService.photoViews(photoData,'');
   }
 }
