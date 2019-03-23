@@ -263,8 +263,8 @@ export class AttendanceReportPage implements AfterViewInit {
   loadCheckGroup(){
     this.checkNetwork.checkGroupName()
     .subscribe( (data: any)=> {
-      if(data.groupName){
-        this.user.groupName = data.groupName;
+      if(data && data.result && data.result.groupName){
+        this.user.groupName = data.result.groupName;
       }
     }, error => {
       console.log(error);

@@ -89,8 +89,8 @@ export class CheckInPage {
   loadCheckGroup(){
     this.checkNetWork.checkGroupName()
     .subscribe( (data: any)=> {
-      if(data.groupName){
-        this.user.team = '考勤组：' + data.groupName;
+      if(data && data.result && data.result.groupName){
+        this.user.team = '考勤组：' + data.result.groupName;
       }
     }, error => {
       console.log(error);
