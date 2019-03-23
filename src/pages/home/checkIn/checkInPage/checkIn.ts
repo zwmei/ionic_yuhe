@@ -36,7 +36,7 @@ export class CheckInPage {
   constructor(
     params: NavParams,
     public nav: NavController,
-    public checkNetWork: CheckNetwork,
+    private checkNetWork: CheckNetwork,
     private storage: StorageService,
     // public datePipe: DatePipe
     public toast: ToastService,
@@ -51,7 +51,7 @@ export class CheckInPage {
     console.log(loginInfo);
     this.user = {
       name: loginInfo.zgxm,
-      team: "考勤组：技术部",
+      team: "考勤组：未知",
       image: HTTP_URL.MAIN + '/images/' + loginInfo.photo,
       schoolName: loginInfo.yeyName || '佛山幼儿园'
     };
@@ -82,6 +82,19 @@ export class CheckInPage {
         console.log(error);
       }
     );
+
+    this.loadCheckGroup();
+  }
+
+  loadCheckGroup(){
+    this.checkNetWork.checkGroupName()
+    .subscribe( (data: any)=> {
+      if(data.groupName){
+        this.user.team = '考勤组：' + data.groupName;
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   ionViewDidEnter() {

@@ -23,6 +23,7 @@ export class AttendanceReportPage implements AfterViewInit {
 
   ngOnInit(){
     this.loadUserInfo();
+    this.loadCheckGroup();
     this.currentReport = 'day';
     this.loadWorkShiftList();
     this.loadDailyReport(new Date());
@@ -213,10 +214,12 @@ export class AttendanceReportPage implements AfterViewInit {
     absentTime: 0,
     overTime: 0,//加班时间
     outsideTime: 0,
-    absenceCount: 0,
+    absenceTime: 0,
     workFrequency: 0,
     rest: 0,//休息天数
-    signCount: 0
+    signCount: 0,
+    leaveTime: 0,//请假天数
+    dayWorkhour: 0//每天工时
   };
   loadMonthReport(checkMonth) {
     this.checkNetwork.getMonthReport({ checkMonth: formatDate(checkMonth, 'yyyy-MM') })
@@ -231,10 +234,12 @@ export class AttendanceReportPage implements AfterViewInit {
           this.monthObj.leaveEarlyTime = result.leaveEarlyTime;//早退时间（小时）
           this.monthObj.overTime = result.overTime;//加班时间（小时）
           this.monthObj.outsideTime = result.outsideTime;//外勤时间（小时）
-          this.monthObj.absenceCount = result.absenceCount;//缺勤次数
+          this.monthObj.absenceTime = result.absenceTime;//缺勤天数
           this.monthObj.workFrequency = result.workFrequency;//班次次数（天）
           this.monthObj.rest = result.rest;//休息天数（天）
           this.monthObj.signCount = result.signCount;//签到天数（天）
+          this.monthObj.leaveTime = result.leaveTime;//请假天数（天）
+          this.monthObj.dayWorkhour = result.dayWorkhour;//每天工时
         }
       }, err => {
         this.toastService.show('获取月报失败');
@@ -244,7 +249,7 @@ export class AttendanceReportPage implements AfterViewInit {
     this.loadMonthReport(new Date(month))
   }
 
-  user: any = {};
+  user: any = {groupName: '未知'};
   loadUserInfo() {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
     if (userInfo && typeof userInfo === "object") {
@@ -253,5 +258,16 @@ export class AttendanceReportPage implements AfterViewInit {
       this.user.name = userInfo.zgxm;
       this.user.photo = HTTP_URL.MAIN + '/images/' + userInfo.photo;
     }
+  }
+
+  loadCheckGroup(){
+    this.checkNetwork.checkGroupName()
+    .subscribe( (data: any)=> {
+      if(data.groupName){
+        this.user.groupName = data.groupName;
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 }

@@ -45,4 +45,8 @@ export class CheckNetwork {
   getRankList(data) {
     return this.http.get('/app/attendanceManagement/getAttendanceRanks', data);
   }
+  // 获取考勤组信息
+  checkGroupName() {
+    return this.http.get('/app/attendanceManagement/getCheckGroup');
+  }
 }
