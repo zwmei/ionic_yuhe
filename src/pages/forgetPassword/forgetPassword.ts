@@ -136,7 +136,7 @@ export class ForgetPasswordPage {
       this.loadingService.hide();
       console.log(data);
 
-      if (data.status === '0') {
+      if (data.status == '0') {
         return this.toastService.show('操作成功');
       }
       return this.toastService.show(data.message || '操作失败');

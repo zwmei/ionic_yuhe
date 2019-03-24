@@ -13,9 +13,8 @@
 </ion-header>
 <ion-content class="chat-content-page">
   <div class="content-wrapper">
-    <div class="chat-list" id="chatContentListId">
-      <div class="list-item" [innerHTML]="content | html" *ngFor="let content of contentList;"
-        (click)="showImage($event)">
+    <div class="chat-list" id="chatContentListId" (click)="showImage($event)">
+      <div class="list-item" [innerHTML]="content | html" *ngFor="let content of contentList;">
       </div>
     </div>
     <div class="chat-opt">
