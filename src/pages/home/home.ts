@@ -352,7 +352,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    // this.messageText="";
+    this.messageText = "";
     this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
       data = data || [];
       if (data.status) {
@@ -361,13 +361,14 @@ export class HomePage {
 
       let texts = data.slice(0, 8).map(item => item.ggbt);
       if (texts.length > 0) {
-        var ct = new ChangingTitle(document.querySelector('.changing-title'));
-
+        // var ct = new ChangingTitle(document.querySelector('.changing-title'));
         var count = 0;
-        ct.changeText(texts[count++ % texts.length]);
-        this.messageTimer = setInterval(function () {
-          ct.changeText(texts[count++ % texts.length]);
-        }, 7000);
+        this.messageText = texts[count++ % texts.length];
+        // ct.changeText(texts[count++ % texts.length]);
+        this.messageTimer = setInterval(() => {
+          this.messageText = texts[count++ % texts.length];
+          // ct.changeText(texts[count++ % texts.length]);
+        }, 5000);
       }
       // this.messageText = data.slice(0, 8).map(item => item.ggbt).join('  ');
     });
@@ -379,16 +380,19 @@ export class HomePage {
     }
   }
 
-  ionViewDidLoad() {
-    this.subscription = (WebIMObserve).subscribe({
-      next: (data) => {
-        console.log('home.ts on get xiaoxi==', data);
-      }
-    });
-  }
+  // ionViewDidLoad() {
+  //   console.warn('---home did load');
+  //   this.subscription = (WebIMObserve).subscribe({
+  //     next: (data) => {
+  //       console.log('home.ts on get xiaoxi==', data);
+  //     }
+  //   });
+  // }
 
-  ionViewWillUnload() {
-    this.subscription && this.subscription.unsubscribe();
-    this.subscription = null;
-  }
+  // ionViewWillUnload() {
+  //   console.warn('home did out unload=======');
+
+  //   this.subscription && this.subscription.unsubscribe();
+  //   this.subscription = null;
+  // }
 }

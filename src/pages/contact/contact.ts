@@ -50,6 +50,7 @@ export class ContactPage {
               zggh: item.zggh,
               zgxm: item.zgxm,
               photo: item.photo,
+              roleName: ((item.jsList || [])[0] || {}).jsm || ''
             };
           });
         } else {

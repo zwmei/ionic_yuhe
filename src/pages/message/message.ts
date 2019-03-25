@@ -42,13 +42,13 @@ export class MessagePage {
     this.subscription = null;
   }
 
-  ionViewDidLoad() {
-    this.subscription = (WebIMObserve).subscribe({
-      next: (data) => {
-        console.log('message.ts on get xiaoxi==', data);
-      }
-    });
-  }
+  // ionViewDidLoad() {
+  //   this.subscription = (WebIMObserve).subscribe({
+  //     next: (data) => {
+  //       console.log('message.ts on get xiaoxi==', data);
+  //     }
+  //   });
+  // }
 
   ionViewWillEnter() {
     console.log('message.ts ionViewWillEnter');
@@ -69,10 +69,10 @@ export class MessagePage {
     });
   }
 
-  ionViewWillUnload() {
-    this.subscription && this.subscription.unsubscribe();
-    this.subscription = null;
-  }
+  // ionViewWillUnload() {
+  //   this.subscription && this.subscription.unsubscribe();
+  //   this.subscription = null;
+  // }
 
   goToChat(chatItem: ChatListItem) {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);

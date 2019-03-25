@@ -8,6 +8,8 @@ import { MePage } from '../me/me';
 import { Observable } from 'rxjs/Observable';
 import { ChatNetwork } from '../../network/chat.network';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ToastService } from '../../service/toast.service';
 
 export const MessageType = {
   Text: '11',
@@ -54,6 +56,7 @@ interface IWin extends Window {
   templateUrl: 'tab.html'
 })
 export class TabPage {
+  subscription: Subscription;
   tabIndex = 2;
   tab1 = MessagePage;
   tab2 = DynamicPage;
@@ -66,7 +69,8 @@ export class TabPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public chatNetwork: ChatNetwork,
-    public storageService: StorageService
+    public storageService: StorageService,
+    public toast: ToastService
   ) {
     (<IWin>window).WebIMObserve = new Observable(this.multicastSequenceSubscriber());
   }
@@ -75,6 +79,27 @@ export class TabPage {
     if (tabIndex !== this.tabIndex) {
       this.tabRef.select(tabIndex);
     }
+
+    this.subscription = (WebIMObserve).subscribe({
+      next: (data) => {
+        console.log('tab.ts msss==', data);
+
+        if (data.msgType != MessageType.Text && data.msgType != MessageType.Image) {
+          data.msg && this.toast.show(data.msg);
+        }
+        else {
+          // data.msg && this.toast.show('你收到一条新消息');
+          // let activeVC = this.navCtrl.getActive();
+          // let page = activeVC.instance;
+          // console.log('333 ', page instanceof MessagePage)
+        }
+      }
+    });
+  }
+  ionViewWillUnload() {
+    console.warn('tab.ts did out unload=======');
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = null;
   }
 
   nextMore(observers: any[], data) {
