@@ -1,8 +1,6 @@
-import { uniq } from 'lodash';
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, NavController } from 'ionic-angular';
 import { StorageService, STORAGE_KEY } from '../../../service/storage.service';
-import { ChatNetwork } from '../../../network/chat.network';
 
 @IonicPage({
   name: 'app-contact-contactDetail',
@@ -17,8 +15,7 @@ export class ContactDetailPage {
   constructor(
     public params: NavParams,
     public navCtrl: NavController,
-    public storage: StorageService,
-    public chatNetwork: ChatNetwork
+    public storage: StorageService
   ) {
     this.contact = params.data.contact || {};
     console.log(params.data.contact);
@@ -38,17 +35,5 @@ export class ContactDetailPage {
         userImage: userInfo.photo
       }
     );
-  }
-  sendGroupMessage() {
-    let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
-    let memberIds = [2, 63, 64, 65];
-    memberIds.push(userInfo.id);
-    this.chatNetwork.createGroup({
-      groupName: '五人组',
-      desc: '这是一个最好的时代，也是最坏的时代。',
-      memberIds: uniq(memberIds)
-    }).subscribe(data => {
-      console.log(data);
-    });
   }
 }

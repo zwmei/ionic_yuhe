@@ -1,35 +1,58 @@
 <ion-content class="contact-page">
   <!-- 通讯录 -->
-    <!-- <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
+  <!-- <div style="display: flex; align-items: center;vertical-align: middle;height: 100%;text-align:center;">
       <p style="display:block;width:100%;">努力开发中......</p>
     </div> -->
 
-    <div class="tab-switch">
-      <div class="tab-item current"><span>园所</span></div>
-      <div class="tab-item"><span>家长</span></div>
-    </div>
-    <div class="search-bar">
-        
-            <ion-searchbar [(ngModel)]="searchText" placeholder="请输入联系人姓名查找" [showCancelButton]="true" cancelButtonText="取消" (ionInput)="onSearch($event)"
-              (ionCancel)="onClearSearchText($event)">
-            </ion-searchbar>
+  <div class="tab-switch">
+    <div class="tab-item current"><span>园所</span></div>
+    <div class="tab-item"><span>家长</span></div>
 
-            <p>本机号码：{{user.mobile}}</p>
+    <div style="float:right" (click)="startGroupChat()">发起群聊</div>
+  </div>
+  <div class="search-bar">
+    <ion-searchbar [(ngModel)]="searchText" placeholder="请输入联系人姓名查找" [showCancelButton]="true" cancelButtonText="取消"
+      (ionInput)="onSearch($event)" (ionCancel)="onClearSearchText($event)">
+    </ion-searchbar>
 
-    </div>
-    <div class="contacts">
-      <ion-list>
-        <ion-item (click)="goToDetailPage(contact)" *ngFor="let contact of contacts;let number = index;">
-          
-            <img onerror="this.src='assets/imgs/image-default.png'"  src="{{contact.image}}" /> 
-            <span>{{contact.name}}</span>
-        </ion-item>
-      </ion-list>
+    <p>本机号码：{{user.mobile}}</p>
 
-      <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  </div>
+  <div class="contacts" *ngIf="!showSelectUserModal">
+    <ion-list>
+      <ion-item (click)="goToDetailPage(contact)" *ngFor="let contact of contacts;let number = index;">
+        <img onerror="this.src='assets/imgs/image-default.png'" src="{{contact.image}}" />
+        <span>{{contact.name}}</span>
+      </ion-item>
+    </ion-list>
+
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll> -->
-    </div>
+  </div>
+
+
+  <!-- 选择群聊人员 -->
+  <div class="contacts user-list-modal" *ngIf="showSelectUserModal">
+    <ion-row justify-content-end>
+      <button ion-button color="grey" (click)="goGroupChat(false)">取消</button>
+      <button ion-button color="primary" (click)="goGroupChat(true)">确定</button>
+    </ion-row>
+    <ion-item>
+      <ion-input [(ngModel)]="groupName" placeholder="输入群聊名称" type="text"></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-item (click)="selectUser(contact)" *ngFor="let contact of contacts;let number = index;">
+        <img onerror="this.src='assets/imgs/image-default.png'" src="{{contact.image}}" />
+        <span>{{contact.name}}</span>
+        <div class="check-user-box" [ngClass]="{'selected': contact.selected}">
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
 
 </ion-content>

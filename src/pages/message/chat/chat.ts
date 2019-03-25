@@ -3,7 +3,7 @@ import { Component, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ChatNetwork } from '../../../network/chat.network';
 import { getTimeStrForChatContent } from '../../../service/utils.service';
-import { MessageContent, MessageType, MessageContentType } from '../../tab/tab';
+import { MessageContent, MessageType, MessageContentType, ChatType } from '../../tab/tab';
 import { HTTP_URL } from '../../../network/http';
 
 interface SendTextInfo {
@@ -15,6 +15,13 @@ interface SendTextInfo {
   senderId: string;
   image?: string;
 }
+export interface MemberItem {
+  id: string;
+  code: string;
+  name: string;
+  image: string;
+}
+
 @IonicPage({
   name: 'app-message-chat'
 })
@@ -33,9 +40,11 @@ export class ChatPage {
     public chatNetwork: ChatNetwork,
   ) {
     this.subscription = null;
-    this.params = this.navParams.data || {}; //['targetId', 'targetCode', 'targetName','targetImage','type', 'userCode', 'userId', 'userName','userImage']
+    this.params = this.navParams.data || {}; //['targetId', 'targetCode', 'targetName','targetImage','type', 'userCode', 'userId', 'userName','userImage', 'members']
     this.inputText = '';
     this.contentList = [];
+    this.params.members = this.params.members || [];
+    this.params.memberCodes = this.params.members.map((m: MemberItem) => this.toLowerCase(m.code));
   }
   ionViewDidLoad() {
     this.subscribe();
@@ -50,7 +59,7 @@ export class ChatPage {
     this.chatNetwork.getSingleChatHistory({
       currPageNo: 1,
       pageSize: 100,
-      targetType: 1,
+      targetType: this.params.type,
       targetId: this.params.targetId
     }).subscribe((data: any) => {
       console.log('getSingleChatHistory', data);
@@ -60,7 +69,6 @@ export class ChatPage {
       this.contentList = (data.result.MessageHistory || []).reverse().map(
         (item: any, index: any) => this.convertItem(item, index)
       );
-
       this.scrollToBottom();
     });
   }
@@ -69,19 +77,43 @@ export class ChatPage {
       this.subscription = (WebIMObserve).subscribe({
         next: (data: MessageContent) => {
           console.log('%%ChatPage.ts on get xiaoxi==', data);
-          if (data.targetCode == this.params.userCode
-            && data.userCode == this.params.targetCode
-          ) { //目标是自己, 发送者是对方
-            if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
-              this.insertMsg({
-                id: Date.now().toString(16),
-                msg: data.msg,
-                msgContentType: data.msgContentType,
-                senderId: this.params.targetId,
-                senderName: this.params.targetName,
-                timeStr: getTimeStrForChatContent(data.timeStr),
-                image: this.getImageUrl(this.params.targetImage)
-              });
+
+          if (data.chatType == ChatType.Chat) {
+            if (this.toLowerCase(data.targetCode) == this.toLowerCase(this.params.userCode)
+              && this.toLowerCase(data.userCode) == this.toLowerCase(this.params.targetCode)
+            ) { //目标是自己, 发送者是对方
+              if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
+                this.insertMsg({
+                  id: Date.now().toString(16),
+                  msg: data.msg,
+                  msgContentType: data.msgContentType,
+                  senderId: this.params.targetId,
+                  senderName: this.params.targetName,
+                  timeStr: getTimeStrForChatContent(data.timeStr),
+                  image: this.getImageUrl(this.params.targetImage)
+                });
+              }
+            }
+          }
+          //群聊
+          if (data.chatType == ChatType.ChatRoom) {
+            let index = this.params.memberCodes.indexOf(this.toLowerCase(data.userCode));
+
+            if (this.toLowerCase(data.targetCode) == this.toLowerCase(this.params.targetCode) //是这个群组的
+              && index >= 0 //是群组成员发的
+              && this.toLowerCase(data.userCode) != this.toLowerCase(this.params.userCode)
+            ) {
+              if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
+                this.insertMsg({
+                  id: Date.now().toString(16),
+                  msg: data.msg,
+                  msgContentType: data.msgContentType,
+                  senderId: this.params.members[index].id,
+                  senderName: this.params.members[index].name,
+                  timeStr: getTimeStrForChatContent(data.timeStr),
+                  image: this.getImageUrl(this.params.members[index].image)
+                });
+              }
             }
           }
         }
@@ -96,9 +128,27 @@ export class ChatPage {
       senderId: item.userId,
       senderName: item.userName,
       timeStr: getTimeStrForChatContent(item.msgTime),
-      image: this.getImageUrl(item.userId == this.params.userId ? this.params.userImage : this.params.targetImage)
+      image: this.getSenderImage(item)
     });
   }
+  toLowerCase(str: string) {
+    return (str || '').toLowerCase();
+  }
+  getSenderImage(item: any) {
+    let image: string;
+    if (item.targetType == 2) {
+      let index = this.params.memberCodes.indexOf(this.toLowerCase(item.userCode));
+      if (index >= 0) {
+        let user: MemberItem = this.params.members[index];
+        image = user.image;
+      }
+    }
+    else {
+      image = item.userId == this.params.userId ? this.params.userImage : this.params.targetImage;
+    }
+    return this.getImageUrl(image);
+  }
+
   insertMsg(item: SendTextInfo) {
     this.contentList.push(this.createMessage(item));
     this.scrollToBottom();
@@ -176,7 +226,7 @@ export class ChatPage {
       a.scrollTop = a.scrollHeight;
     }, 10);
   }
-  showImage(evt){
+  showImage(evt) {
     console.log(evt);
     if (evt.target && evt.target.nodeName == "IMG") {
       var dom = document.createElement('div');
@@ -213,6 +263,7 @@ export class ChatPage {
     this.inputText = '';
     document.getElementById('chat-textarea-input').focus();
 
+
     this.chatNetwork.sendText({
       targetId: this.params.targetId,
       targetType: this.params.type,
@@ -237,7 +288,7 @@ export class ChatPage {
   sendImage(file: File) {
     this.chatNetwork.uploadImage({
       targetId: this.params.targetId,
-      targetType: 1,
+      targetType: this.params.type,
       msg: file
     }).subscribe((data: any) => {
       console.log('chat image', data);

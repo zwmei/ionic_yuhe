@@ -7,6 +7,7 @@ import { extend, pick } from 'lodash';
 import { getTimeStrForChatList } from '../../service/utils.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { HTTP_URL } from '../../network/http';
+import { MemberItem } from './chat/chat';
 
 export interface ChatListItem {
   createTime: string;
@@ -21,6 +22,7 @@ export interface ChatListItem {
   userCode: string;//用户编号, 即第三方平台的userId, 本地系统的职工编号
   userId: number;//用户唯一标识
   userName: number;//用户姓名, 即第三方平台的userName
+  groupMembers?: any[]
 }
 @Component({
   selector: 'page-message',
@@ -75,13 +77,35 @@ export class MessagePage {
   goToChat(chatItem: ChatListItem) {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
 
-    let info = pick(
-      chatItem,
-      ['targetId', 'targetCode', 'targetName', 'type', 'userCode', 'userId', 'userName']
-    );
-    info.targetImage = chatItem.photo;
-    info.userImage = userInfo.photo;
-
+    let info;
+    if (chatItem.type == 1) {
+      info = pick(
+        chatItem,
+        ['targetId', 'targetCode', 'targetName', 'type', 'userCode', 'userId', 'userName']
+      );
+      info.targetImage = chatItem.photo;
+      info.userImage = userInfo.photo;
+    }
+    else {
+      info = {
+        targetId: chatItem.targetId,
+        targetCode: chatItem.targetCode,
+        targetName: chatItem.targetName,
+        type: 2,
+        userCode: userInfo.zggh,
+        userId: userInfo.id,
+        userName: userInfo.zgxm,
+        userImage: userInfo.photo
+      };
+      info.members = (chatItem.groupMembers || []).map(item => {
+        return {
+          id: item.memberId,
+          code: item.memberCode,
+          name: item.memberName,
+          image: item.memberImg
+        } as MemberItem;
+      })
+    }
     this.navCtrl.push('app-message-chat', info);
   }
 

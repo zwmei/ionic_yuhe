@@ -24,7 +24,7 @@ export class HttpNetwork {
     this.app.getRootNav().push(LoginPage);
     WebIMConn && WebIMConn.close(); //退出WebIM
   }
-  debouncedFnc = debounce(this.waitDebounceLogout, 250);
+  debouncedFnc = debounce(this.waitDebounceLogout, 2000); 
 
   wrapHttp(requestFunc) {
     return new Observable((observe) => {
@@ -44,8 +44,9 @@ export class HttpNetwork {
         error: (err) => {
           this.toast.show(err.message || '请求异常');
           if (err.status == 7001) {
-            this.app.getRootNav().push(LoginPage);
-            WebIMConn && WebIMConn.close(); //退出WebIM
+            // this.app.getRootNav().push(LoginPage);
+            // WebIMConn && WebIMConn.close(); //退出WebIM
+            this.debouncedFnc();
           }
           observe.error(err);
         },

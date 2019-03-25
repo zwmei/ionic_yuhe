@@ -26,7 +26,7 @@ export const MessageContentType = {
 
 export const ChatType = {
   Chat: 'chat',
-  ChatRoom: 'chatroom'
+  ChatRoom: 'groupchat'
 }
 
 export interface MessageContent {
