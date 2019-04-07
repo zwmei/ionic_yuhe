@@ -259,8 +259,18 @@ export class ApprovalDetails {
         }
       );
   }
-  showPhotos(photoData){
-    photoData = photoData || 'assets/imgs/img-default.png';
-    this.gallaryService.photoViews(photoData,'');
+
+  showPhotos(pictures, pictureIndex){
+    if(!pictures || pictures.length === 0){
+      return;
+    }
+
+    let prevPictures = pictures.slice(0, pictureIndex);//截出当前图片之前的图片
+    let nextPictures = pictures.slice(pictureIndex, pictures.length);//当前图片应该在第一个
+    let newPictures = nextPictures.concat(prevPictures);//重新组合最新的图片序列
+    this.gallaryService.photoViews(newPictures);
+
+    // photoData = photoData || 'assets/imgs/img-default.png';
+    // this.gallaryService.photoViews(photoData,'');
   }
 }
