@@ -205,11 +205,11 @@
     <div class="title-view">
       <p class="left title">图片</p>
       <ion-row>
-        <ion-col class="reason-img" *ngFor="let item of picture">
+        <ion-col class="reason-img" *ngFor="let item of picture;let pictureIndex = index">
           <img
             src="{{ item }}"
             onerror="this.src='assets/imgs/image-faild.png'"
-            (click)="showPhotos(item)"
+            (click)="showPhotos(picture, pictureIndex)"
           />
         </ion-col>
       </ion-row>
