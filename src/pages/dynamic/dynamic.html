@@ -30,8 +30,8 @@
         <p>{{contact.name}}</p>
         <span>{{contact.content}}</span>
         <div class="photo-area">
-          <div class="photo" *ngFor="let picture of contact.pictures;">
-              <img onerror="this.src='assets/imgs/img-default.png'"  src="{{picture}}" (click)="showPhotos(picture)" /> 
+          <div class="photo" *ngFor="let picture of contact.pictures;let pictureIndex = index">
+              <img onerror="this.src='assets/imgs/img-default.png'"  src="{{picture}}" (click)="showPhotos(contact.pictures, pictureIndex)" /> 
           </div>
         </div>
         <div class="moment-footer">
