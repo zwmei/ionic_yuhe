@@ -20,10 +20,10 @@ export class ChartDetailList {
   endDate: any;
 
   statusDic = {
-    '实到': 1,
+    '出勤': 1,
     '请假': 2,
-    '未签到': 3,
-    '应到': 4,
+    '缺勤': 3,
+    // '应到': 4,
   };
   constructor(params: NavParams, private childAttendanceNetwork: ChildAttendanceNetwork, private toastService: ToastService) {
     this.title = params.data.name;
