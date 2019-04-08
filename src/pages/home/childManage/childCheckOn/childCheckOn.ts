@@ -119,8 +119,7 @@ export class ChildCheckOn {
   }
 
   getSummary() {
-    console.log('getSummary');
-    this.childAttendanceNetwork.getSummary({ startDate: formatDate(this.currentMonthFirstDay,'yyyy-MM-dd'), endDate: formatDate(this.currentMonthLastDay, 'yyyy-MM-dd') })
+    this.childAttendanceNetwork.getSummary({ startDate: this.todayString, endDate: this.todayString })
       .subscribe((result: { absenceCount: number, leaveCount: number, signCount: number, totalCount: number }) => {
         console.log(result);
         this.summary = {
