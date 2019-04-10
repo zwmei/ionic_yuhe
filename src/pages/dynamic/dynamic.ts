@@ -254,7 +254,6 @@ export class DynamicPage {
     this.loadMoments((count) => {
       if (count === 0) {
         this.pagination.completed = true;
-
       }
       event.complete();
     });
@@ -312,7 +311,7 @@ export class DynamicPage {
     let nextPictures = pictures.slice(pictureIndex, pictures.length);//当前图片应该在第一个
     let newPictures = nextPictures.concat(prevPictures);//重新组合最新的图片序列
     this.gallaryService.photoViews(newPictures);
-    
+
     // photoData = photoData || 'assets/imgs/img-default.png';
     // this.gallaryService.photoViews(photoData,'');
   }

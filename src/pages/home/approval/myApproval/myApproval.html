@@ -3,6 +3,15 @@
 </ion-header>
 
 <ion-content class="my-approval-body">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-list-header>
       <ion-segment [(ngModel)]="isApproval">
@@ -26,7 +35,7 @@
       <ion-item *ngFor="let item of approavlList" (click)="clickItem(item)">
         <ion-avatar item-start>
           <img
-            src="{{ item.photo }}"
+            src="{{ item.image }}"
             onerror="this.src='assets/imgs/image-default.png'"
           />
         </ion-avatar>
@@ -41,7 +50,7 @@
       <ion-item *ngFor="let item of unApprovalList" (click)="clickItem(item)">
         <ion-avatar item-start>
           <img
-            src="{{ item.photo }}"
+            src="{{ item.image }}"
             onerror="this.src='assets/imgs/image-default.png'"
           />
         </ion-avatar>
@@ -53,4 +62,11 @@
       </ion-item>
     </div>
   </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载更多..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

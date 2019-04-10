@@ -357,8 +357,8 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.messageText = "";
-    this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
+    this.messageText="";
+    this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
       data = data || [];
       if (data.status) {
         return;

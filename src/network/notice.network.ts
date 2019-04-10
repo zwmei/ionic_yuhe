@@ -4,14 +4,14 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class NoticeNetWork {
   constructor(private http: HttpNetwork) {
-    
+
   }
-  getunReadNoticeList() {
-    return this.http.get('/app/notice/getUnreadList');
+  getunReadNoticeList(data) {
+    return this.http.get('/app/notice/getUnreadList', data);
   }
-  
-  getReadNoticeList() {
-    return this.http.get('/app/notice/getReadList');
+
+  getReadNoticeList(data) {
+    return this.http.get('/app/notice/getReadList', data);
   }
 
   getReadPersonList(data) {

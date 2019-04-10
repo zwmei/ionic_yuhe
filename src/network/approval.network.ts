@@ -11,12 +11,12 @@ export class ApprovalNetwork {
     return this.http.get('/app/approval/myApplication/getApplicationList');
   }
   // 获取已审批列表
-  getApprovalList() {
-    return this.http.get('/app/approval/myApprovals/getApprovedList');
+  getApprovalList(data) {
+    return this.http.get('/app/approval/myApprovals/getApprovedList', data);
   }
   // 获取未审批列表
-  getUnApprovalList() {
-    return this.http.get('/app/approval/myApprovals/getWaitingList');
+  getUnApprovalList(data) {
+    return this.http.get('/app/approval/myApprovals/getWaitingList', data);
   }
   // 获取违阅读列表 抄送
   getReadCopyList() {

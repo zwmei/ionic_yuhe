@@ -15,30 +15,21 @@ export class Announcement {
   readNotiList: any = [];
   unReadNotiList: any = [];
   isRead: string = "false";
-  ionViewDidEnter () {
-    this.notiNetWork.getReadNoticeList().subscribe((data: any) => {
-      console.log(data);
-      if (data) {
-        this.readNotiList = data.map(item => {
-          item.image = HTTP_URL.MAIN + "/images/" + item.photo;
-          return item;
-        });
-      }
-    }, err => {
-      console.log(err)
-    });
 
-    this.notiNetWork.getunReadNoticeList().subscribe((data: any) => {
-      console.log(data);
-      if (data) {
-        this.unReadNotiList = data.map(item => {
-          item.image = HTTP_URL.MAIN + "/images/" + item.photo;
-          return item;
-        });
-      }
-    }, err => {
-      console.log(err)
-    });
+  readPagination: any = {
+    currentPage: 1,
+    size: 10,
+    completed: false
+  };
+  unreadPagination: any = {
+    currentPage: 1,
+    size: 10,
+    completed: false
+  };
+
+  ionViewDidEnter () {
+    this.getReadList();
+    this.getUnReadList();
   }
 
   constructor(
@@ -56,18 +47,96 @@ export class Announcement {
   }
 
   doRefresh(event) {
-    console.log("Begin async operation");
-    setTimeout(() => {
-      console.log("Async operation has ended");
-      event.complete();
-    }, 2000);
+    if (this.isRead == "true") {
+      this.readPagination.currentPage = 1;
+      this.readNotiList = [];
+      this.readPagination.completed = false;
+      this.getReadList(() => {
+        event.complete();
+      });
+    } else {
+      this.unreadPagination.currentPage = 1;
+      this.unReadNotiList = [];
+      this.unreadPagination.completed = false;
+      this.getUnReadList(() => {
+        event.complete();
+      });
+    }
   }
 
   loadData(event) {
-    setTimeout(() => {
-      console.log("Done");
-      event.complete();
-    }, 500);
+    if (this.isRead == "true") {
+      if (this.readPagination.completed) {
+        event.complete();
+        return;
+      }
+      this.readPagination.currentPage = this.readPagination.currentPage + 1;
+      this.readPagination.completed = false;
+      console.log(this.readPagination);
+      this.getReadList((count) => {
+        if (count === 0) {
+          this.readPagination.completed = true;
+        }
+        event.complete();
+      });
+    } else {
+      if (this.unreadPagination.completed) {
+        event.complete();
+        return;
+      }
+      this.unreadPagination.currentPage = this.unreadPagination.currentPage + 1;
+      this.unreadPagination.completed = false;
+      console.log(this.unreadPagination);
+      this.getUnReadList((count) => {
+        if (count === 0) {
+          this.unreadPagination.completed = true;
+        }
+        event.complete();
+      });
+    }
+  }
+
+  getReadList(callback?: any) {
+    this.notiNetWork.getReadNoticeList({
+        size: this.readPagination.size,
+        pageNo: this.readPagination.currentPage
+      }
+    ).subscribe((data: any) => {
+      console.log(data);
+      if (data) {
+        data.map(item => {
+          item.image = HTTP_URL.MAIN + "/images/" + item.photoUrl;
+          this.readNotiList.push(item);
+          return item;
+        });
+      }
+      if (callback) {
+        return callback(Array.isArray(data) && data.length || 0);
+      }
+    }, err => {
+      console.log(err)
+    });
+  }
+
+  getUnReadList(callback?: any) {
+    this.notiNetWork.getunReadNoticeList({
+      size: this.unreadPagination.size,
+      pageNo: this.unreadPagination.currentPage
+    }).subscribe((data: any) => {
+      console.log(data);
+      if (data) {
+        data.map(item => {
+          item.image = HTTP_URL.MAIN + "/images/" + item.photoUrl;
+          this.unReadNotiList.push(item);
+          return item;
+        })
+      }
+      if (callback) {
+        return callback(Array.isArray(data) && data.length || 0);
+      }
+    }, err => {
+        console.log(err)
+    });
   }
 
   editAnnouncemnetClick() {
