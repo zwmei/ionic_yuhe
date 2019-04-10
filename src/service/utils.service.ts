@@ -79,3 +79,18 @@ export function getTimeStrForChatContent(dateStr: string) { //获取聊天内容
 
   return `${getTimeStr(listDate, true)} ${hours > 9 ? hours : ('0' + hours)}:${minutes > 9 ? minutes : ('0' + minutes)}`
 }
+
+export const ColorMap = {
+  Color1: '#3CC8B4',
+  Color2: '#FF7DAF',
+  Color3: '#F7BB5A',
+  Color4: '#FF7F79',
+  Color5: '#94E867',
+  Color6: '#3EAAFE',
+  Color7: '#AD54E0',
+  Color8: '#41A3B6',
+  Color9: '#DF81E5',
+
+}
+
+export const ColorSet = Object.keys(ColorMap).map((key:string)=>ColorMap[key]);

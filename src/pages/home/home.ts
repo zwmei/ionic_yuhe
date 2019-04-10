@@ -5,7 +5,7 @@ import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
-import { UtilsService } from '../../service/utils.service';
+import { UtilsService, ColorMap, ColorSet } from '../../service/utils.service';
 import { Subscription } from 'rxjs/Subscription';
 
 
@@ -172,19 +172,23 @@ export class HomePage {
             data: [
               {
                 name: '出勤',
-                y: data.signCount
+                y: data.signCount,
+                color: ColorMap.Color1
               },
               {
                 name: '缺勤',
-                y: data.absenceCount
+                y: data.absenceCount,
+                color: ColorMap.Color2
               },
-              {
-                name: '迟到',
-                y: data.beingLateCount
-              },
+              // {
+              //   name: '迟到',
+              //   y: data.beingLateCount,
+              //   color:'#F7BB5A'
+              // },
               {
                 name: '请假',
-                y: data.leaveCount
+                y: data.leaveCount,
+                color: ColorMap.Color3
               }
             ]
           }
@@ -202,10 +206,11 @@ export class HomePage {
         return;
       }
       let seriesData = []; let total = 0;
-      data.forEach(item => {
+      data.forEach((item, index) => {
         seriesData.push({
           name: item.bzm,
-          y: item.bzs
+          y: item.bzs,
+          color: ColorSet[index % ColorSet.length]
         });
         total += item.bzs;
       })
@@ -272,12 +277,12 @@ export class HomePage {
           {
             name: '收入',
             y: (data[0].result || {}).sum || 0,
-            color: '#5ab204'
+            color: ColorMap.Color1
           },
           {
             name: '支出',
             y: (data[1].result || {}).sum || 0,
-            color: '#03ccc6'
+            color: ColorMap.Color2
           }
         ];
 

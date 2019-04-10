@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
 import { formatDate } from '../../../../network/http';
+import { ColorSet } from '../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-financial-reporting'
@@ -54,10 +55,11 @@ export class FinancialReportingPage {
       }
 
       let seriesData = []; let total = 0;
-      data.forEach(item => {
+      data.forEach((item,index) => {
         seriesData.push({
           name: item.name,
-          y: item.chargeSum
+          y: item.chargeSum,
+          color: ColorSet[index % ColorSet.length]
         });
         total += item.chargeSum;
       })
@@ -115,7 +117,8 @@ export class FinancialReportingPage {
       data.forEach((item, index) => {
         seriesData.push({
           name: item.name,
-          y: item.payoutSum
+          y: item.payoutSum,
+          color: ColorSet[index % ColorSet.length]
         });
         total += item.payoutSum;
       })

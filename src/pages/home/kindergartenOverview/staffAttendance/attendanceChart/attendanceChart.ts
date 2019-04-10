@@ -4,6 +4,7 @@ import { Chart } from 'angular-highcharts';
 import { ToastService } from '../../../../../service/toast.service';
 import { KindergartenOverviewNetwork } from '../../../../../network/kindergartenOverview.network';
 import { formatDate } from '../../../../../network/http';
+import { ColorMap } from '../../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-attendance-chart'
@@ -107,19 +108,23 @@ export class AttendanceChartPage {
               data: [
                 {
                   name: '出勤',
-                  y: data.signRate
+                  y: data.signRate,
+                  color: ColorMap.Color1
                 },
                 {
                   name: '缺勤',
-                  y: data.absenceRate
+                  y: data.absenceRate,
+                  color: ColorMap.Color2
                 },
-                {
-                  name: '迟到',
-                  y: data.beingLateRate
-                },
+                // {
+                //   name: '迟到',
+                //   y: data.beingLateRate,
+                //   color: ColorMap.Color1
+                // },
                 {
                   name: '请假',
-                  y: data.leaveRate
+                  y: data.leaveRate,
+                  color: ColorMap.Color3
                 }
               ]
             }

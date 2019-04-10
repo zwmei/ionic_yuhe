@@ -4,6 +4,7 @@ import { Chart } from 'angular-highcharts';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
 import { formatDate } from '../../../../network/http';
 import { ToastService } from '../../../../service/toast.service';
+import { ColorSet } from '../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-sickness-case'
@@ -47,10 +48,11 @@ export class SicknessCasePage {
         this.categoryList = data;
 
         let seriesData = []; let total = 0;
-        data.forEach(item => {
+        data.forEach((item,index) => {
           seriesData.push({
             name: item.bzm,
-            y: item.bzs
+            y: item.bzs,
+            color: ColorSet[index % ColorSet.length]
           });
           total += item.bzs;
         })
