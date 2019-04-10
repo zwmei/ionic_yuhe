@@ -76,7 +76,7 @@ export class ChildCheckOn {
       // {
       //   name: '应到',
       //   y: 0,
-      //   color: '#08f8f5'
+      //   color: '#7d81ff'
       // }, 
       {
         name: '请假',
@@ -85,7 +85,7 @@ export class ChildCheckOn {
       }, {
         name: '缺勤',
         y: 0,
-        color: '#7d81ff'
+        color: '#08f8f5'
       }]
     }]
   });
@@ -151,7 +151,7 @@ export class ChildCheckOn {
             // {
             //   name: '应到',
             //   y: result.totalCount,
-            //   color: '#08f8f5'
+            //   color: '#7d81ff'
             // }, 
             {
               name: '请假',
@@ -160,7 +160,7 @@ export class ChildCheckOn {
             }, {
               name: '缺勤',
               y: result.absenceCount,
-              color: '#7d81ff'
+              color: '#08f8f5'
             }]
         },true);
       }
