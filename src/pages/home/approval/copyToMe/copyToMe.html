@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="copyToMe-body">
-  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="下拉刷新"
@@ -11,7 +11,7 @@
       refreshingText="加载中......"
     >
     </ion-refresher-content>
-  </ion-refresher> -->
+  </ion-refresher>
   <ion-list>
     <ion-list-header>
       <ion-segment [(ngModel)]="isRead">
@@ -31,35 +31,41 @@
         </ion-segment-button>
       </ion-segment>
     </ion-list-header>
-    <ion-item *ngFor="let item of readList" (click)="clickItem(item)" [hidden]="isRead === 'false' ">
-      <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
-        item.badage
-      }}</ion-badge> -->
+    <ion-item
+      *ngFor="let item of readList"
+      (click)="clickItem(item)"
+      [hidden]="isRead === 'false'"
+    >
       <ion-avatar item-start>
-        <img src="assets/imgs/image-default.png" />
-        <!-- <img src="{{}}" /> -->
+        <img
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
       </ion-avatar>
       <h2>{{ item.title }}</h2>
       <p>{{ item.billTypeName }}</p>
     </ion-item>
-    <ion-item *ngFor="let item of unReadList" (click)="clickItem(item)" [hidden]="isRead === 'true' " >
-        <!-- <ion-badge [hidden]="isRead === 'true'" class="badge-icon">{{
-          item.badage
-        }}</ion-badge> -->
-        <ion-avatar item-start>
-          <img src="assets/imgs/image-default.png" />
-          <!-- <img src="{{}}" /> -->
-        </ion-avatar>
-        <h2>{{ item.title }}</h2>
-        <p>{{ item.billTypeName }}</p>
-      </ion-item>
+    <ion-item
+      *ngFor="let item of unReadList"
+      (click)="clickItem(item)"
+      [hidden]="isRead === 'true'"
+    >
+      <ion-avatar item-start>
+        <img
+          src="{{ item.image }}"
+          onerror="this.src='assets/imgs/image-default.png'"
+        />
+      </ion-avatar>
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.billTypeName }}</p>
+    </ion-item>
   </ion-list>
 
-  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="加载更多..."
     >
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
+  </ion-infinite-scroll>
 </ion-content>
