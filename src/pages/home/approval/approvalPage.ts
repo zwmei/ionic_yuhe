@@ -16,11 +16,7 @@ export class ApprovalPage {
     params: NavParams,
     public approavlNetWork: ApprovalNetwork
   ) {
-    this.approavlNetWork.getApplayApprovalList().subscribe((data) => {
-      console.log(data)
-    }, error => {
-      console.log(error)
-    })
+
   }
 
   goToPage(pageName): void {
