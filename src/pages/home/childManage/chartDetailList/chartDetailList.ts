@@ -60,8 +60,11 @@ export class ChartDetailList {
     this.childAttendanceNetwork.getStudentsOfClassGroupByStatus({type: this.statusId, checkDate: this.startDate})
     // this.childAttendanceNetwork.getStudentsOfClassGroupByStatusOnChartClick({type: this.statusId, startDate: this.startDate, endDate: this.endDate})
     .subscribe((classList)=>{
-      if(Array.isArray(classList) && classList.length > 0){
+      console.log('===============');
+      console.log(classList);
+      if(classList && Array.isArray(classList) && classList.length > 0){
         this.list = classList.map(item=>{
+          item.attendanceRecords = item.attendanceRecords || [];
           return {
             className: item.className,
             studentCount: item.attendanceRecords.length,
