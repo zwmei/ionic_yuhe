@@ -7,8 +7,8 @@ export class ApprovalNetwork {
 
   }
   // 获取发起列表
-  getApplayApprovalList() {
-    return this.http.get('/app/approval/myApplication/getApplicationList');
+  getApplayApprovalList(data) {
+    return this.http.get('/app/approval/myApplication/getApplicationList', data);
   }
   // 获取已审批列表
   getApprovalList(data) {
@@ -19,12 +19,12 @@ export class ApprovalNetwork {
     return this.http.get('/app/approval/myApprovals/getWaitingList', data);
   }
   // 获取违阅读列表 抄送
-  getReadCopyList() {
-    return this.http.get('/app/approval/myReception/getReadList');
+  getReadCopyList(data) {
+    return this.http.get('/app/approval/myReception/getReadList', data);
   }
   // 获取已阅读列表 抄送
-  getUnReadCopyList() {
-    return this.http.get('/app/approval/myReception/getUnreadList');
+  getUnReadCopyList(data) {
+    return this.http.get('/app/approval/myReception/getUnreadList', data);
   }
   // 审核通过
   approvalSucceed(data) {
@@ -100,5 +100,9 @@ export class ApprovalNetwork {
   }
   getStaffList() {
     return this.http.get('/app/approval/application/getStaffList');
+  }
+  //   请假时长
+  getResetLength(data) {
+    return this.http.get('/app/approval/application/computeLeaveHours', data);
   }
 }
