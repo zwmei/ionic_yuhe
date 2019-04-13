@@ -26,8 +26,13 @@ export class StorageService {
     Cache[key] = value;
     localStorage.setItem(key, JSON.stringify(value));
   }
+
+  empty() {
+    Cache = {};
+    localStorage.setItem(STORAGE_KEY.USER_INFO, null);
+  }
 }
-const Cache = {};
+var Cache = {};
 
 export const STORAGE_KEY = {
   SERVER_ADDR: 'yh_server_addr',

@@ -4,11 +4,9 @@ import { UserNetwork } from '../../network/user.network';
 import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { LoadingService } from '../../service/loading.service';
-import { Geolocation } from '@ionic-native/geolocation';
 import { HTTP_URL, getServerAddress } from '../../network/http';
 import { isEmpty } from 'lodash';
-
-
+import { TabPage } from '../tab/tab';
 
 @Component({
   selector: 'page-login',
@@ -25,7 +23,6 @@ export class LoginPage {
 
 
   constructor(
-    public geolocation: Geolocation,
     public navCtrl: NavController,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
@@ -36,11 +33,6 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
-    // let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
-    // if (userInfo) {
-    //   return this.navCtrl.push('app-tab', { id: 2 });
-    // }
-
     let loginInfo = this.storage.get(STORAGE_KEY.LOGIN_INFO);
     if (loginInfo && typeof loginInfo === "object") {
       this.username = loginInfo.username;
@@ -71,56 +63,27 @@ export class LoginPage {
       if (data.status) {
         return;
       }
+      this.storage.set(STORAGE_KEY.USER_INFO, data);
+
       if (this.isRememberPassword) {
         this.storage.set(STORAGE_KEY.LOGIN_INFO, { username: this.username, password: this.password });
       }
       else {
         this.storage.set(STORAGE_KEY.LOGIN_INFO, null);
       }
+      this.navCtrl.setRoot(TabPage, { id: 2 });
 
-      this.storage.set(STORAGE_KEY.USER_INFO, data);
-
-      if (this.navCtrl.canGoBack()) {
-        this.navCtrl.pop();
-        setTimeout(()=>{
-          WebIMObserve && WebIMObserve.subscribe({
-            next: (data) => {
-              console.log('login===');
-            }
-          },2000);
-        });
-      }
-      else {
-        this.navCtrl.push('app-tab', { id: 2 });
-      }
+      // if (this.navCtrl.canGoBack()) {
+      //   this.navCtrl.pop();
+      // }
+      // else {
+      //   this.navCtrl.setRoot(TabPage, { id: 2 });
+      // }
     }, err => {
       this.loading.hide();
     })
   }
   async onSmsCode() {
-    // this.geolocation.getCurrentPosition().then(res => {
-    //   this.toastService.show(`成功定位,${res.coords.longitude},${res.coords.latitude}`);
-    // }, err => {
-    //   console.log(err);
-    //   this.toastService.show('定位失败');
-    // });
-    // this.chooser.getFile('image/*')
-    //   .then(file => {
-    //     console.log('file', file);
-    //     this.toastService.show(`file ok`);
-    //   })
-    //   .catch(err => {
-    //     console.log('error', err);
-    //     this.toastService.show('file error');
-    //   })
-    // this.chooser.open()
-
-    // const file = await (<any>window).chooser.getFile();
-    // if (file.name) {
-    //   console.log(file);
-    // }
-    // console.log('err', file);
-    // this.userNetwork.uploadFile(file);
   }
 
   onForgetPassword() {

@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 @Injectable()
 export class AuthService {
 
-  keyList: string[];
+  static keyList: string[];
   constructor(
     public storage: StorageService
   ) { }
@@ -134,20 +134,24 @@ export class AuthService {
   }
 
   getUserPermission() {
-    if (!isEmpty(this.keyList)) {
-      return this.keyList;
+    if (!isEmpty(AuthService.keyList)) {
+      return AuthService.keyList;
     }
     let user = this.storage.get(STORAGE_KEY.USER_INFO);
     if (!user || !user.gnpz_opt || !Array.isArray(user.gnpz_opt)) {
-      this.keyList = [];
+      AuthService.keyList = [];
     }
     else {
-      this.keyList = user.gnpz_opt.map(item => item.gnpzid);
+      AuthService.keyList = user.gnpz_opt.map(item => item.gnpzid);
     }
-    return this.keyList;
+    return AuthService.keyList;
   }
   hasPermission(key: string) {
     let list = this.getUserPermission();
     return list.indexOf(key) >= 0;
+  }
+  clear() {
+    AuthService.keyList = [];
+    this.storage.empty();
   }
 }

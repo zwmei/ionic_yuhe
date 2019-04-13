@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,7 +13,7 @@ export class MyApp {
   public backButtonPressed: boolean = false;
   public toastService: ToastService;
 
-  @ViewChild('rootNav') nav: Nav;//声明根组件(<ion-nav #myNav [root]="rootPage">)
+  // @ViewChild('rootNav') nav: Nav;//声明根组件(<ion-nav #myNav [root]="rootPage">)
 
   constructor(platform: Platform, private statusBar: StatusBar, splashScreen: SplashScreen) {
 
