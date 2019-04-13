@@ -62,7 +62,7 @@ export class MePage {
       console.log(data);
       if (data.status === 0) {
         this.auth.clear();
-        this.navCtrl.setRoot(LoginPage);
+        this.navCtrl.push(LoginPage);
         WebIMConn && WebIMConn.close(); //退出WebIM
       }
     }, err => {

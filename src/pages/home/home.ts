@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { NavController } from 'ionic-angular';
+import { NavController, App, IonicPage } from 'ionic-angular';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
@@ -8,8 +8,10 @@ import { NoticeNetWork } from '../../network/notice.network';
 import { UtilsService, ColorMap, ColorSet } from '../../service/utils.service';
 import { Subscription } from 'rxjs/Subscription';
 
-
-
+@IonicPage({
+  name: 'home',
+  segment: 'home-page'
+})
 @Component({
   templateUrl: 'home.html'
 })
@@ -20,6 +22,7 @@ export class HomePage {
     private navCtrl: NavController,
     private utils: UtilsService,
     private auth: AuthService,
+    private app: App,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
     private notiNetWork: NoticeNetWork
   ) {
@@ -276,6 +279,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+    console.warn('---home did enter');
     this.chartName = '';
     this.messageText = "";
     this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
@@ -309,12 +313,12 @@ export class HomePage {
   }
 
   // ionViewDidLoad() {
-  //   console.warn('---home did load');
-  //   this.subscription = (WebIMObserve).subscribe({
-  //     next: (data) => {
-  //       console.log('home.ts on get xiaoxi==', data);
-  //     }
-  //   });
+
+  //   // this.subscription = (WebIMObserve).subscribe({
+  //   //   next: (data) => {
+  //   //     console.log('home.ts on get xiaoxi==', data);
+  //   //   }
+  //   // });
   // }
 
   // ionViewWillUnload() {

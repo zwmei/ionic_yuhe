@@ -1,4 +1,4 @@
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, App, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { formatDate } from '../../../../network/http';
@@ -21,6 +21,8 @@ export class StaffAttendancePage {
 
   constructor(
     private navCtrl: NavController,
+    private app:App,
+    private platform: Platform,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork
   ) {
     this.startDate = new Date(formatDate(new Date(), 'yyyy/MM/dd'));

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { ToastService } from '../service/toast.service';
+import { isEmpty } from 'lodash';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -15,7 +17,11 @@ export class MyApp {
 
   // @ViewChild('rootNav') nav: Nav;//声明根组件(<ion-nav #myNav [root]="rootPage">)
 
-  constructor(platform: Platform, private statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(
+    platform: Platform,
+    private statusBar: StatusBar,
+    private app: App,
+    splashScreen: SplashScreen) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -28,42 +34,38 @@ export class MyApp {
         this.statusBar.styleDefault();
       }
 
-      return;
+      platform.registerBackButtonAction(() => {
+        let navs = this.app.getActiveNavs();
+        if (isEmpty(navs)) return;
 
-      // platform.registerBackButtonAction(() => {
-
-      //   return console.warn('按下退出键');
-
-
-      //   // let activeVC = this.nav.getActive();
-      //   // let page = activeVC.instance;
-      //   // if (page.tabRef) {
-      //   //   let activeNav = page.tabs.getSelected();
-      //   //   if (!activeNav.canGoBack()) {
-      //   //     return this.showExit(platform);
-      //   //   }
-      //   // }
-      //   // if (page instanceof LoginPage) {//查看当前页面是否是登陆页面
-      //   //   this.showExit(platform);
-      //   //   return;
-      //   // }
-      // });
+        let activeVC = navs[0].getActive();
+        if (activeVC) {
+          if (['TabPage', 'LoginPage', 'HomePage',
+            'DynamicPage', 'ContactPage',
+            'MePage', 'MessagePage'].indexOf(activeVC.name) >= 0) {
+            return this.showExit(platform);
+          }
+        }
+        if (navs[0].canGoBack()) {
+          navs[0].pop();
+        }
+        else {
+          this.showExit(platform);
+        }
+      });
     });
   }
 
   showExit(platform: Platform) {
-    return console.warn('马上要退出了');
-
-
-    // if (this.backButtonPressed) {
-    //   platform.exitApp();
-    // } else {
-    //   this.toastService.show('再按一次退出应用');
-    //   this.backButtonPressed = true;
-    //   setTimeout(() => {
-    //     this.backButtonPressed = false;
-    //   }, 2000);
-    // }
+    if (this.backButtonPressed) {
+      platform.exitApp();
+    } else {
+      this.toastService.show('再按一次退出应用');
+      this.backButtonPressed = true;
+      setTimeout(() => {
+        this.backButtonPressed = false;
+      }, 2000);
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App, IonicPage } from 'ionic-angular';
 import { UserNetwork } from '../../network/user.network';
 import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
@@ -8,6 +8,11 @@ import { HTTP_URL, getServerAddress } from '../../network/http';
 import { isEmpty } from 'lodash';
 import { TabPage } from '../tab/tab';
 
+
+@IonicPage({
+  name: 'login',
+  segment: ''
+})
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -27,6 +32,7 @@ export class LoginPage {
     private userNetwork: UserNetwork,
     private toastService: ToastService,
     private storage: StorageService,
+    private app: App,
     private loading: LoadingService
   ) {
     this.serverAddress = this.storage.get(STORAGE_KEY.SERVER_ADDR) || '';
@@ -72,7 +78,6 @@ export class LoginPage {
         this.storage.set(STORAGE_KEY.LOGIN_INFO, null);
       }
       this.navCtrl.setRoot(TabPage, { id: 2 });
-
       // if (this.navCtrl.canGoBack()) {
       //   this.navCtrl.pop();
       // }
