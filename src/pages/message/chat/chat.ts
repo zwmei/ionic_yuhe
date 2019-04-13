@@ -31,7 +31,6 @@ export interface MemberItem {
 export class ChatPage {
   subscription: Subscription;
   params: any;
-  inputText: string;
   contentList: any[];
   constructor(
     public elRef: ElementRef,
@@ -41,7 +40,6 @@ export class ChatPage {
   ) {
     this.subscription = null;
     this.params = this.navParams.data || {}; //['targetId', 'targetCode', 'targetName','targetImage','type', 'userCode', 'userId', 'userName','userImage', 'members']
-    this.inputText = '';
     this.contentList = [];
     this.params.members = this.params.members || [];
     this.params.memberCodes = this.params.members.map((m: MemberItem) => this.toLowerCase(m.code));
@@ -255,15 +253,14 @@ export class ChatPage {
     this.sendImage(file);
   }
   sendText() {
-    let inputText = (this.inputText || '').trim();
+    let a = document.getElementById('chat-div-input');
+    a.focus();
+    let inputText = a.innerText.trim();
     if (!inputText) {
       return;
     }
+    a.innerHTML = '';
     console.warn('sendText', inputText);
-    this.inputText = '';
-    document.getElementById('chat-textarea-input').focus();
-
-
     this.chatNetwork.sendText({
       targetId: this.params.targetId,
       targetType: this.params.type,
