@@ -34,6 +34,8 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
+    WebIMConn && WebIMConn.close(); //退出WebIM
+
     let loginInfo = this.storage.get(STORAGE_KEY.LOGIN_INFO);
     if (loginInfo && typeof loginInfo === "object") {
       this.username = loginInfo.username;
