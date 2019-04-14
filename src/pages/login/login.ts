@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App, IonicPage } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { UserNetwork } from '../../network/user.network';
 import { ToastService } from '../../service/toast.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
@@ -8,11 +8,6 @@ import { HTTP_URL, getServerAddress } from '../../network/http';
 import { isEmpty } from 'lodash';
 import { TabPage } from '../tab/tab';
 
-
-@IonicPage({
-  name: 'login',
-  segment: ''
-})
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
