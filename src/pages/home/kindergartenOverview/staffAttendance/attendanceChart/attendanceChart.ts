@@ -95,7 +95,8 @@ export class AttendanceChartPage {
               showInLegend: true,
               events: {
                 click: (e) => {
-                  this.goToAbsentPage();
+                  console.log(e.point.name);
+                  this.goToAbsentPage(e.point.name);
                 }
               },
               tooltip: {
@@ -215,8 +216,9 @@ export class AttendanceChartPage {
     this.loadYearChart(date);
   }
 
-  goToAbsentPage() {
+  goToAbsentPage(pointName: string) {
     this.navCtrl.push('app-home-absent-list', {
+      name: pointName,
       startDate: formatDate(this.startDateFilter, 'yyyy-MM-dd'),
       endDate: formatDate(this.endDateFilter, 'yyyy-MM-dd'),
     });
