@@ -21,7 +21,7 @@ export class StaffAttendancePage {
 
   constructor(
     private navCtrl: NavController,
-    private app:App,
+    private app: App,
     private platform: Platform,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork
   ) {
@@ -149,11 +149,19 @@ export class StaffAttendancePage {
       })
   }
 
-  goToListPage(checkType: number) {
+  goToListPage() {
     this.navCtrl.push('app-home-attendance-list', {
-      startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
-      endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd'),
-      checkType
+      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+    })
+  }
+  goToStatusPage(name: string) {
+    this.navCtrl.push('app-home-attendance-status-list', {
+      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      // startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
+      // endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd'),
+      name
     })
   }
 

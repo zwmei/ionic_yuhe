@@ -9,11 +9,14 @@
 <ion-content class="chart-detail-list-page" color="background">
   <div class="class-student-list">
     <div class="class-student-header">
-      <span>全员教师（{{list.length}}人未签到）</span>
+      <span>共（{{list.length}}人）</span>
     </div>
     <div class="class-student-body">
-      <ion-item *ngFor="let student of list">
-        <ion-label>{{student.name}}</ion-label>
+      <ion-item *ngFor="let staff of list">
+        <ion-label>
+          <img onerror="this.src='assets/imgs/image-default.png'" src="{{staff.photo}}" />
+          <span>{{staff.name}}</span>
+        </ion-label>
       </ion-item>
     </div>
   </div>

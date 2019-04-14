@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      职工出勤
+      当天全教职工出勤
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,21 +11,21 @@
     <!-- <div class="box-title-nav"><span class="left">幼儿出勤率</span></div> -->
     <div class="box-content">
       <ion-list>
-          <ion-list-header>
-              <ion-label>姓名</ion-label>
-              <ion-label>出勤</ion-label>
-              <ion-label>缺勤</ion-label>
-              <ion-label>迟到</ion-label>
-              <ion-label>请假</ion-label>
-              <ion-label>现状</ion-label>
-          </ion-list-header>
-        <ion-item  *ngFor="let item of list" >
-            <ion-label>{{item.name}}</ion-label>
-            <ion-label>{{item.signCount}}</ion-label>
-            <ion-label>{{item.noSignedCount}}</ion-label>
-            <ion-label>{{item.lateCount}}</ion-label>
-            <ion-label>{{item.leaveCount}}</ion-label>
-            <ion-label class="primary-color" ngClass="{{item.status}}">{{item.statusString}}</ion-label>
+        <ion-list-header>
+          <ion-label>姓名</ion-label>
+          <ion-label>出勤</ion-label>
+          <ion-label>缺勤</ion-label>
+          <!-- <ion-label>迟到</ion-label> -->
+          <ion-label>请假</ion-label>
+          <ion-label>现状</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let item of list">
+          <ion-label>{{item.name}}</ion-label>
+          <ion-label>{{item.signCount}}</ion-label>
+          <ion-label>{{item.noSignedCount}}</ion-label>
+          <!-- <ion-label>{{item.lateCount}}</ion-label> -->
+          <ion-label>{{item.leaveCount}}</ion-label>
+          <ion-label class="primary-color" ngClass="{{item.status}}">{{item.statusString}}</ion-label>
         </ion-item>
       </ion-list>
     </div>
