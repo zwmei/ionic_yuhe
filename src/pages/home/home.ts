@@ -7,7 +7,14 @@ import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
 import { UtilsService, ColorMap, ColorSet } from '../../service/utils.service';
 import { Subscription } from 'rxjs/Subscription';
+import { STORAGE_KEY, StorageService } from '../../service/storage.service';
+import { MessageType } from '../tab/tab';
 
+interface NotifyMsg {
+  approval: boolean;
+  schedule: boolean;
+  mail: boolean;
+}
 @IonicPage({
   name: 'home',
   segment: 'home-page'
@@ -16,6 +23,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  notifyMsg: NotifyMsg;
   subscription: Subscription;
 
   constructor(
@@ -23,11 +31,17 @@ export class HomePage {
     private utils: UtilsService,
     private auth: AuthService,
     private app: App,
+    private storage: StorageService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
     private notiNetWork: NoticeNetWork
   ) {
     this.chartName = "";
     this.subscription = null;
+    this.notifyMsg = {
+      approval: false,
+      schedule: false,
+      mail: false
+    }
   }
 
   messageText: string = "";
@@ -273,6 +287,21 @@ export class HomePage {
   }
 
   goToPage(pageName): void {
+    let xx = {
+      'app-home-scheduleSetting': 'schedule',
+      'app-home-approval-page': 'approval',
+      'app-home-principal-email': 'mail'
+    };
+    if (xx.hasOwnProperty(pageName)) {
+      this.notifyMsg[xx[pageName]] = false; //清除消息提示
+
+      let yy = {
+        'app-home-scheduleSetting': STORAGE_KEY.MESSAGE_TYPE_SCHEDULE,
+        'app-home-approval-page': STORAGE_KEY.MESSAGE_TYPE_APPROVAL,
+        'app-home-principal-email': STORAGE_KEY.MESSAGE_TYPE_MAIL
+      }
+      this.storage.set(yy[pageName], null);
+    }
     pageName = pageName || 'app-home-classManage';
     this.navCtrl.push(pageName);
     return;
@@ -280,6 +309,10 @@ export class HomePage {
 
   ionViewDidEnter() {
     console.warn('---home did enter');
+    this.notifyMsg.approval = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_APPROVAL) || false;
+    this.notifyMsg.mail = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_MAIL) || false;
+    this.notifyMsg.schedule = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE) || false;
+
     this.chartName = '';
     this.messageText = "";
     this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
@@ -312,19 +345,39 @@ export class HomePage {
     }
   }
 
-  // ionViewDidLoad() {
+  ionViewDidLoad() {
+    this.subscription = (WebIMObserve).subscribe({
+      next: (data) => {
+        console.log('home.ts on get xiaoxi==', data);
+        let navs = this.app.getActiveNavs();
+        let activeVC = navs[0].getActive();
+        if (activeVC.name == 'HomePage' && data.msg) {
+          if ([
+            MessageType.PendingApproval,
+            MessageType.CCApproval
+          ].indexOf(data.msgType) >= 0) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_APPROVAL, true);
+            this.notifyMsg.approval = true;
+          }
+          else if ([
+            MessageType.NewMail,
+            MessageType.ReplyMail
+          ].indexOf(data.msgType) >= 0) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_MAIL, true);
+            this.notifyMsg.mail = true;
+          }
+          else if (MessageType.ScheduleReminder == data.msgType) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE, true);
+            this.notifyMsg.schedule = true;
+          }
+        }
+      }
+    });
+  }
 
-  //   // this.subscription = (WebIMObserve).subscribe({
-  //   //   next: (data) => {
-  //   //     console.log('home.ts on get xiaoxi==', data);
-  //   //   }
-  //   // });
-  // }
-
-  // ionViewWillUnload() {
-  //   console.warn('home did out unload=======');
-
-  //   this.subscription && this.subscription.unsubscribe();
-  //   this.subscription = null;
-  // }
+  ionViewWillUnload() {
+    console.warn('home did out unload=======');
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = null;
+  }
 }

@@ -1,5 +1,5 @@
 
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, App } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ChatNetwork } from '../../network/chat.network';
 import { Subscription } from 'rxjs/Subscription';
@@ -8,6 +8,7 @@ import { getTimeStrForChatList } from '../../service/utils.service';
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { HTTP_URL } from '../../network/http';
 import { MemberItem } from './chat/chat';
+import { MessageType } from '../tab/tab';
 
 export interface ChatListItem {
   createTime: string;
@@ -35,20 +36,13 @@ export class MessagePage {
 
   constructor(
     public navCtrl: NavController,
+    public app: App,
     public chatNetwork: ChatNetwork,
     public storage: StorageService
   ) {
     this.chatList = [];
     this.subscription = null;
   }
-
-  // ionViewDidLoad() {
-  //   this.subscription = (WebIMObserve).subscribe({
-  //     next: (data) => {
-  //       console.log('message.ts on get xiaoxi==', data);
-  //     }
-  //   });
-  // }
 
   ionViewWillEnter() {
     console.log('message.ts ionViewWillEnter');
@@ -65,14 +59,25 @@ export class MessagePage {
         return extend({}, item, { lastTimeStr: getTimeStrForChatList(item.lastTime), photoItem: (item.photo ? `${HTTP_URL.IMAGE}/${item.photo}` : 'assets/imgs/image-default.png') });
       });
       console.log(this.chatList);
-
     });
   }
-
-  // ionViewWillUnload() {
-  //   this.subscription && this.subscription.unsubscribe();
-  //   this.subscription = null;
-  // }
+  ionViewDidLoad() {
+    this.subscription = (WebIMObserve).subscribe({
+      next: (data) => {
+        let navs = this.app.getActiveNavs();
+        let activeVC = navs[0].getActive();
+        if (activeVC.name == 'MessagePage') {
+          if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
+            this.ionViewWillEnter(); //更新页面内容
+          }
+        }
+      }
+    });
+  }
+  ionViewWillUnload() {
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = null;
+  }
 
   goToChat(chatItem: ChatListItem) {
     let userInfo = this.storage.get(STORAGE_KEY.USER_INFO);
