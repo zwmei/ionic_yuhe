@@ -346,6 +346,8 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    console.log('%chome load', 'color:green;font-size:20px');
+
     this.subscription = (WebIMObserve).subscribe({
       next: (data) => {
         console.log('home.ts on get xiaoxi==', data);

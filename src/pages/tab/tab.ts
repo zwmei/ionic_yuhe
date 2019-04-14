@@ -80,6 +80,7 @@ export class TabPage {
   ) {
     //获取默认值
     (<IWin>window).WebIMObserve = new Observable(this.multicastSequenceSubscriber());
+    console.log('%ctab构造函数','color:blue;font-size:20px');
   }
 
   tabChange = (ev: any) => {
