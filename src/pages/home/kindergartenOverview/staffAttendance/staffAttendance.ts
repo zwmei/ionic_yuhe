@@ -4,7 +4,7 @@ import { Chart } from 'angular-highcharts';
 import { formatDate } from '../../../../network/http';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
 import { isArray } from 'lodash';
-import { ColorMap } from '../../../../service/utils.service';
+import { ColorMap, UtilsService } from '../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-staffAttendance'
@@ -21,6 +21,7 @@ export class StaffAttendancePage {
 
   constructor(
     private navCtrl: NavController,
+    private utils: UtilsService,
     private app: App,
     private platform: Platform,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork
@@ -40,6 +41,19 @@ export class StaffAttendancePage {
   ionViewDidEnter() {
     console.log('bbhhhhh=====', Date.now());
     this.refreshData();
+    this.getStatisticData();
+  }
+
+  getStatisticData() {
+    this.kindergartenOverviewNetwork.getAllAttendanceInfo({
+      startDate: formatDate(this.utils.getBeginOfDay(), 'yyyy-MM-dd'),
+      endDate: formatDate(this.utils.getEndOfDay(), 'yyyy-MM-dd'),
+    }).subscribe((data: any) => {
+      if (data.status) {
+        return;
+      }
+      this.infos = data;
+    });
   }
 
   refreshData() {
@@ -71,7 +85,6 @@ export class StaffAttendancePage {
         if (data.status) {
           return;
         }
-        this.infos = data;
         let options = {
           chart: {
             type: 'pie'
