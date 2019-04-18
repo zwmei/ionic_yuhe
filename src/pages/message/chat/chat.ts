@@ -5,6 +5,7 @@ import { ChatNetwork } from '../../../network/chat.network';
 import { getTimeStrForChatContent } from '../../../service/utils.service';
 import { MessageContent, MessageType, MessageContentType, ChatType } from '../../tab/tab';
 import { HTTP_URL } from '../../../network/http';
+import { GallaryService } from '../../../service/gallary.service';
 
 interface SendTextInfo {
   msg: string;
@@ -31,17 +32,16 @@ export interface MemberItem {
 export class ChatPage {
   subscription: Subscription;
   params: any;
-  inputText: string;
   contentList: any[];
   constructor(
     public elRef: ElementRef,
     public navCtrl: NavController,
     private navParams: NavParams,
     public chatNetwork: ChatNetwork,
+    private gallaryService: GallaryService
   ) {
     this.subscription = null;
     this.params = this.navParams.data || {}; //['targetId', 'targetCode', 'targetName','targetImage','type', 'userCode', 'userId', 'userName','userImage', 'members']
-    this.inputText = '';
     this.contentList = [];
     this.params.members = this.params.members || [];
     this.params.memberCodes = this.params.members.map((m: MemberItem) => this.toLowerCase(m.code));
@@ -229,13 +229,15 @@ export class ChatPage {
   showImage(evt) {
     console.log(evt);
     if (evt.target && evt.target.nodeName == "IMG") {
-      var dom = document.createElement('div');
-      dom.className = 'webim-img-expand';
-      dom.onclick = function () {
-        document.body.removeChild(dom);
-      };
-      dom.innerHTML = `<img src="${evt.target.src}" />`;
-      document.body.appendChild(dom);
+      // var dom = document.createElement('div');
+      // dom.className = 'webim-img-expand';
+      // dom.onclick = function () {
+      //   document.body.removeChild(dom);
+      // };
+      // dom.innerHTML = `<img src="${evt.target.src}" />`;
+      // document.body.appendChild(dom);
+
+      this.gallaryService.photoViews([evt.target.src]);
     }
   }
 
@@ -255,15 +257,14 @@ export class ChatPage {
     this.sendImage(file);
   }
   sendText() {
-    let inputText = (this.inputText || '').trim();
+    let a = document.getElementById('chat-div-input');
+    a.focus();
+    let inputText = a.innerText.trim();
     if (!inputText) {
       return;
     }
+    a.innerHTML = '';
     console.warn('sendText', inputText);
-    this.inputText = '';
-    document.getElementById('chat-textarea-input').focus();
-
-
     this.chatNetwork.sendText({
       targetId: this.params.targetId,
       targetType: this.params.type,

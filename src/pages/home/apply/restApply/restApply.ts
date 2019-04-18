@@ -169,6 +169,37 @@ export class RestApply {
     return false;
   }
 
+  changeDate(event) {
+    console.log(event);
+    if (!this.applyData.qssj || !this.applyData.jssj) {
+      return;
+    }
+
+    var start = this.datePipe.transform(
+      this.applyData.qssj,
+      "yyyy-MM-dd HH:mm:ss"
+    );
+    var end = this.datePipe.transform(
+      this.applyData.jssj,
+      "yyyy-MM-dd HH:mm:ss"
+    );
+
+    this.approvalNetWork.getResetLength({
+      beginTime: start,
+      endTime: end
+    }).subscribe(
+      (data: any) => {
+        console.log(data);
+        if (data && data.result) {
+          this.applyData.qjsc = data.result.hourLong;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   resetApply() {
     if (!this.applyData.qssj || !this.applyData.jssj) {
       this.toast.show("请选择请假时间");

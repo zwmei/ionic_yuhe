@@ -1,122 +1,47 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { NavController } from 'ionic-angular';
+import { NavController, App, IonicPage } from 'ionic-angular';
 import { KindergartenOverviewNetwork } from '../../network/kindergartenOverview.network';
 import { formatDate } from '../../network/http';
 import { AuthService } from '../../service/auth.service';
 import { NoticeNetWork } from '../../network/notice.network';
 import { UtilsService, ColorMap, ColorSet } from '../../service/utils.service';
 import { Subscription } from 'rxjs/Subscription';
+import { STORAGE_KEY, StorageService } from '../../service/storage.service';
+import { MessageType } from '../tab/tab';
 
-
-
-const _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  } return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps); return Constructor;
-  };
-}();
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); }
-};
-
-//消息滚动具体实现
-const ChangingTitle = function () {
-  function ChangingTitle(a: any) {
-    var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    _classCallCheck(this, ChangingTitle);
-    this.node = x;
-    this.letterfy(this.node.querySelector('h1'));
-  }
-  _createClass(ChangingTitle,
-    [
-      {
-        key: 'letterfy',
-        value: function letterfy(node) {
-          var text = node.innerText;
-          node.innerText = '';
-          node.classList.add('current');
-          // let c:number=0;
-          for (let c in text) {
-            var span = document.createElement('span');
-            span.innerText = text[c];
-            span.classList.add('letter', 'in');
-            span.style.animationDelay = parseInt(c) * 1 + 's';
-            node.appendChild(span);
-          }
-        }
-      },
-      {
-        key: 'changeText',
-        value: function changeText(newText) {
-          newText = newText || '';
-          if (newText.length > 20) {
-            newText = newText.slice(0, 20) + '...';
-          }
-
-          var oldTitle = this.node.querySelector('.current');
-          var i = 0; var _iteratorNormalCompletion = true; var _didIteratorError = false; var _iteratorError = undefined; try {
-            for (var _iterator = oldTitle.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var letter = _step.value;
-              letter.style.animationDelay = i++ * 0.1 + 's';
-              letter.classList.remove('in');
-              letter.classList.add('out');
-            }
-          }
-          catch (err) { _didIteratorError = true; _iteratorError = err; }
-          finally {
-            try { if (!_iteratorNormalCompletion && _iterator.return) { _iterator.return(); } }
-            finally { if (_didIteratorError) { throw _iteratorError; } }
-          }
-          oldTitle.classList.remove('current');
-          var newTitle = document.createElement('h1');
-          newTitle.classList.add('current');
-          for (var c in newText) {
-            var span = document.createElement('span');
-            span.innerText = newText[c];
-            span.classList.add('letter', 'in');
-            span.style.animationDelay = parseInt(c) * 0.1 + 1.2 + 's';
-            newTitle.appendChild(span);
-          }
-          this.node.appendChild(newTitle);
-          setTimeout(this.removeNode(oldTitle), 2000);
-        }
-      },
-      {
-        key: 'removeNode',
-        value: function removeNode(x) {
-          return function () {
-            x.remove();
-          };
-        }
-      }
-    ],
-    undefined
-  );
-  return ChangingTitle;
-}();
-
+interface NotifyMsg {
+  approval: boolean;
+  schedule: boolean;
+  mail: boolean;
+}
+@IonicPage({
+  name: 'home',
+  segment: 'home-page'
+})
 @Component({
   templateUrl: 'home.html'
 })
 export class HomePage {
+  notifyMsg: NotifyMsg;
   subscription: Subscription;
 
   constructor(
     private navCtrl: NavController,
     private utils: UtilsService,
     private auth: AuthService,
+    private app: App,
+    private storage: StorageService,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork,
     private notiNetWork: NoticeNetWork
   ) {
     this.chartName = "";
     this.subscription = null;
+    this.notifyMsg = {
+      approval: false,
+      schedule: false,
+      mail: false
+    }
   }
 
   messageText: string = "";
@@ -350,14 +275,49 @@ export class HomePage {
     return this.auth.hasPermission(key);
   }
 
+  onInitChat() {
+    let arr = ['employee', 'sick', 'finance'];
+    arr.some((key: string, index: number) => {
+      if (this.hasPermission(`home/info/${key}`)) {
+        this.onSelectChart(`chart${index + 1}`);
+        return true;
+      }
+      return false;
+    });
+  }
+
   goToPage(pageName): void {
+    let xx = {
+      'app-home-scheduleSetting': 'schedule',
+      'app-home-approval-page': 'approval',
+      'app-home-principal-email': 'mail'
+    };
+    if (xx.hasOwnProperty(pageName)) {
+      this.notifyMsg[xx[pageName]] = false; //清除消息提示
+
+      let yy = {
+        'app-home-scheduleSetting': STORAGE_KEY.MESSAGE_TYPE_SCHEDULE,
+        'app-home-approval-page': STORAGE_KEY.MESSAGE_TYPE_APPROVAL,
+        'app-home-principal-email': STORAGE_KEY.MESSAGE_TYPE_MAIL
+      }
+      this.storage.set(yy[pageName], null);
+    }
     pageName = pageName || 'app-home-classManage';
     this.navCtrl.push(pageName);
     return;
   }
 
   ionViewDidEnter() {
-    this.messageText="";
+    console.warn('---home did enter');
+    this.notifyMsg.approval = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_APPROVAL) || false;
+    this.notifyMsg.mail = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_MAIL) || false;
+    this.notifyMsg.schedule = this.storage.get(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE) || false;
+
+    this.chartName = '';
+    this.messageText = "";
+    this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
+
+    });
     this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
       data = data || [];
       if (data.status) {
@@ -377,7 +337,7 @@ export class HomePage {
       }
       // this.messageText = data.slice(0, 8).map(item => item.ggbt).join('  ');
     });
-    this.onSelectChart('chart1');
+    this.onInitChat();
   }
   ionViewDidLeave() {
     if (this.messageTimer) {
@@ -385,19 +345,41 @@ export class HomePage {
     }
   }
 
-  // ionViewDidLoad() {
-  //   console.warn('---home did load');
-  //   this.subscription = (WebIMObserve).subscribe({
-  //     next: (data) => {
-  //       console.log('home.ts on get xiaoxi==', data);
-  //     }
-  //   });
-  // }
+  ionViewDidLoad() {
+    console.log('%chome load', 'color:green;font-size:20px');
 
-  // ionViewWillUnload() {
-  //   console.warn('home did out unload=======');
+    this.subscription = (WebIMObserve).subscribe({
+      next: (data) => {
+        console.log('home.ts on get xiaoxi==', data);
+        let navs = this.app.getActiveNavs();
+        let activeVC = navs[0].getActive();
+        if (activeVC.name == 'HomePage' && data.msg) {
+          if ([
+            MessageType.PendingApproval,
+            MessageType.CCApproval
+          ].indexOf(data.msgType) >= 0) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_APPROVAL, true);
+            this.notifyMsg.approval = true;
+          }
+          else if ([
+            MessageType.NewMail,
+            MessageType.ReplyMail
+          ].indexOf(data.msgType) >= 0) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_MAIL, true);
+            this.notifyMsg.mail = true;
+          }
+          else if (MessageType.ScheduleReminder == data.msgType) {
+            this.storage.set(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE, true);
+            this.notifyMsg.schedule = true;
+          }
+        }
+      }
+    });
+  }
 
-  //   this.subscription && this.subscription.unsubscribe();
-  //   this.subscription = null;
-  // }
+  ionViewWillUnload() {
+    console.warn('home did out unload=======');
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = null;
+  }
 }

@@ -6,6 +6,7 @@ import { ToastService } from "../../service/toast.service";
 import { LoginPage } from "../../pages/login/login";
 import { StorageService, STORAGE_KEY } from '../../service/storage.service';
 import { HTTP_URL } from "../../network/http";
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'page-me',
@@ -17,9 +18,10 @@ export class MePage {
     private actionSheetService: ActionSheetService,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
+    private auth: AuthService,
     private storage: StorageService) {
-      this.loadUserInfo()
-    }
+    this.loadUserInfo()
+  }
 
   showActionSheet(): void {
     this.actionSheetService.show({
@@ -55,20 +57,20 @@ export class MePage {
     }
   }
 
-  logOut():void{
-    this.userNetwork.logout().subscribe((data:{status:number, message?:string}) => {
+  logOut(): void {
+    this.userNetwork.logout().subscribe((data: { status: number, message?: string }) => {
       console.log(data);
-      if(data.status === 0){
-        this.storage.set(STORAGE_KEY.USER_INFO,null);
-        this.navCtrl.setRoot(LoginPage);
+      if (data.status === 0) {
+        this.auth.clear();
+        this.navCtrl.push(LoginPage);
         WebIMConn && WebIMConn.close(); //退出WebIM
       }
     }, err => {
       this.toastService.show(err.message || '登出失败');
     })
   }
-  
-  goToPage(pageName, id): void{
+
+  goToPage(pageName, id): void {
     pageName = pageName || 'app-me-changePassword';
     this.navCtrl.push(pageName, { id: id });
   }

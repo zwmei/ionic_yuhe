@@ -18,18 +18,19 @@
       </div>
     </div>
     <div class="chat-opt">
-      <div class="opt-view">
+      <span class="opt-view">
         <span (click)="clickImage()">
           <ion-icon name="images"></ion-icon>
         </span>
-        <input id="chat-image-input"
-        accept="image/*"
-        style="display: none" (change)="onChangeImage($event)" type="file" />
-      </div>
-      <textarea [(ngModel)]="inputText" id="chat-textarea-input"></textarea>
-      <div class="bt-send-row">
+        <input id="chat-image-input" accept="image/*" style="display: none" (change)="onChangeImage($event)"
+          type="file" />
+      </span>
+      <!-- <textarea [(ngModel)]="inputText" id="chat-textarea-input"></textarea> -->
+      <div contenteditable="true" id="chat-div-input"></div>
+
+      <span class="bt-send-row">
         <span class="bt-send" (click)="sendText()">发送</span>
-      </div>
+      </span>
     </div>
   </div>
 </ion-content>

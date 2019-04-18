@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Tabs, App } from 'ionic-angular';
 import { MessagePage } from '../message/message';
 import { DynamicPage } from '../dynamic/dynamic';
 import { HomePage } from '../home/home';
@@ -63,19 +63,41 @@ export class TabPage {
   tab3 = HomePage;
   tab4 = ContactPage;
   tab5 = MePage;
+
+  badge1: string; //新消息提示
+  badge2: string;//新动态提示
+  badge3: string;//首页新内容提示
+
   @ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(
-    public navCtrl: NavController,
+    // public navCtrl: NavController,
+    public app: App,
     public navParams: NavParams,
     public chatNetwork: ChatNetwork,
     public storageService: StorageService,
     public toast: ToastService
   ) {
+    //获取默认值
     (<IWin>window).WebIMObserve = new Observable(this.multicastSequenceSubscriber());
+    console.log('%ctab构造函数','color:blue;font-size:20px');
   }
+
+  tabChange = (ev: any) => {
+    console.log('tab change', ev.tabTitle);
+    let a = {
+      '消息': 1,
+      '动态': 2,
+      '主页': 3
+    };
+    if (a.hasOwnProperty(ev.tabTitle)) {
+      this[`badge${a[ev.tabTitle]}`] = '';
+    }
+  }
+
   ionViewDidLoad() {
     let tabIndex = parseInt(this.navParams.data.id);
+
     if (tabIndex !== this.tabIndex) {
       this.tabRef.select(tabIndex);
     }
@@ -83,15 +105,41 @@ export class TabPage {
     this.subscription = (WebIMObserve).subscribe({
       next: (data) => {
         console.log('tab.ts msss==', data);
+        let navs = this.app.getActiveNavs();
+        let activeVC = navs[0].getActive();
 
-        if (data.msgType != MessageType.Text && data.msgType != MessageType.Image) {
-          data.msg && this.toast.show(data.msg);
+        if (data.msg && data.msgType != MessageType.Text && data.msgType != MessageType.Image) {
+          this.toast.show(data.msg);
+
+          if (activeVC.name != 'HomePage') {
+            if ([
+              MessageType.PendingApproval,
+              MessageType.CCApproval
+            ].indexOf(data.msgType) >= 0) {
+              this.storageService.set(STORAGE_KEY.MESSAGE_TYPE_APPROVAL, true);
+              this.badge3 = '1';
+            }
+            else if ([
+              MessageType.NewMail,
+              MessageType.ReplyMail
+            ].indexOf(data.msgType) >= 0) {
+              this.storageService.set(STORAGE_KEY.MESSAGE_TYPE_MAIL, true);
+              this.badge3 = '1';
+            }
+            else if (MessageType.ScheduleReminder == data.msgType) {
+              this.storageService.set(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE, true);
+              this.badge3 = '1';
+            }
+          }
+          if (MessageType.NewDynamic == data.msgType && activeVC.name != 'DynamicPage') {
+            this.badge2 = '1';
+          }
         }
-        else {
-          // data.msg && this.toast.show('你收到一条新消息');
-          // let activeVC = this.navCtrl.getActive();
-          // let page = activeVC.instance;
-          // console.log('333 ', page instanceof MessagePage)
+        if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
+          if (['MessagePage', 'ChatPage'].indexOf(activeVC.name) === -1) {
+            this.badge1 = '1';
+            this.toast.show('你收到一条新消息');
+          }
         }
       }
     });
@@ -150,10 +198,6 @@ export class TabPage {
             },
             onTextMessage: function (message) {
               // 在此接收和处理消息，根据message.type区分消息来源，私聊或群组或聊天室
-              console.log(message);
-              console.log(message.type);
-              console.log('Text');
-
               message.sourceMsg = message.sourceMsg || '';
               if (!message.sourceMsg) {
                 return;

@@ -8,19 +8,24 @@
 
 <ion-content class="child-check-page" color="background">
   <div class="attenance-statistic">
-    <!-- <div class="box-title-nav"><span class="left">全教职工出勤</span><span class="right" ><ion-icon name="arrow-forward"></ion-icon></span></div> -->
+    <div class="box-title-nav" (click)="goToListPage()">
+      <span class="left">当天全教职工出勤</span>
+      <span class="right">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </span>
+    </div>
     <div class="box-content">
       <ion-grid>
         <ion-row>
-          <ion-col (click)="goToListPage(1)">
+          <ion-col (click)="goToStatusPage('应到')">
             <span>应到</span>
             <strong class="secondary" color="secondary">{{infos.totalCount}}</strong>
           </ion-col>
-          <ion-col (click)="goToListPage(2)">
+          <ion-col (click)="goToStatusPage('出勤')">
             <span>出勤</span>
             <strong>{{infos.signCount}}</strong>
           </ion-col>
-          <ion-col (click)="goToListPage(4)">
+          <ion-col (click)="goToStatusPage('缺勤')">
             <span>缺勤</span>
             <strong>{{infos.absenceCount}}</strong>
           </ion-col>
@@ -28,7 +33,7 @@
             <span>迟到</span>
             <strong>{{infos.leaveCount}}</strong>
           </ion-col> -->
-          <ion-col (click)="goToListPage(3)">
+          <ion-col (click)="goToStatusPage('请假')">
             <span>请假</span>
             <strong>{{infos.leaveCount}}</strong>
           </ion-col>

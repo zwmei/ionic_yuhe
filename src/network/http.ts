@@ -7,6 +7,7 @@ import { App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { StorageService, STORAGE_KEY } from '../service/storage.service';
 import { isDate, debounce } from 'lodash';
+import { AuthService } from '../service/auth.service';
 
 @Injectable()
 export class HttpNetwork {
@@ -15,16 +16,21 @@ export class HttpNetwork {
     private http: HttpClient,
     private toast: ToastService,
     private storage: StorageService,
+    private auth: AuthService,
     private app: App
   ) { }
 
   waitDebounceLogout = () => {
+    console.log('3,,,,,,,,');
     console.log('logout to login page');
-    this.storage.set(STORAGE_KEY.USER_INFO, null);
+    this.auth.clear();
     this.app.getRootNav().push(LoginPage);
     WebIMConn && WebIMConn.close(); //退出WebIM
   }
-  debouncedFnc = debounce(this.waitDebounceLogout, 2000); 
+  debouncedFnc = debounce(this.waitDebounceLogout, 4000, {
+    'leading': true,
+    'trailing': false
+  });
 
   wrapHttp(requestFunc) {
     return new Observable((observe) => {
@@ -35,6 +41,7 @@ export class HttpNetwork {
           }
           else if (data.status) {
             if (data.status == 7001) {
+              console.log('1,,,,,,,,');
               this.debouncedFnc();
             }
             this.toast.show(data.message || '获取数据错误');
@@ -44,8 +51,7 @@ export class HttpNetwork {
         error: (err) => {
           this.toast.show(err.message || '请求异常');
           if (err.status == 7001) {
-            // this.app.getRootNav().push(LoginPage);
-            // WebIMConn && WebIMConn.close(); //退出WebIM
+            console.log('2,,,,,,,,');
             this.debouncedFnc();
           }
           observe.error(err);

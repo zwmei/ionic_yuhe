@@ -26,12 +26,24 @@ export class StorageService {
     Cache[key] = value;
     localStorage.setItem(key, JSON.stringify(value));
   }
+
+  empty() {
+    Cache = {};
+    localStorage.setItem(STORAGE_KEY.USER_INFO, null);
+    //退出后清空提醒
+    localStorage.setItem(STORAGE_KEY.MESSAGE_TYPE_APPROVAL, null);
+    localStorage.setItem(STORAGE_KEY.MESSAGE_TYPE_SCHEDULE, null);
+    localStorage.setItem(STORAGE_KEY.MESSAGE_TYPE_MAIL, null);
+  }
 }
-const Cache = {};
+var Cache = {};
 
 export const STORAGE_KEY = {
   SERVER_ADDR: 'yh_server_addr',
   LOGIN_INFO: 'yh_login_info',
   USER_INFO: 'yh_user_info',
-  GET_VALID_CODE_TIME: 'yh_get_valid_code_time' //获取验证码的时间,毫秒数
+  GET_VALID_CODE_TIME: 'yh_get_valid_code_time', //获取验证码的时间,毫秒数
+  MESSAGE_TYPE_APPROVAL: 'yh_message_type_approval', //有审批消息
+  MESSAGE_TYPE_SCHEDULE: 'yh_message_type_schedule', //有日程安排
+  MESSAGE_TYPE_MAIL: 'yh_message_type_mail', //有邮件提醒
 }

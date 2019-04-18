@@ -4,6 +4,7 @@ import { StaffAttendancePage } from "./staffAttendance";
 import { ChartModule } from 'angular-highcharts';
 import { AttendanceListPageModule } from "./attendanceList/attendanceList.module";
 import { AttendanceChartPageModule } from "./attendanceChart/attendanceChart.module";
+import { AttendanceDetailListPageModule } from "./attendanceDetailList/attendanceDetailList.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { AttendanceChartPageModule } from "./attendanceChart/attendanceChart.mod
     IonicPageModule.forChild(StaffAttendancePage),
     ChartModule,
     AttendanceListPageModule,
-    AttendanceChartPageModule
+    AttendanceChartPageModule,
+    AttendanceDetailListPageModule
   ],
   entryComponents: [
     StaffAttendancePage

@@ -1,10 +1,10 @@
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, App, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { formatDate } from '../../../../network/http';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
 import { isArray } from 'lodash';
-import { ColorMap } from '../../../../service/utils.service';
+import { ColorMap, UtilsService } from '../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-staffAttendance'
@@ -21,6 +21,9 @@ export class StaffAttendancePage {
 
   constructor(
     private navCtrl: NavController,
+    private utils: UtilsService,
+    private app: App,
+    private platform: Platform,
     private kindergartenOverviewNetwork: KindergartenOverviewNetwork
   ) {
     this.startDate = new Date(formatDate(new Date(), 'yyyy/MM/dd'));
@@ -38,6 +41,19 @@ export class StaffAttendancePage {
   ionViewDidEnter() {
     console.log('bbhhhhh=====', Date.now());
     this.refreshData();
+    this.getStatisticData();
+  }
+
+  getStatisticData() {
+    this.kindergartenOverviewNetwork.getAllAttendanceInfo({
+      startDate: formatDate(this.utils.getBeginOfDay(), 'yyyy-MM-dd'),
+      endDate: formatDate(this.utils.getEndOfDay(), 'yyyy-MM-dd'),
+    }).subscribe((data: any) => {
+      if (data.status) {
+        return;
+      }
+      this.infos = data;
+    });
   }
 
   refreshData() {
@@ -69,7 +85,6 @@ export class StaffAttendancePage {
         if (data.status) {
           return;
         }
-        this.infos = data;
         let options = {
           chart: {
             type: 'pie'
@@ -147,11 +162,19 @@ export class StaffAttendancePage {
       })
   }
 
-  goToListPage(checkType: number) {
+  goToListPage() {
     this.navCtrl.push('app-home-attendance-list', {
-      startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
-      endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd'),
-      checkType
+      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+    })
+  }
+  goToStatusPage(name: string) {
+    this.navCtrl.push('app-home-attendance-status-list', {
+      startDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      endDate: formatDate(new Date(), 'yyyy-MM-dd'),
+      // startDate: formatDate(this.startDate, 'yyyy-MM-dd'),
+      // endDate: formatDate(this.getEndDate(), 'yyyy-MM-dd'),
+      name
     })
   }
 
