@@ -24,6 +24,7 @@
         [(ngModel)]="applyData.qssj"
         cancelText="取消"
         doneText="确定"
+        (ngModelChange) = "changeDate($event)"
         >{{ applyData.qssj }}</ion-datetime
       >
     </ion-item>
@@ -36,6 +37,7 @@
         [(ngModel)]="applyData.jssj"
         cancelText="取消"
         doneText="确定"
+        (ngModelChange) = "changeDate($event)"
         >{{ applyData.jssj }}</ion-datetime
       >
     </ion-item>
