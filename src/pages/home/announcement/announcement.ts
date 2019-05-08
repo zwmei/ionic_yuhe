@@ -28,6 +28,8 @@ export class Announcement {
   };
 
   ionViewDidEnter () {
+    this.readNotiList = [];
+    this.unReadNotiList = [];
     this.getReadList();
     this.getUnReadList();
   }
