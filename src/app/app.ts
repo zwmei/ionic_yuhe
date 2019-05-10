@@ -13,7 +13,6 @@ import { isEmpty } from 'lodash';
 export class MyApp {
   rootPage: any = LoginPage;
   public backButtonPressed: boolean = false;
-  public toastService: ToastService;
 
   // @ViewChild('rootNav') nav: Nav;//声明根组件(<ion-nav #myNav [root]="rootPage">)
 
@@ -21,7 +20,9 @@ export class MyApp {
     platform: Platform,
     private statusBar: StatusBar,
     private app: App,
-    splashScreen: SplashScreen) {
+    public toastService: ToastService,
+    splashScreen: SplashScreen
+  ) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
