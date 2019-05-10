@@ -35,11 +35,24 @@ export class CopyToMe {
     this.props = params.data;
   }
   ionViewDidEnter() {
+    this.readList = [];
+    this.unReadList = [];
     this.getReadList();
     this.getUnReadList();
   }
 
   clickItem(item) {
+    this.approvalNetWork.readCopyTome({
+      id: item.id,
+      billType: item.billType
+    }).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );;
     this.navCtrl.push("app-home-approval-details", { params: item, type: 3 });
   }
 
