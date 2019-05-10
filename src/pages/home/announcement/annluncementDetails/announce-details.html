@@ -17,8 +17,8 @@
     </p>
   </div>
   <div>
-    <p class="center-text-label">{{ readUsers.length }}人已查阅，{{ unReadUsers.length }}人未查阅</p>
-    <div class="read-title">
+    <p *ngIf="userid === noticeDetails.fbrid" class="center-text-label">{{ readUsers.length }}人已查阅，{{ unReadUsers.length }}人未查阅</p>
+    <!-- <div class="read-title">
         <p class="header-title-label">已查阅 （{{ readUsers.length }} / {{ unReadUsers.length + readUsers.length  }})</p>
         <button (click)="readOpenClick()" class="read-fold">
           <ion-icon name="{{isReadOpen ? 'arrow-dropdown' : 'arrow-dropup'}}"></ion-icon>
@@ -51,9 +51,9 @@
           />
         </ion-avatar>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <p padding-horizontal *ngIf="userid === noticeDetails.fbrid" >
-      <button ion-button block (click)="presentAlertConfirm()">一键提醒</button>
+      <button ion-button block (click)="presentAlertConfirm()">确定提醒未阅读人员</button>
     </p>
   </div>
 </ion-content>

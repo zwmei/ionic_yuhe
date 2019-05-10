@@ -26,6 +26,8 @@ export class MyApproval {
   };
 
   ionViewDidEnter() {
+    this.approavlList = [];
+    this.unApprovalList = [];
     this.getApprovalList();
     this.getUnApprovalList();
   }

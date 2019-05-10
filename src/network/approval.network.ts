@@ -105,4 +105,8 @@ export class ApprovalNetwork {
   getResetLength(data) {
     return this.http.get('/app/approval/application/computeLeaveHours', data);
   }
+  // 标记一度
+  readCopyTome(data) {
+    return this.http.postForm('/app/approval/myReception/markReaded', data);
+  }
 }
