@@ -80,6 +80,21 @@ export function getTimeStrForChatContent(dateStr: string) { //获取聊天内容
   return `${getTimeStr(listDate, true)} ${hours > 9 ? hours : ('0' + hours)}:${minutes > 9 ? minutes : ('0' + minutes)}`
 }
 
+export function sureFloatPrecision(num: number, precision: number) { //确保浮点数精度，如14->14.000000000000002
+  precision = precision || 2;
+  return parseFloat(num.toFixed(precision));
+  // var newNum = num.toFixed(precision);
+  // var testStr = '.' + new Int8Array(precision).join('');
+  // var regx = new RegExp(testStr);
+  // if (regx.test(newNum)) {
+
+  // }
+  // else {
+
+  // }
+}
+
+
 export const ColorMap = {
   Color1: '#3CC8B4',
   Color2: '#FF7DAF',
@@ -93,4 +108,4 @@ export const ColorMap = {
 
 }
 
-export const ColorSet = Object.keys(ColorMap).map((key:string)=>ColorMap[key]);
+export const ColorSet = Object.keys(ColorMap).map((key: string) => ColorMap[key]);

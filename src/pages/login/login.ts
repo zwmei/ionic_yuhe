@@ -23,7 +23,7 @@ export class LoginPage {
 
 
   constructor(
-    public navCtrl: NavController,
+    // public navCtrl: NavController,
     private userNetwork: UserNetwork,
     private toastService: ToastService,
     private storage: StorageService,
@@ -74,7 +74,20 @@ export class LoginPage {
       else {
         this.storage.set(STORAGE_KEY.LOGIN_INFO, null);
       }
-      this.navCtrl.setRoot(TabPage, { id: 2 });
+
+      let activeNav = this.app.getActiveNav();
+      let manualLogout = this.storage.get(STORAGE_KEY.MANUAL_LOGOUT);
+      if (!manualLogout && activeNav.canGoBack()) {
+        activeNav.pop();
+      }
+      else {
+        // this.navCtrl.push('app-tab', { id: 2 });
+        activeNav.push('app-tab', { id: 2 });
+      }
+
+      this.storage.set(STORAGE_KEY.MANUAL_LOGOUT, false);
+      // this.navCtrl.push('app-tab', { id: 2 });
+      // this.navCtrl.push(TabPage, { id: 2 });
       // if (this.navCtrl.canGoBack()) {
       //   this.navCtrl.pop();
       // }
@@ -89,7 +102,7 @@ export class LoginPage {
   }
 
   onForgetPassword() {
-    this.navCtrl.push('app-forget-password');
+    this.app.getActiveNav().push('app-forget-password');
   }
 
   onChangeAddress(event, num) {

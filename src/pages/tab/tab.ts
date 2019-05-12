@@ -59,9 +59,9 @@ export class TabPage {
   subscription: Subscription;
   tabIndex = 2;
   tab1 = MessagePage;
-  tab2 = DynamicPage;
+  tab2 = ContactPage;
   tab3 = HomePage;
-  tab4 = ContactPage;
+  tab4 = DynamicPage;
   tab5 = MePage;
 
   badge1: string; //新消息提示

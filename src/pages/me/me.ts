@@ -61,6 +61,7 @@ export class MePage {
     this.userNetwork.logout().subscribe((data: { status: number, message?: string }) => {
       console.log(data);
       if (data.status === 0) {
+        this.storage.set(STORAGE_KEY.MANUAL_LOGOUT, true);
         this.auth.clear();
         this.navCtrl.push(LoginPage);
         WebIMConn && WebIMConn.close(); //退出WebIM

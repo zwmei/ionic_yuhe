@@ -4,7 +4,7 @@ import { Chart } from 'angular-highcharts';
 import { formatDate } from '../../../../network/http';
 import { KindergartenOverviewNetwork } from '../../../../network/kindergartenOverview.network';
 import { isArray } from 'lodash';
-import { ColorMap, UtilsService } from '../../../../service/utils.service';
+import { ColorMap, UtilsService, sureFloatPrecision } from '../../../../service/utils.service';
 
 @IonicPage({
   name: 'app-home-staffAttendance'
@@ -155,7 +155,7 @@ export class StaffAttendancePage {
           this.attendanceList = data.map((item) => {
             return {
               name: item.teacherName,
-              rate: (item.signRate || 0) * 10 * 10
+              rate: sureFloatPrecision((item.signRate || 0) * 100, 2)
             }
           })
         }

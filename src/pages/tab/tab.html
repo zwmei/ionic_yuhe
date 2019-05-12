@@ -1,7 +1,7 @@
 <ion-tabs #mainTabs selectedIndex="{{tabIndex}}" (ionChange)="tabChange($event)">
   <ion-tab tabIcon="notifications" tabTitle="消息" tabBadge="{{badge1}}" tabBadgeStyle="danger" [root]="tab1"></ion-tab>
-  <ion-tab tabIcon="paper-plane" tabTitle="动态" tabBadge="{{badge2}}" tabBadgeStyle="danger" [root]="tab2"></ion-tab>
+  <ion-tab tabIcon="people" tabTitle="通讯录" [root]="tab2"></ion-tab>
   <ion-tab tabIcon="home" tabTitle="主页" tabBadge="{{badge3}}" tabBadgeStyle="danger" [root]="tab3"></ion-tab>
-  <ion-tab tabIcon="people" tabTitle="通讯录" [root]="tab4"></ion-tab>
+  <ion-tab tabIcon="paper-plane" tabTitle="动态" tabBadge="{{badge2}}" tabBadgeStyle="danger" [root]="tab4"></ion-tab>
   <ion-tab tabIcon="person" tabTitle="我的" [root]="tab5"></ion-tab>
 </ion-tabs>

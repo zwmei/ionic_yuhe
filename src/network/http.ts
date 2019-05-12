@@ -24,7 +24,8 @@ export class HttpNetwork {
     console.log('3,,,,,,,,');
     console.log('logout to login page');
     this.auth.clear();
-    this.app.getRootNav().push(LoginPage);
+    let activeNav = this.app.getActiveNav();
+    activeNav.push(LoginPage);
     WebIMConn && WebIMConn.close(); //退出WebIM
   }
   debouncedFnc = debounce(this.waitDebounceLogout, 4000, {

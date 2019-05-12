@@ -316,26 +316,25 @@ export class HomePage {
     this.chartName = '';
     this.messageText = "";
     this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
-
-    });
-    this.notiNetWork.getunReadNoticeList({}).subscribe((data: any) => {
       data = data || [];
       if (data.status) {
         return;
       }
 
       let texts = data.slice(0, 8).map(item => item.ggbt);
+      if (texts.length === 0) {
+        texts = ['暂无新公告'];
+      }
+
       if (texts.length > 0) {
-        // var ct = new ChangingTitle(document.querySelector('.changing-title'));
         var count = 0;
         this.messageText = texts[count++ % texts.length];
-        // ct.changeText(texts[count++ % texts.length]);
-        this.messageTimer = setInterval(() => {
-          this.messageText = texts[count++ % texts.length];
-          // ct.changeText(texts[count++ % texts.length]);
-        }, 5000);
+        if (texts.length > 1) {
+          this.messageTimer = setInterval(() => {
+            this.messageText = texts[count++ % texts.length];
+          }, 5000);
+        }
       }
-      // this.messageText = data.slice(0, 8).map(item => item.ggbt).join('  ');
     });
     this.onInitChat();
   }
