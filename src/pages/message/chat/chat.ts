@@ -9,7 +9,6 @@ import { GallaryService } from '../../../service/gallary.service';
 
 interface SendTextInfo {
   msg: string;
-  thuImage: string;
   msgContentType: string;
   id: string;
   timeStr: string;
@@ -87,7 +86,6 @@ export class ChatPage {
                 this.insertMsg({
                   id: Date.now().toString(16),
                   msg: data.msg,
-                  thuImage:data.msg, //todo
                   msgContentType: data.msgContentType,
                   senderId: this.params.targetId,
                   senderName: this.params.targetName,
@@ -109,7 +107,6 @@ export class ChatPage {
                 this.insertMsg({
                   id: Date.now().toString(16),
                   msg: data.msg,
-                  thuImage:data.msg, //todo
                   msgContentType: data.msgContentType,
                   senderId: this.params.members[index].id,
                   senderName: this.params.members[index].name,
@@ -127,7 +124,6 @@ export class ChatPage {
     return this.createMessage({
       id: item.id,
       msg: item.msgContent,
-      thuImage: item.thuImage || '',
       msgContentType: item.msgType || MessageContentType.Text,
       senderId: item.userId,
       senderName: item.userName,
@@ -202,7 +198,7 @@ export class ChatPage {
             <span>${item.timeStr}</span>
           </p>
           <p class="info-bottom" style="text-align:center">
-            <img src="${HTTP_URL.IMAGE}${item.thuImage}" alt="加载失败" style="max-height:90px; onclick="alert('dds')"/>
+            <img src="${HTTP_URL.IMAGE}${this.getThumbUrl(item.msg)}" alt="加载失败" style="max-height:90px; onclick="alert('dds')"/>
           </p>          
         </div>
         <img  onerror="this.src='assets/imgs/image-default.png'" src="${item.image || 'assets/imgs/image-default.png'}" style="width:40px;height:40px;" />
@@ -218,7 +214,7 @@ export class ChatPage {
             <span>${item.timeStr}</span>
           </p>
           <p class="info-bottom" style="text-align:center">
-            <img src="${HTTP_URL.IMAGE}${item.thuImage}" alt="加载失败" style="max-height:90px; onclick="alert('dds')"/>
+            <img src="${HTTP_URL.IMAGE}${this.getThumbUrl(item.msg)}" alt="加载失败" style="max-height:90px; onclick="alert('dds')"/>
           </p>          
         </div>
       </div>`;
@@ -283,7 +279,6 @@ export class ChatPage {
         id: data.result.messageId,
         timeStr: getTimeStrForChatContent(data.result.messageTime),
         msg: inputText,
-        thuImage: '',
         msgContentType: MessageContentType.Text,
         senderName: this.params.userName,
         senderId: this.params.userId,
@@ -306,7 +301,6 @@ export class ChatPage {
         id: data.result.messageId,
         timeStr: getTimeStrForChatContent(data.result.messageTime),
         msg: data.result.message,
-        thuImage: data.result.message,//todo
         msgContentType: MessageContentType.Image,
         senderName: this.params.userName,
         senderId: this.params.userId,
@@ -319,5 +313,10 @@ export class ChatPage {
       return 'assets/imgs/image-default.png';
     }
     return `${HTTP_URL.IMAGE}/${imageKey}`;
+  }
+  getThumbUrl(imageKey: string) {
+    imageKey = imageKey || '';
+    let index = imageKey.lastIndexOf('.');
+    return [imageKey.slice(0, index), '_thu', imageKey.slice(index)].join('');
   }
 }
