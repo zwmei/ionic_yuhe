@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs, App } from 'ionic-angular';
+import { IonicPage, NavParams, Tabs, App } from 'ionic-angular';
 import { MessagePage } from '../message/message';
 import { DynamicPage } from '../dynamic/dynamic';
 import { HomePage } from '../home/home';
@@ -25,12 +25,10 @@ export const MessageContentType = {
   Text: '1', //文字
   Image: '2' //图片
 }
-
 export const ChatType = {
   Chat: 'chat',
   ChatRoom: 'groupchat'
 }
-
 export interface MessageContent {
   targetCode: string;
   userCode: string;
@@ -40,7 +38,6 @@ export interface MessageContent {
   chatType: string;
   timeStr: string;
 }
-
 interface IWin extends Window {
   WebIMObserve: any;
   WebIMConn: any;
@@ -71,46 +68,24 @@ export class TabPage {
   @ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(
-    // public navCtrl: NavController,
     public app: App,
     public navParams: NavParams,
     public chatNetwork: ChatNetwork,
     public storageService: StorageService,
     public toast: ToastService
   ) {
-    //获取默认值
     (<IWin>window).WebIMObserve = new Observable(this.multicastSequenceSubscriber());
-    console.log('%ctab构造函数','color:blue;font-size:20px');
-  }
-
-  tabChange = (ev: any) => {
-    console.log('tab change', ev.tabTitle);
-    let a = {
-      '消息': 1,
-      '动态': 2,
-      '主页': 3
-    };
-    if (a.hasOwnProperty(ev.tabTitle)) {
-      this[`badge${a[ev.tabTitle]}`] = '';
-    }
-  }
-
-  ionViewDidLoad() {
-    let tabIndex = parseInt(this.navParams.data.id);
-
-    if (tabIndex !== this.tabIndex) {
-      this.tabRef.select(tabIndex);
-    }
 
     this.subscription = (WebIMObserve).subscribe({
       next: (data) => {
-        console.log('tab.ts msss==', data);
         let navs = this.app.getActiveNavs();
         let activeVC = navs[0].getActive();
+        const newName = '' + activeVC.name;
+        console.warn('receive, activeVC.name', newName);
+
 
         if (data.msg && data.msgType != MessageType.Text && data.msgType != MessageType.Image) {
           this.toast.show(data.msg);
-
           if (activeVC.name != 'HomePage') {
             if ([
               MessageType.PendingApproval,
@@ -134,22 +109,42 @@ export class TabPage {
           if (MessageType.NewDynamic == data.msgType && activeVC.name != 'DynamicPage') {
             this.badge2 = '1';
           }
-        }
-        if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
-          if (['MessagePage', 'ChatPage'].indexOf(activeVC.name) === -1) {
-            this.badge1 = '1';
+        } else if (data.msgType == MessageType.Text || data.msgType == MessageType.Image) {
+
+          console.log('进入杀人阶段');
+
+          if (!(activeVC.name === 'MessagePage' || activeVC.name === 'ChatPage')) {
+            console.warn('进入杀人阶段-----------消息');
             this.toast.show('你收到一条新消息');
+            this.badge1 = '1';
           }
         }
       }
     });
+  }
+
+  tabChange = (ev: any) => {
+    console.log('tab change', ev.tabTitle);
+    let a = {
+      '消息': 1,
+      '动态': 2,
+      '主页': 3
+    };
+    if (a.hasOwnProperty(ev.tabTitle)) {
+      this[`badge${a[ev.tabTitle]}`] = '';
+    }
+  }
+  ionViewDidLoad() {
+    let tabIndex = parseInt(this.navParams.data.id);
+    if (tabIndex !== this.tabIndex) {
+      this.tabRef.select(tabIndex);
+    }
   }
   ionViewWillUnload() {
     console.warn('tab.ts did out unload=======');
     this.subscription && this.subscription.unsubscribe();
     this.subscription = null;
   }
-
   nextMore(observers: any[], data) {
     observers.forEach((o: any) => o.next(data));
   }
@@ -157,17 +152,11 @@ export class TabPage {
     const observers = [];
     return (observe) => {
       observers.push(observe);
-      console.warn('%%%%%%observe length', observers.length);
-
-      // When this is the first subscription, start the sequence
       let that = this;
-
       if (observers.length === 1) {
         this.chatNetwork.getChatKey().subscribe((data: any) => {
           if (!data || data.status) return;
-
           WebIM.config.appkey = data.result.AppKey;
-
           var conn: any = {};
           conn = new WebIM.connection({
             isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
@@ -179,13 +168,12 @@ export class TabPage {
             autoReconnectInterval: WebIM.config.autoReconnectInterval,
             apiUrl: WebIM.config.apiURL
           });
-
-          // listern，添加回调函数
           conn.listen({
             onOpened: function (message) {          //连接成功回调，连接成功后才可以发送消息
               //如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
               // 手动上线指的是调用conn.setPresence(); 在本例中，conn初始化时已将isAutoLogin设置为true
               // 所以无需调用conn.setPresence();
+              conn.setPresence && conn.setPresence();
               console.log("%c [opened] 连接已成功建立", "color: green");
               that.nextMore(observers, '连接已成功建立!!!')
             },
@@ -214,9 +202,6 @@ export class TabPage {
               } as MessageContent);
             },  //收到文本消息
             onEmojiMessage: function (message) {
-              // 当为WebIM添加了Emoji属性后，若发送的消息含WebIM.Emoji里特定的字符串，connection就会自动将
-              // 这些字符串和其它文字按顺序组合成一个数组，每一个数组元素的结构为{type: 'emoji(或者txt)', data:''}
-              // 当type='emoji'时，data表示表情图像的路径，当type='txt'时，data表示文本消息
               console.log('Emoji');
               var data = message.data;
               for (var i = 0, l = data.length; i < l; i++) {
@@ -228,15 +213,12 @@ export class TabPage {
 
               var options: any = { url: message.url };
               options.onFileDownloadComplete = function () {
-                // 图片下载成功
                 console.log('Image download complete!');
               };
               options.onFileDownloadError = function () {
-                // 图片下载失败
                 console.log('Image download failed!');
               };
               WebIM.utils.download.call(conn, options);       // 意义待查
-
             }, //收到图片消息
             onCmdMessage: function (message) {
               console.log('CMD');
@@ -270,21 +252,18 @@ export class TabPage {
             onPresence: function (message) {
               switch (message.type) {
                 case 'subscribe':                           // 对方请求添加好友
-                  // 同意对方添加好友
                   document.getElementById('agreeFriends').onclick = function (message) {
                     conn.subscribed({
                       to: 'asdfghj',
                       message: "[resp:true]"
                     });
                   };
-                  // 拒绝对方添加好友
                   document.getElementById('rejectFriends').onclick = function (message: any) {
                     conn.unsubscribed({
                       to: message.from,
                       message: "rejectAddFriend"                  // 拒绝添加好友回复信息
                     });
                   };
-
                   break;
                 case 'subscribed':                          // 对方同意添加好友，已方同意添加好友
                   break;
@@ -372,7 +351,6 @@ export class TabPage {
       }
       return {
         unsubscribe() {
-          // Remove from the observers array so it's no longer notified
           observers.splice(observers.indexOf(observe), 1);
         }
       };

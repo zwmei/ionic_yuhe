@@ -54,5 +54,8 @@ export class ChatNetwork {
   uploadImage(data: object) {
     return this.http.uploadNormalFile('/app/chat/sendPictureMsg', data); //{targetType,targetId, file}
   }
+  setMessageRead(data: object) {
+    return this.http.postForm('/app/chat/markMessageIsReaded', data); //{sessionId}
+  }
 
 }

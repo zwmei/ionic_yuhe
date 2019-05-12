@@ -8,11 +8,19 @@
 <ion-content class="page-message-view">
   <ion-list>
     <ion-item class="chat-list-item" (click)="goToChat(chatItem)" *ngFor="let chatItem of chatList;let number = index;">
-      <img onerror="this.src='assets/imgs/image-default.png'" src="{{chatItem.photoItem}}"/>
+      <span style="position: relative">
+        <img onerror="this.src='assets/imgs/image-default.png'" src="{{chatItem.photoItem}}" />
+        <span class="count" *ngIf="chatItem.unReadMessageCount"
+          style="position: absolute;top:0;right: 10px;color: #fff;background: #f53d3d;border-radius: 50%;font-size: 12px;font-weight: 500;min-width: 15px;line-height: 1.5;text-align: center;">{{chatItem.unReadMessageCount}}</span>
+      </span>
       <div class="item-content">
         <p class="content-top">
-          <span>{{chatItem.targetName}}</span>
-          <span>{{chatItem.lastTimeStr}}</span>
+          <span style="flex:1;white-space: normal;">
+            <span>{{chatItem.targetName}}</span>
+            <br />
+            <span>{{chatItem.lastMessage||''}}</span>
+          </span>
+          <span style="min-width: 50px;">{{chatItem.lastTimeStr}}</span>
         </p>
       </div>
     </ion-item>

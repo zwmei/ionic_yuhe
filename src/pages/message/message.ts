@@ -112,6 +112,9 @@ export class MessagePage {
       })
     }
     this.navCtrl.push('app-message-chat', info);
+    if (chatItem.id !== undefined) {
+      this.chatNetwork.setMessageRead({ sessionId: chatItem.id }).subscribe(data => { });
+    }
   }
 
   showImage = (src?: string) => {
