@@ -9,7 +9,7 @@ import { UserNetwork } from '../../network/user.network';
   selector: 'app-file-uploader',
   template: `
     <div class="component-view-file-upload">
-      <input type="file" accept="image/*" capture="camera" multiple id="upload" (change)="changeFile($event)"/>
+      <input type="file" accept="image/*" id="upload" (change)="changeFile($event)"/>
       <ion-icon name="add"></ion-icon>
     </div>
   `
