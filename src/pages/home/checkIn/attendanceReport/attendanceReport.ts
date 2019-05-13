@@ -246,10 +246,6 @@ export class AttendanceReportPage implements AfterViewInit {
       });
   }
   monthChange(month){
-    // this.toastService.show('month:' + month)
-    // this.toastService.show(new Date(month))
-    // return
-    // month = month.replace('-', '/')
     this.loadMonthReport(new Date(month))
   }
 
