@@ -44,6 +44,7 @@
         <p class="status-label" [ngClass]="'status' + item.approvalStatus">
           {{ item.approvalStatusName }}
         </p>
+        <p>申请时间  {{item.applyTime}}</p>
       </ion-item>
     </div>
     <div *ngIf="isApproval === 'false'">
@@ -59,6 +60,7 @@
         <p class="status-label" [ngClass]="'status' + item.approvalStatus">
           {{ item.approvalStatusName }}
         </p>
+        <p>申请时间  {{item.applyTime}}</p>
       </ion-item>
     </div>
   </ion-list>
